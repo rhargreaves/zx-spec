@@ -1,5 +1,5 @@
 # ZX-Spec
-TDD Framework for the ZX Spectrum (Work In Progress)
+TDD framework for the ZX Spectrum (Work In Progress)
 
 <p align="center">
     <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/initial.png" width="600" />
