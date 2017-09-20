@@ -20,3 +20,6 @@ $(TAPDIR)/%.tap: src/%.asm $(TAPDIR)
 
 $(TAPDIR)/%.tap: src/%.bas $(TAPDIR)
 	bas2tap/bas2tap $< $@
+
+run:	bin/zx-spec.tap
+	fuse --tape bin/zx-spec.tap --auto-load --no-autosave-settings
