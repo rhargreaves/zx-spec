@@ -1,7 +1,9 @@
 # ZX-Spec
 TDD Framework for the ZX Spectrum (Work In Progress)
 
-![screenshot](https://github.com/rhargreaves/zx-spec/raw/master/docs/initial.png "Screenshot")
+<p align="center">
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/initial.png" width="600" />
+</p>
 
 ## Dependencies
 
