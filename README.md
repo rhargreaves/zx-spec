@@ -1,2 +1,2 @@
-# zx-spec
-TDD Framework for the ZX Spectrum
+# ZX-Spec
+TDD Framework for the ZX Spectrum (Work In Progress)
