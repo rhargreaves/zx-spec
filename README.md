@@ -22,14 +22,6 @@ TDD framework for the ZX Spectrum (Work In Progress)
     $ brew install homebrew/games/fuse-emulator
     ```
 
-3. Compile bas2tap
-
-    ```
-    $ git submodule update --init
-    $ cd bas2tap
-    $ make
-    ```
-
 ## Compile
 
 ```
