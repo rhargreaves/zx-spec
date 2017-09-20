@@ -1,0 +1,3 @@
+[submodule "bas2tap"]
+	path = bas2tap
+	url = git@github.com:speccyorg/bas2tap.git
