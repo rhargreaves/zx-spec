@@ -1,16 +1,22 @@
 ; Constants
 prog_start	equ	8000h
+stream_scr	equ	2		; Screen stream
+
+; ROM Routines
+cl_all		equ	0dafh
+chan_open	equ	1601h
+pr_string	equ	203ch
 
 ; Start
 		org	prog_start
 
 proc
-init		call	0dafh		; clear screen
-		ld	a,2		; Upper screen
-		call	1601h		; open channel
+init		call	cl_all		; clear screen
+		ld	a,stream_scr	; Upper screen
+		call	chan_open	; open channel
 		ld	de,banner_txt	; text address
 		ld	bc,banner_txt_end-banner_txt	; string length
-		call	203ch		; print string
+		call	pr_string	; print string
 endp
 		ret
 
