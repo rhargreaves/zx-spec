@@ -1,4 +1,4 @@
-# ZX-Spec
+# ZX-Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
 TDD framework for the ZX Spectrum (Work In Progress)
 
 <p align="center">
