@@ -1,2 +1,6 @@
 language: generic
 script: make
+sudo: required
+
+services:
+  - docker
