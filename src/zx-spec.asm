@@ -1,4 +1,8 @@
-		org	8000h
+; Constants
+prog_start	equ	8000h
+
+; Start
+		org	prog_start
 
 proc
 init		call	0dafh		; clear screen
@@ -10,7 +14,7 @@ init		call	0dafh		; clear screen
 endp
 		ret
 
-banner_txt	defb	'ZX Spec 0.1 - The TDD Framework'
+banner_txt	defb	'ZX Spec - The TDD Framework'
 banner_txt_end	equ	$
 
-		end	8000h
+		end	prog_start
