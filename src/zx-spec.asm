@@ -19,10 +19,14 @@ init		call	cl_all		; clear screen
 		ld	bc,banner_txt_end-banner_txt	; string length
 		call	pr_string	; print string
 		ld	hl,num_pass
-		ld	b,0
-		ld	c,(hl)
-		call	out_num_1	; print number of passing tests
+		call	pr_hl_val	; print number of passing tests	
 endp
+		ret
+
+; Routines
+pr_hl_val	ld	b,0		; Print byte ref by HL
+		ld	c,(hl)
+		call	out_num_1
 		ret
 
 ; State
