@@ -10,10 +10,15 @@ pr_string	equ	203ch		; print string (DE = start, BC = length)
 out_num_1	equ	1a1bh		; print line number (BC = number)
 		
 ; Macros
-pr_res		macro	txt_start, txt_end
+pr_res		macro	txt_start, txt_end ; Prints text
 		ld	de,txt_start	; text address
 		ld	bc,txt_end-txt_start	; string length
 		call	pr_string	; print string
+		endm
+
+pr_val		macro	loc		; Prints value at memory location
+		ld	hl,loc
+		call	pr_hl_val	; print number at HL
 		endm
 
 ; Start
@@ -25,14 +30,11 @@ init		call	cl_all		; clear screen
 		call	chan_open	; open channel
 		pr_res	banner_txt,banner_txt_end
 		pr_res	ok_txt,ok_txt_end
-		ld	hl,num_pass
-		call	pr_hl_val	; print number of passing tests	
+		pr_val	num_pass	; print number of passing tests		
 		pr_res	fail_txt,fail_txt_end
-		ld	hl,num_fail
-		call	pr_hl_val	; print number of failing tests	
+		pr_val	num_fail	; print number of failing tests		
 endp
 		ret
-
 
 ; Routines
 pr_hl_val	ld	b,0		; Print byte ref by HL
