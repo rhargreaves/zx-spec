@@ -8,8 +8,6 @@ A TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is 
 ## Usage
 
 ```asm
-org	8000h
-
 include src/zx-spec.asm
 
 spec_init
@@ -18,9 +16,6 @@ ld      a,0
 call    assert_a_is_zero
 
 spec_end
-
-ret
-end	8000h
 ```
 
 ## Dependencies
