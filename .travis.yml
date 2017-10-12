@@ -1,5 +1,5 @@
 language: generic
-script: make
+script: make bin/zx-spec-green.tap
 sudo: required
 
 services:
