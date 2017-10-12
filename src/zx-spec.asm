@@ -1,19 +1,7 @@
 include src/constants.asm
 include src/rom.asm
+include src/macros.asm
 
-; Macros
-print_text		macro	txt_start, txt_end 	; Prints text
-			ld	de,txt_start		; text address
-			ld	bc,txt_end - txt_start	; string length
-			call	pr_string		; print string
-			endm
-
-print_value		macro	addr		; Prints value at memory location
-			ld	hl,addr
-			call	print_value_at_hl
-			endm
-
-; Start
 			org	program_start
 init:
 			call	cl_all		; clear screen
@@ -38,32 +26,8 @@ print_summary:
 			print_value	num_fail	; print number of failing tests		
 
 			ret
+include src/state.asm
+include src/resources.asm
+include src/routines.asm
 
-; Routines
-inc_pass		ld	hl,num_pass
-			inc	(hl)
-			ret
-
-inc_fail		ld	hl,num_fail
-			inc	(hl)
-			ret
-
-print_value_at_hl	ld	b,0
-			ld	c,(hl)
-			call	out_num_1
-			ret
-
-; State
-num_pass		db	0
-num_fail		db	0
-
-; Resources
-banner_txt		db	'ZX Spec - The TDD Framework', nl, nl
-banner_txt_end		equ	$
-ok_txt			db	'Pass: '
-ok_txt_end		equ	$
-fail_txt		db	', Fail: '
-fail_txt_end		equ	$	
-
-; End
 		end	program_start
