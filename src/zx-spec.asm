@@ -10,10 +10,10 @@ pr_string	equ	203ch		; print string (DE = start, BC = length)
 out_num_1	equ	1a1bh		; print line number (BC = number)
 		
 ; Macros
-pr_res		macro	txt_start, txt_end ; Prints text
-		ld	de,txt_start	; text address
+pr_res		macro	txt_start, txt_end 	; Prints text
+		ld	de,txt_start		; text address
 		ld	bc,txt_end-txt_start	; string length
-		call	pr_string	; print string
+		call	pr_string		; print string
 		endm
 
 pr_val		macro	loc		; Prints value at memory location
@@ -43,15 +43,15 @@ pr_hl_val	ld	b,0		; Print byte ref by HL
 		ret
 
 ; State
-num_pass	defb	0
-num_fail	defb	0
+num_pass	db	0
+num_fail	db	0
 
 ; Resources
-banner_txt	defb	'ZX Spec - The TDD Framework', nl, nl
+banner_txt	db	'ZX Spec - The TDD Framework', nl, nl
 banner_txt_end	equ	$
-ok_txt		defb	'Pass: '
+ok_txt		db	'Pass: '
 ok_txt_end	equ	$
-fail_txt	defb	', Fail: '
+fail_txt	db	', Fail: '
 fail_txt_end	equ	$	
 
 ; End
