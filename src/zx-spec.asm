@@ -20,13 +20,6 @@ test_fails		call	inc_fail	; otherwise, fail
 test_passes		call	inc_pass
 			jp	end_test
 end_test:
-
-print_summary:
-			print_text	banner_txt, banner_txt_end
-			print_text	ok_txt, ok_txt_end
-			print_value	num_pass	; print number of passing tests		
-			print_text	fail_txt, fail_txt_end
-			print_value	num_fail	; print number of failing tests		
-
+			call	print_summary
 			ret
-		end	program_start
+			end	program_start
