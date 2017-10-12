@@ -62,3 +62,7 @@ $ make demo-red
 <p align="center">
     <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red.png" width="600" />
 </p>
+
+## Credits
+
+* This project was inspired by [64spec](http://64bites.com/64spec/) - a Commodore 64 Testing Framework
