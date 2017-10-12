@@ -5,12 +5,12 @@ import time
 import glob
 import unittest
 
-class ZxSpecTestCase(unittest.TestCase):
+class TestPasses(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
         clean()
-        self.output = run_zx_spec()
+        self.output = run_zx_spec("bin/test-passes.tap")
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
@@ -22,15 +22,32 @@ class ZxSpecTestCase(unittest.TestCase):
     def tearDownClass(self):
         clean()
 
+class TestFailures(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        clean()
+        self.output = run_zx_spec("bin/test-failures.tap")
+
+    def test_zx_spec_header_displayed(self):
+        self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
+
+    def test_all_tests_pass(self):
+        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 2')
+
+    @classmethod
+    def tearDownClass(self):
+        clean()
+
 def clean():
     for f in glob.glob("printout.*"):
         os.remove(f)
 
-def run_zx_spec():
+def run_zx_spec(tape):
     ZX_SPEC_OUTPUT_FILE = "printout.txt"
     proc = subprocess.Popen([
         "fuse",
-        "--tape", "bin/zx-spec-test-passes.tap",
+        "--tape", tape,
         "--auto-load",
         "--no-autosave-settings"])
 
