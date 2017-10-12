@@ -1,9 +1,10 @@
-proc			
-local 			passes
-assert_a_is_zero	cp	0		; does A = 0?
+
+assert_a_equals		macro	val			
+local 			passes, done
+			cp	val		; does A = val?
 			jp	z,passes	; pass if so
 			call	inc_fail	; otherwise, fail
-			ret
+			jp	done
 passes			call	inc_pass
-			ret
-endp
+done
+			endm

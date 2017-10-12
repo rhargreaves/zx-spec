@@ -4,11 +4,13 @@ include src/zx-spec.asm
 
 			spec_init
 
-test_1			ld	a,255
-			call	assert_a_is_zero
+test_a_equals_max:
+			ld	a,255
+			assert_a_equals 0
 
-test_2			ld	a,-254
-			call	assert_a_is_zero
+test_a_equals_min:
+			ld	a,-254
+			assert_a_equals 0
 
 			spec_end
 

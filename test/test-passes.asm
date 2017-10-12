@@ -4,8 +4,9 @@ include src/zx-spec.asm
 
 			spec_init
 
-test_1			ld	a,0
-			call	assert_a_is_zero
+test_assert_a_equals:
+			ld	a,0
+			assert_a_equals 0
 
 			spec_end
 

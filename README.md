@@ -13,7 +13,7 @@ include src/zx-spec.asm
 spec_init
 
 ld      a,0
-call    assert_a_is_zero
+assert_a_equals 0
 
 spec_end
 ```
