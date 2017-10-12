@@ -1,26 +1,26 @@
 SRC = $(wildcard src/*.asm)
-TAPES = $(patsubst src/%.asm,$(TAPDIR)/%.tap,$(SRC))
+TEST = $(wildcard test/*.asm)
 PASMO = docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
-TAPDIR = bin
+BIN = bin
 
 .PHONY: build clean run
 
 build:	bin/zx-spec.tap
 
 clean:
-	rm -rf $(TAPDIR)
+	rm -rf $(BIN)
 
-$(TAPDIR):
-	mkdir $(TAPDIR)
+$(BIN):
+	mkdir $(BIN)
 
-$(TAPDIR)/%.tap: src/%.asm $(TAPDIR)
+$(BIN)/zx-spec-demo.tap: test/test-passes.asm
 	$(PASMO) --equ output_stream=2 --tapbas $< $@
 
-bin/zx-spec-test-passes.tap: src/zx-spec-test-passes.asm
+$(BIN)/test-passes.tap: test/test-passes.asm
 	$(PASMO) --equ output_stream=3 --tapbas $< $@
 
-test:	bin/zx-spec-test-passes.tap
+test:	$(BIN)/test-passes.tap
 		./test.py
 
-run:	bin/zx-spec.tap
-	fuse --tape bin/zx-spec.tap --auto-load --no-autosave-settings
+run:	$(BIN)/zx-spec-demo.tap
+	fuse --tape $< --auto-load --no-autosave-settings

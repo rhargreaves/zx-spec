@@ -6,4 +6,4 @@ include src/state.asm
 include src/resources.asm
 include src/routines.asm
 include src/asserts.asm
-init:
+init			equ	$
