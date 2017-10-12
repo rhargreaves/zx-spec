@@ -1,9 +1,27 @@
 # ZX-Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
-TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is not stable at present.
+A TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is not stable at present.
 
 <p align="center">
     <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/green.png" width="600" />
 </p>
+
+## Usage
+
+```asm
+org	8000h
+
+include src/zx-spec.asm
+
+spec_init
+
+ld      a,0
+call    assert_a_is_zero
+
+spec_end
+
+ret
+end	8000h
+```
 
 ## Dependencies
 
