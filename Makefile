@@ -10,10 +10,10 @@ $(BIN):
 	mkdir $(BIN)
 
 $(BIN)/zx-spec-green.tap: test/test-passes.asm $(BIN)
-	$(PASMO) --equ output_stream=2 --tapbas $< $@
+	$(PASMO) --tapbas $< $@
 
 $(BIN)/zx-spec-red.tap: test/test-failures.asm $(BIN)
-	$(PASMO) --equ output_stream=2 --tapbas $< $@
+	$(PASMO) --tapbas $< $@
 
 $(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
 	$(PASMO) --equ output_stream=3 --tapbas $< $@
