@@ -1,6 +1,8 @@
 ; Constants
 program_start		equ	8000h
 screen_stream		equ	2
+printer_stream		equ	3
+;output_stream		equ	screen_stream	; Defined by Pasmo command line
 nl			equ	13		; New line character
 
 ; ROM Routines
@@ -8,7 +10,7 @@ cl_all			equ	0dafh		; clear screen
 chan_open		equ	1601h		; open channel
 pr_string		equ	203ch		; print string (DE = start, BC = length)
 out_num_1		equ	1a1bh		; print line number (BC = number)
-		
+
 ; Macros
 print_text		macro	txt_start, txt_end 	; Prints text
 			ld	de,txt_start		; text address
@@ -26,7 +28,7 @@ print_value		macro	addr		; Prints value at memory location
 
 proc
 init			call	cl_all		; clear screen
-			ld	a,screen_stream	; upper screen
+			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
 			print_text	banner_txt, banner_txt_end
 			print_text	ok_txt, ok_txt_end
