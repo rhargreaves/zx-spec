@@ -30,18 +30,13 @@ init:
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
 
-set_a:
-			ld	a,0
-assert_a_is_zero:
-			cp	0		; Does A = 0?
-			jp	z,test_passes	; Z set? Pass!
-test_fails:		
-			ld	hl,num_fail
-			inc	(hl)
+set_a			ld	a,0
+
+assert_a_is_zero	cp	0		; does A = 0?
+			jp	z,test_passes	; pass if so
+test_fails		call	inc_fail	; otherwise, fail
 			jp	end_test
-test_passes:
-			ld	hl,num_pass
-			inc	(hl)
+test_passes		call	inc_pass
 			jp	end_test
 end_test:
 
@@ -55,6 +50,14 @@ print_summary:
 			ret
 
 ; Routines
+inc_pass		ld	hl,num_pass
+			inc	(hl)
+			ret
+
+inc_fail		ld	hl,num_fail
+			inc	(hl)
+			ret
+
 print_value_at_hl	ld	b,0
 			ld	c,(hl)
 			call	out_num_1
