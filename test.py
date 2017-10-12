@@ -30,7 +30,7 @@ def run_zx_spec():
     ZX_SPEC_OUTPUT_FILE = "printout.txt"
     proc = subprocess.Popen([
         "fuse",
-        "--tape", "bin/zx-spec-test.tap",
+        "--tape", "bin/zx-spec-test-passes.tap",
         "--auto-load",
         "--no-autosave-settings"])
 

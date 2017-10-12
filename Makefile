@@ -5,7 +5,7 @@ TAPDIR = bin
 
 .PHONY: build clean run
 
-build: $(TAPES)
+build:	bin/zx-spec.tap
 
 clean:
 	rm -rf $(TAPDIR)
@@ -16,10 +16,10 @@ $(TAPDIR):
 $(TAPDIR)/%.tap: src/%.asm $(TAPDIR)
 	$(PASMO) --equ output_stream=2 --tapbas $< $@
 
-bin/zx-spec-test.tap: src/zx-spec.asm
+bin/zx-spec-test-passes.tap: src/zx-spec-test-passes.asm
 	$(PASMO) --equ output_stream=3 --tapbas $< $@
 
-test:	bin/zx-spec-test.tap
+test:	bin/zx-spec-test-passes.tap
 		./test.py
 
 run:	bin/zx-spec.tap
