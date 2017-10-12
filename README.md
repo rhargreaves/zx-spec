@@ -1,8 +1,8 @@
 # ZX-Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
-TDD framework for the ZX Spectrum (Work In Progress)
+TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is not stable at present.
 
 <p align="center">
-    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/initial.png" width="600" />
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/green.png" width="600" />
 </p>
 
 ## Dependencies
@@ -22,14 +22,30 @@ TDD framework for the ZX Spectrum (Work In Progress)
     $ brew install homebrew/games/fuse-emulator
     ```
 
-## Compile
+## Automated Tests
+
+ZX Spec can itself be tested by running:
 
 ```
-$ make
+$ make test
 ```
 
-## Run
+Two sets of automated tests will run. One set results in all tests passing, and the other set results in all tests failing. The results are sent to an emulated ZX Printer (rather than sent to the display) which is then output by the emulator to a text file. This file is then validated to ensure the framework is working correctly.
+
+## Run Demos
+
+When all tests pass...
 
 ```
-$ make run
+$ make demo-green
 ```
+
+When all tests fail...
+
+```
+$ make demo-red
+```
+
+<p align="center">
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red.png" width="600" />
+</p>
