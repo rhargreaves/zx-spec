@@ -1,8 +1,11 @@
 include src/constants.asm
 include src/rom.asm
 include src/macros.asm
-
 			org	program_start
+			jp	init
+include src/state.asm
+include src/resources.asm
+include src/routines.asm
 init:
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
@@ -26,8 +29,4 @@ print_summary:
 			print_value	num_fail	; print number of failing tests		
 
 			ret
-include src/state.asm
-include src/resources.asm
-include src/routines.asm
-
 		end	program_start
