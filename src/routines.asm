@@ -18,3 +18,11 @@ print_summary		print_text	banner_txt, banner_txt_end
 			print_text	fail_txt, fail_txt_end
 			print_value	num_fail	; print number of failing tests
 			ret
+
+spec_init		call	cl_all		; clear screen
+			ld	a,output_stream	; upper screen
+			call	chan_open	; open channel
+			ret
+
+spec_end		call	print_summary
+			ret

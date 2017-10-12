@@ -6,20 +6,15 @@ include src/macros.asm
 include src/state.asm
 include src/resources.asm
 include src/routines.asm
+include src/asserts.asm
 init:
-			call	cl_all		; clear screen
-			ld	a,output_stream	; upper screen
-			call	chan_open	; open channel
 
-set_a			ld	a,0
+			spec_init
 
-assert_a_is_zero	cp	0		; does A = 0?
-			jp	z,test_passes	; pass if so
-test_fails		call	inc_fail	; otherwise, fail
-			jp	end_test
-test_passes		call	inc_pass
-			jp	end_test
-end_test:
-			call	print_summary
+test_1			ld	a,0
+			call	assert_a_is_zero
+
+			spec_end
 			ret
+
 			end	program_start

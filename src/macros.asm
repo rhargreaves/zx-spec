@@ -9,3 +9,13 @@ print_value		macro	addr		; Prints value at memory location
 			ld	hl,addr
 			call	print_value_at_hl
 			endm
+
+spec_init		macro
+			call	cl_all		; clear screen
+			ld	a,output_stream	; upper screen
+			call	chan_open	; open channel
+			endm
+
+spec_end		macro
+			call	print_summary
+			endm
