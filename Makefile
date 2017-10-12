@@ -9,16 +9,16 @@ clean:
 $(BIN):
 	mkdir $(BIN)
 
-$(BIN)/zx-spec-green.tap: test/test-passes.asm
+$(BIN)/zx-spec-green.tap: test/test-passes.asm $(BIN)
 	$(PASMO) --equ output_stream=2 --tapbas $< $@
 
-$(BIN)/zx-spec-red.tap: test/test-failures.asm
+$(BIN)/zx-spec-red.tap: test/test-failures.asm $(BIN)
 	$(PASMO) --equ output_stream=2 --tapbas $< $@
 
-$(BIN)/test-passes.tap: test/test-passes.asm
+$(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
 	$(PASMO) --equ output_stream=3 --tapbas $< $@
 
-$(BIN)/test-failures.tap: test/test-failures.asm
+$(BIN)/test-failures.tap: test/test-failures.asm $(BIN)
 	$(PASMO) --equ output_stream=3 --tapbas $< $@
 
 test:	$(BIN)/test-passes.tap $(BIN)/test-failures.tap

@@ -65,4 +65,4 @@ def run_zx_spec(tape):
         return f.read()
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

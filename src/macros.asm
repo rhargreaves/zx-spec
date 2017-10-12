@@ -16,6 +16,18 @@ spec_init		macro
 			call	chan_open	; open channel
 			endm
 
+set_border_colour	macro
+local			set_green_border, set_border
+			ld	a,(num_fail)
+			cp	0
+			jp	z,set_green_border
+			ld	a,red_border
+			jp	set_border
+set_green_border	ld	a,green_border
+set_border		out	(border_port),a
+			endm
+
 spec_end		macro
+			set_border_colour
 			call	print_summary
 			endm
