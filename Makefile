@@ -16,8 +16,8 @@ $(TAPDIR):
 $(TAPDIR)/%.tap: src/%.asm $(TAPDIR)
 	$(PASMO) --equ output_stream=2 --tapbas $< $@
 
-bin/zx-spec-test.tap:
-	$(PASMO) --equ output_stream=3 --tapbas src/zx-spec.asm $@
+bin/zx-spec-test.tap: src/zx-spec.asm
+	$(PASMO) --equ output_stream=3 --tapbas $< $@
 
 test:	bin/zx-spec-test.tap
 		./test.py

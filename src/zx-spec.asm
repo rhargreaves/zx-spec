@@ -25,17 +25,33 @@ print_value		macro	addr		; Prints value at memory location
 
 ; Start
 			org	program_start
-
-proc
-init			call	cl_all		; clear screen
+init:
+			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
+
+set_a:
+			ld	a,0
+assert_a_is_zero:
+			cp	0		; Does A = 0?
+			jp	z,test_passes	; Z set? Pass!
+test_fails:		
+			ld	hl,num_fail
+			inc	(hl)
+			jp	end_test
+test_passes:
+			ld	hl,num_pass
+			inc	(hl)
+			jp	end_test
+end_test:
+
+print_summary:
 			print_text	banner_txt, banner_txt_end
 			print_text	ok_txt, ok_txt_end
 			print_value	num_pass	; print number of passing tests		
 			print_text	fail_txt, fail_txt_end
 			print_value	num_fail	; print number of failing tests		
-endp
+
 			ret
 
 ; Routines
