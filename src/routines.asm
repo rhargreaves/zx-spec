@@ -17,7 +17,15 @@ print_summary		print_text	banner_txt, banner_txt_end
 			print_value	num_pass	; print number of passing tests		
 			print_text	fail_txt, fail_txt_end
 			print_value	num_fail	; print number of failing tests
+			print_text	pause_txt, pause_txt_end
 			ret
 
-
-
+proc
+local			loop
+wait_for_key		ld	hl,23560	; LAST K system variable.
+			ld	(hl),0		; put null value there.
+loop			ld	a,(hl)		; new value of LAST K.
+			cp	0		; is it still zero?
+			jr	z,loop		; yes, so no key pressed.
+			ret			; key was pressed.
+endp

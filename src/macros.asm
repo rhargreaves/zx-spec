@@ -30,4 +30,5 @@ set_border		out	(border_port),a
 spec_end		macro
 			set_border_colour
 			call	print_summary
+			call	wait_for_key
 			endm
