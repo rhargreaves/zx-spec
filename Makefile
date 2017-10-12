@@ -1,11 +1,7 @@
-SRC = $(wildcard src/*.asm)
-TEST = $(wildcard test/*.asm)
 PASMO = docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
 BIN = bin
 
-.PHONY: build clean run
-
-build:	bin/zx-spec.tap
+.PHONY: test clean run
 
 clean:
 	rm -rf $(BIN)
