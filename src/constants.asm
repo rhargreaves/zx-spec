@@ -1,5 +1,4 @@
 ; Constants
-program_start		equ	8000h
 screen_stream		equ	2
 printer_stream		equ	3
 ;output_stream		equ	screen_stream	; Defined by Pasmo command line
