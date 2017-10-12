@@ -5,7 +5,8 @@ stream_scr	equ	2		; screen stream
 ; ROM Routines
 cl_all		equ	0dafh		; clear screen
 chan_open	equ	1601h		; open channel
-pr_string	equ	203ch		; print string
+pr_string	equ	203ch		; print string (DE = start, BC = length)
+out_num_1	equ	1a1bh		; print line number (BC = number)
 
 ; Start
 		org	prog_start
@@ -17,11 +18,18 @@ init		call	cl_all		; clear screen
 		ld	de,banner_txt	; text address
 		ld	bc,banner_txt_end-banner_txt	; string length
 		call	pr_string	; print string
+		ld	hl,num_pass
+		ld	b,0
+		ld	c,(hl)
+		call	out_num_1	; print number of passing tests
 endp
 		ret
 
+; State
+num_pass	defb	0
+
 ; Resources
-banner_txt	defb	'ZX Spec - The TDD Framework'
+banner_txt	defb	'ZX Spec - The TDD Framework', 13, 13, 'OK: '
 banner_txt_end	equ	$
 
 ; End
