@@ -4,24 +4,22 @@ include src/zx-spec.asm
 
 			spec_init
 
-test_assert_a_equals:
-
-	it 'assert_a_equals works for specific value'
+	it 'assert_a_equals works for same value'
 
 			ld	a,5
 			assert_a_equals 5
 
-test_assert_a_not_equals:
+	it 'assert_a_not_equals works for different value'
 
 			ld	a,0
 			assert_a_not_equals 5
 
-test_assert_a_is_zero:
+	it 'assert_a_is_zero works for zero'
 
 			ld	a,0
 			assert_a_is_zero
 
-test_assert_a_is_not_zero:
+	it 'assert_a_is_not_zero works for non-zero'
 
 			ld	a,5
 			assert_a_is_not_zero
