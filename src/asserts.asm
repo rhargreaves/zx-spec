@@ -1,11 +1,19 @@
 
+assert_pass		macro
+			call	inc_pass
+			endm
+
+assert_fail		macro
+			call	inc_fail
+			endm
+
 assert_a_equals		macro	val			
 local 			passes, done
 			cp	val		; does A = val?
 			jp	z,passes	; pass if so
-			call	inc_fail	; otherwise, fail
+			assert_fail		; otherwise, fail
 			jp	done
-passes			call	inc_pass
+passes			assert_pass
 done
 			endm
 
@@ -13,9 +21,9 @@ assert_a_not_equals	macro	val
 local 			passes, done
 			cp	val		; does A = val?
 			jp	nz,passes	; pass if it doesn't
-			call	inc_fail	; otherwise, fail
+			assert_fail		; otherwise, fail
 			jp	done
-passes			call	inc_pass
+passes			assert_pass
 done
 			endm
 

@@ -6,6 +6,8 @@ include src/zx-spec.asm
 
 test_assert_a_equals:
 
+	it 'assert_a_equals works for specific value'
+
 			ld	a,5
 			assert_a_equals 5
 
