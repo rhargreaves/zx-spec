@@ -4,31 +4,23 @@ include src/zx-spec.asm
 
 			spec_init
 
-test_a_equals_max:
-			ld	a,255
-			assert_a_equals 5
+		it 'assert_a_equals fails for different value'
 
-test_a_equals_min:
-			ld	a,-254
-			assert_a_equals 5
+			ld	a,5
+			assert_a_equals 255
 
-test_a_not_equals_max:
-			ld	a,255
-			assert_a_not_equals 255
+		it 'assert_a_not_equals fails for same value'
 
-test_a_not_equals_min:
-			ld	a,-254
-			assert_a_not_equals -254
+			ld	a,5
+			assert_a_not_equals 5
 
-test_a_is_zero_max:
+		it 'assert_a_is_zero fails for non-zero'
+
 			ld	a,255
 			assert_a_is_zero
 
-test_a_is_zero_min:
-			ld	a,-254
-			assert_a_is_zero
+		it 'assert_a_is_not_zero fails for zero'
 
-test_a_is_not_zero:
 			ld	a,0
 			assert_a_is_not_zero
 

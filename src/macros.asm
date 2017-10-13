@@ -16,14 +16,13 @@ print_char		macro	code
 			endm
 
 it			macro	test_name
-local			reg_test_name
-			jp	set_test_name
+local			start_test_name, end_test_name
+			jp	end_test_name
 start_test_name		db	test_name, nl, nl
-end_test_name		equ	$
-set_test_name		ld	hl,start_test_name
+end_test_name		ld	hl,start_test_name
 			ld	(cur_test_name_addr),hl
-			ld	hl,end_test_name
-			ld	(cur_test_name_end_addr),hl
+			ld	hl,end_test_name - start_test_name
+			ld	(cur_test_name_len),hl
 			endm
 
 spec_init		macro

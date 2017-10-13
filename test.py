@@ -35,11 +35,14 @@ class TestFailures(unittest.TestCase):
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
 
-    def test_indicators_show_tests_failed(self):
-        self.assertRegexpMatches(self.output, 'x' * 7)
+    def test_shows_failed_tests(self):
+        self.assertRegexpMatches(self.output, 'assert_a_equals fails')
+        self.assertRegexpMatches(self.output, 'assert_a_not_equals fails')
+        self.assertRegexpMatches(self.output, 'assert_a_is_zero fails')
+        self.assertRegexpMatches(self.output, 'assert_a_is_not_zero fails')
 
-    def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 7, Total: 7')
+    def test_all_tests_failed(self):
+        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 4, Total: 4')
 
     @classmethod
     def tearDownClass(self):
@@ -64,7 +67,7 @@ def run_zx_spec(tape):
         if wait_count == 20:
             raise 'Output file not produced in time'
 
-    time.sleep(1)
+    time.sleep(5)
     proc.kill()
 
     with open(ZX_SPEC_OUTPUT_FILE, 'r') as f:
