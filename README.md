@@ -18,6 +18,17 @@ assert_a_equals 0
 spec_end
 ```
 
+### Assertions
+
+Currently you can only assert on register values (and only A atm), although I plan to add memory-based assertions too.
+
+See [test/test_passes.asm](test/test_passes.asm) for example usages.
+
+* `assert_a_equals`
+* `assert_a_not_equals`
+* `assert_a_is_zero`
+* `assert_a_is_not_zero`
+
 ## Dependencies
 
 1. Install Docker
