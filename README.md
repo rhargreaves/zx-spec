@@ -23,7 +23,7 @@ spec_end
 
 Currently you can only assert on register values (and only A atm), although I plan to add memory-based assertions too.
 
-See [test/test_passes.asm](test/test_passes.asm) for example usages.
+See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
 * `assert_a_equals`
 * `assert_a_not_equals`
