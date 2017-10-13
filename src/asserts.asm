@@ -8,3 +8,7 @@ local 			passes, done
 passes			call	inc_pass
 done
 			endm
+
+assert_a_is_zero	macro
+			assert_a_equals 0
+			endm
