@@ -7,6 +7,8 @@ endif
 
 ; Characters
 nl			equ	13		; New line character
+cross			equ	'x'
+period			equ	'.'
 
 ; Border
 border_port		equ	0feh

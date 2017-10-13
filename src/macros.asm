@@ -10,10 +10,16 @@ print_value		macro	addr		; Prints value at memory location
 			call	print_value_at_hl
 			endm
 
+print_char		macro	code
+			ld	a,code
+			rst	16
+			endm
+
 spec_init		macro
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
+			print_text	banner_txt, banner_txt_end
 			endm
 
 set_border_colour	macro
