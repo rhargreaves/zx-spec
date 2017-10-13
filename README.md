@@ -11,9 +11,10 @@ A TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is 
 include src/zx-spec.asm
 
 spec_init
-
-ld      a,5
-assert_a_equals 5
+    
+    it 'sets A register to 5'
+        ld a,5
+        assert_a_equals 5
 
 spec_end
 ```
