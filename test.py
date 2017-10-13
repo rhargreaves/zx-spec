@@ -19,7 +19,7 @@ class TestPasses(unittest.TestCase):
         self.assertRegexpMatches(self.output, '\.' * 4)
 
     def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 4, Fail: 0')
+        self.assertRegexpMatches(self.output, 'Pass: 4, Fail: 0, Total: 4')
 
     @classmethod
     def tearDownClass(self):
@@ -39,7 +39,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'x' * 7)
 
     def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 7')
+        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 7, Total: 7')
 
     @classmethod
     def tearDownClass(self):

@@ -18,6 +18,15 @@ print_summary		print_text	ok_txt, ok_txt_end
 			print_value	num_pass	; print number of passing tests		
 			print_text	fail_txt, fail_txt_end
 			print_value	num_fail	; print number of failing tests
+			print_text	total_txt, total_txt_end
+			ld		hl,num_fail
+			ld		c,(hl)
+			ld		hl,num_pass
+			ld		a,(hl)
+			add		a,c
+			ld		b,0
+			ld		c,a
+			call		out_num_1	; print number of total tests
 			print_text	pause_txt, pause_txt_end
 			ret
 
