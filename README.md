@@ -71,7 +71,13 @@ $ make demo-red
 ```
 
 <p align="center">
-    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red.png" width="600" />
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red-1.png" width="600" />
+</p>
+
+Scroll...
+
+<p align="center">
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red-2.png" width="600" />
 </p>
 
 ## Credits
