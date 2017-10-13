@@ -12,8 +12,8 @@ include src/zx-spec.asm
 
 spec_init
 
-ld      a,0
-assert_a_equals 0
+ld      a,5
+assert_a_equals 5
 
 spec_end
 ```
