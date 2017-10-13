@@ -12,9 +12,21 @@ assert_fail		macro
 
 assert_a_equals		macro	val			
 local 			passes, done
+			push	af
 			cp	val		; does A = val?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
+			print_text	expected_txt, expected_txt_end
+			ld	b,0
+			ld	c,val
+			call	out_num_1
+			print_text	actual_txt, actual_txt_end
+			pop	af
+			ld	b,0
+			ld	c,a
+			call	out_num_1
+			print_char	nl
+			print_char	nl
 			jp	done
 passes			assert_pass
 done
