@@ -4,6 +4,10 @@ include src/zx-spec.asm
 
 			spec_init
 
+		it 'assert_pass passes test'
+
+			assert_pass
+
 		it 'assert_a_equals works for same value'
 
 			ld	a,5

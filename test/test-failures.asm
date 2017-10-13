@@ -4,6 +4,10 @@ include src/zx-spec.asm
 
 			spec_init
 
+		it 'assert_fail fails test'
+
+			assert_fail
+
 		it 'assert_a_equals fails for different value'
 
 			ld	a,5

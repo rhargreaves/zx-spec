@@ -29,6 +29,8 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 * `assert_a_not_equals`
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
+* `assert_fail`
+* `assert_pass`
 
 ## Dependencies
 
