@@ -22,3 +22,7 @@ done
 assert_a_is_zero	macro
 			assert_a_equals 0
 			endm
+
+assert_a_is_not_zero	macro
+			assert_a_not_equals 0
+			endm

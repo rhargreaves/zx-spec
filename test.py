@@ -16,7 +16,7 @@ class TestPasses(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
 
     def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 3, Fail: 0')
+        self.assertRegexpMatches(self.output, 'Pass: 4, Fail: 0')
 
     @classmethod
     def tearDownClass(self):
@@ -33,7 +33,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
 
     def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 6')
+        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 7')
 
     @classmethod
     def tearDownClass(self):
