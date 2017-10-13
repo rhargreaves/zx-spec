@@ -67,7 +67,7 @@ def run_zx_spec(tape):
         if wait_count == 20:
             raise 'Output file not produced in time'
 
-    time.sleep(5)
+    time.sleep(7)
     proc.kill()
 
     with open(ZX_SPEC_OUTPUT_FILE, 'r') as f:
