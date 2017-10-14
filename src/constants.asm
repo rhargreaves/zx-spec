@@ -15,3 +15,4 @@ period			equ	'.'
 border_port		equ	0feh
 red_border		equ	2
 green_border		equ	4
+yellow_border		equ	6

@@ -38,25 +38,31 @@ end_test_name		ld	hl,start_test_name
 			endm
 
 spec_init		macro
+			set_border_colour	yellow_border
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
 			print_text	banner_txt, banner_txt_end
 			endm
 
-set_border_colour	macro
+set_border_colour	macro	colour
+			ld	a,colour
+			out	(border_port),a
+			endm
+
+update_border		macro
 local			set_green_border, set_border
 			ld	a,(num_fail)
 			cp	0
 			jp	z,set_green_border
-			ld	a,red_border
-			jp	set_border
-set_green_border	ld	a,green_border
-set_border		out	(border_port),a
+			set_border_colour red_border
+			jp	update_border_end
+set_green_border	set_border_colour green_border
+update_border_end	equ	$
 			endm
 
 spec_end		macro
-			set_border_colour
+			update_border
 			call	print_summary
 			call	wait_for_key
 			endm
