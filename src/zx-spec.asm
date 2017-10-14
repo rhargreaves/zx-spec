@@ -1,9 +1,7 @@
 			jp	init
-include src/constants.asm
-include src/rom.asm
-include src/macros.asm
+include src/structure.asm
+include src/screen.asm
 include src/asserts.asm
 include src/state.asm
-include src/resources.asm
-include src/routines.asm
+include src/strings.asm
 init			equ	$

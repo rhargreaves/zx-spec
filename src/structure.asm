@@ -1,20 +1,4 @@
 ; Macros
-print_text		macro	txt_start, txt_end 	; Prints text
-			ld	de,txt_start		; text address
-			ld	bc,txt_end - txt_start	; string length
-			call	pr_string		; print string
-			endm
-
-print_value		macro	addr		; Prints value at memory location
-			ld	hl,addr
-			call	print_value_at_hl
-			endm
-
-print_char		macro	code
-			ld	a,code
-			rst	16
-			endm
-
 describe		macro	group_name
 local			group_name_start, group_name_end
 			ld	hl,shown_names
@@ -44,26 +28,8 @@ spec_init		macro
 			print_text	banner_txt, banner_txt_end
 			endm
 
-set_border_colour	macro	colour
-			ld	a,colour
-			out	(border_port),a
-			endm
-
-update_border		macro
-local			update_border_end
-			ld	a,(num_fail)
-			cp	0
-			jp	nz,update_border_end
-			set_border_colour	green_border
-update_border_end	equ	$
-			endm
-
 spec_end		macro
 			update_border
 			call	print_summary
 			call	wait_for_key
-			endm
-
-print_newline		macro
-			print_char nl
 			endm
