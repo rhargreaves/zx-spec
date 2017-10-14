@@ -12,7 +12,7 @@ include src/zx-spec.asm
 
 spec_init
     
-    describe 'lda'
+    describe 'ld a,n'
         it 'sets A register to value'
             ld a,5
             assert_a_equals 5
