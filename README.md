@@ -12,12 +12,17 @@ include src/zx-spec.asm
 
 spec_init
     
-    it 'sets A register to 5'
-        ld a,5
-        assert_a_equals 5
+    describe 'lda'
+        it 'sets A register to value'
+            ld a,5
+            assert_a_equals 5
 
 spec_end
 ```
+
+### Names and Groupings
+
+You can optionally name a set of asserts using the `it` macro. This groups the asserts into a single test. In addition to `it`, you can use the `describe` macro to group one or more tests. Nested `describe` or `it` macros are not permitted.
 
 ### Assertions
 
