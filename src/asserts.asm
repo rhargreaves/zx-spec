@@ -16,12 +16,10 @@ local			print_group_end
 			cp	0				; is group name undefined?
 			jp	z,(print_group_end)		; skip printing of name if so
 			print_newline
-			print_newline
 			call	pr_string
 			ld	hl,shown_names
 			set	0,(hl)				; Set shown group name
 print_group_end		print_newline
-			print_newline
 			print_char space			; indent test name
 			ld	de,(cur_test_name_addr)		; text address
 			ld	bc,(cur_test_name_len)		; string length
