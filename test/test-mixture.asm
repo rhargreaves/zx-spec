@@ -22,11 +22,6 @@ include src/zx-spec.asm
 			ld	a,5
 			assert_a_equals 255
 
-		it 'works for non-zero'
-
-			ld	a,5
-			assert_a_is_not_zero
-
 			spec_end
 
 			ret

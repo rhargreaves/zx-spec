@@ -17,7 +17,7 @@ print_char		macro	code
 
 describe		macro	group_name
 local			group_name_start, group_name_end
-			ld	hl,(shown_names)
+			ld	hl,shown_names
 			res	0,(hl)		; Reset shown group name
 			jp	group_name_end
 group_name_start	db	group_name
