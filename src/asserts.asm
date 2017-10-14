@@ -57,17 +57,6 @@ local 			passes, done
 			cp	val		; does A = val?
 			jp	nz,passes	; pass if it doesn't
 			assert_fail		; otherwise, fail
-			print_text	expected_not_txt, expected_not_txt_end
-			ld	b,0
-			ld	c,val
-			call	out_num_1
-			print_text	actual_txt, actual_txt_end
-			pop	af		; restore A for printing actual value
-			ld	b,0
-			ld	c,a
-			call	out_num_1
-			print_char	nl
-			print_char	nl
 			jp	done
 passes			assert_pass
 done
