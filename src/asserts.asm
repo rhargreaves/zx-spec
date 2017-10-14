@@ -4,10 +4,29 @@ assert_pass		macro
 			endm
 
 assert_fail		macro
+local			print_group_end
 			call	inc_fail
+			ld	hl,shown_names
+			bit	0,(hl)				; Group name shown already?
+			jp	nz,(print_group_end)
+			ld	de,(cur_group_name_addr)	; text address
+			ld	bc,(cur_group_name_len)		; string length
+			ld	a,c
+			cp	0				; is group name undefined?
+			jp	z,(print_group_end)		; skip printing of name if so
+			print_newline
+			print_newline
+			call	pr_string
+			ld	hl,shown_names
+			set	0,(hl)				; Set shown group name
+print_group_end		print_newline
+			print_newline
+			print_char space			; indent test name
 			ld	de,(cur_test_name_addr)		; text address
 			ld	bc,(cur_test_name_len)		; string length
 			call	pr_string			; print string
+			print_newline
+			print_newline
 			endm
 
 assert_a_equals		macro	val			

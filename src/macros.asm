@@ -15,10 +15,22 @@ print_char		macro	code
 			rst	16
 			endm
 
+describe		macro	group_name
+local			group_name_start, group_name_end
+			ld	hl,(shown_names)
+			res	0,(hl)		; Reset shown group name
+			jp	group_name_end
+group_name_start	db	group_name
+group_name_end		ld	hl,group_name_start
+			ld	(cur_group_name_addr),hl
+			ld	hl,group_name_end - group_name_start
+			ld	(cur_group_name_len),hl
+			endm
+
 it			macro	test_name
 local			start_test_name, end_test_name
 			jp	end_test_name
-start_test_name		db	test_name, nl, nl
+start_test_name		db	test_name
 end_test_name		ld	hl,start_test_name
 			ld	(cur_test_name_addr),hl
 			ld	hl,end_test_name - start_test_name
@@ -47,4 +59,8 @@ spec_end		macro
 			set_border_colour
 			call	print_summary
 			call	wait_for_key
+			endm
+
+print_newline		macro
+			print_char nl
 			endm

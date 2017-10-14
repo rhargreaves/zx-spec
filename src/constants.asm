@@ -6,6 +6,7 @@ if not defined output_stream
 endif
 
 ; Characters
+space			equ	' '
 nl			equ	13		; New line character
 cross			equ	'x'
 period			equ	'.'
