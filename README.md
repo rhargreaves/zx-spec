@@ -1,4 +1,4 @@
-# ZX-Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
+# ZX Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
 A TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is not stable at present.
 
 <p align="center">
