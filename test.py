@@ -13,7 +13,7 @@ class TestPasses(unittest.TestCase):
         self.output = run_zx_spec("bin/test-passes.tap")
 
     def test_zx_spec_header_displayed(self):
-        self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
+        self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
 
     def test_indicators_show_tests_passed(self):
         self.assertRegexpMatches(self.output, '\.' * 4)
@@ -33,14 +33,14 @@ class TestFailures(unittest.TestCase):
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
-        self.assertRegexpMatches(self.output, 'ZX Spec - The TDD Framework')
+        self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
 
     def test_shows_failed_tests(self):
-        self.assertRegexpMatches(self.output, 'assert_fail fails')
-        self.assertRegexpMatches(self.output, 'assert_a_equals fails')
-        self.assertRegexpMatches(self.output, 'assert_a_not_equals fails')
-        self.assertRegexpMatches(self.output, 'assert_a_is_zero fails')
-        self.assertRegexpMatches(self.output, 'assert_a_is_not_zero fails')
+        self.assertRegexpMatches(self.output, 'assert_fail')
+        self.assertRegexpMatches(self.output, 'assert_a_equals')
+        self.assertRegexpMatches(self.output, 'assert_a_not_equals')
+        self.assertRegexpMatches(self.output, 'assert_a_is_zero')
+        self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
 
     def test_all_tests_failed(self):
         self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 5, Total: 5')
