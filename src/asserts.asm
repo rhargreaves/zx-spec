@@ -9,7 +9,7 @@ assert_fail		macro
 
 assert_pass_r		proc
 			ld		hl,num_pass
-			inc		(hl)
+			inc		(hl)			; Increment numbers of passing tests
 			print_char	period
 			ret
 			endp
@@ -18,7 +18,7 @@ assert_fail_r		proc
 local			print_group_end
 			set_border_colour	red_border	; Set border to red
 			ld	hl,num_fail
-			inc	(hl)
+			inc	(hl)				; Increment numbers of failing tests
 			print_char	cross
 			ld	hl,shown_names
 			bit	0,(hl)				; Group name shown already?
