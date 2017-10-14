@@ -5,6 +5,7 @@ assert_pass		macro
 
 assert_fail		macro
 local			print_group_end
+			set_border_colour	red_border	; Set border to red
 			call	inc_fail
 			ld	hl,shown_names
 			bit	0,(hl)				; Group name shown already?

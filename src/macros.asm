@@ -38,7 +38,6 @@ end_test_name		ld	hl,start_test_name
 			endm
 
 spec_init		macro
-			set_border_colour	yellow_border
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
@@ -51,13 +50,11 @@ set_border_colour	macro	colour
 			endm
 
 update_border		macro
-local			set_green_border, set_border
+local			update_border_end
 			ld	a,(num_fail)
 			cp	0
-			jp	z,set_green_border
-			set_border_colour red_border
-			jp	update_border_end
-set_green_border	set_border_colour green_border
+			jp	nz,update_border_end
+			set_border_colour	green_border
 update_border_end	equ	$
 			endm
 
