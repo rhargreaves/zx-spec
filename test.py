@@ -66,6 +66,26 @@ def clean():
     for f in glob.glob("printout.*"):
         os.remove(f)
 
+def printout_txt(filename):
+    with open(filename, 'r') as f:
+        return f.read()  
+
+def wait_for_printout(filename):
+    wait_count = 0
+    while not os.path.exists(filename):
+        time.sleep(0.1)
+        wait_count += 1
+        if wait_count == 20:
+            raise IOError('Output file not produced in time')
+
+def wait_for_framework_completion(filename):
+    wait_count = 0
+    while "-- ZX SPEC TEST END --" not in printout_txt(filename):
+        time.sleep(1)
+        wait_count += 1
+        if wait_count == 20:
+            raise Exception('Framework did not indicate clean exit in time')
+
 def run_zx_spec(tape):
     ZX_SPEC_OUTPUT_FILE = "printout.txt"
     proc = subprocess.Popen([
@@ -74,18 +94,10 @@ def run_zx_spec(tape):
         "--auto-load",
         "--no-autosave-settings"])
 
-    wait_count = 0
-    while not os.path.exists(ZX_SPEC_OUTPUT_FILE):
-        time.sleep(0.1)
-        wait_count += 1
-        if wait_count == 20:
-            raise 'Output file not produced in time'
-
-    time.sleep(10)
+    wait_for_printout(ZX_SPEC_OUTPUT_FILE)
+    wait_for_framework_completion(ZX_SPEC_OUTPUT_FILE)
     proc.kill()
-
-    with open(ZX_SPEC_OUTPUT_FILE, 'r') as f:
-        return f.read()
+    return printout_txt(ZX_SPEC_OUTPUT_FILE)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
