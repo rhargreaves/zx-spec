@@ -1,6 +1,6 @@
 ; Macros
 describe		macro	group_name
-local			group_name_start, group_name_end
+			local	group_name_start, group_name_end
 			ld	hl,shown_names
 			res	0,(hl)		; Reset shown group name
 			jp	group_name_end
@@ -12,12 +12,12 @@ group_name_end		ld	hl,group_name_start
 			endm
 
 it			macro	test_name
-local			start_test_name, end_test_name
-			jp	end_test_name
-start_test_name		db	test_name
-end_test_name		ld	hl,start_test_name
+			local	test_name_start, test_name_end
+			jp	test_name_end
+test_name_start		db	test_name
+test_name_end		ld	hl,test_name_start
 			ld	(cur_test_name_addr),hl
-			ld	hl,end_test_name - start_test_name
+			ld	hl,test_name_end - test_name_start
 			ld	(cur_test_name_len),hl
 			endm
 
