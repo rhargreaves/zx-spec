@@ -15,7 +15,7 @@ assert_pass_r		proc
 			endp
 			
 assert_fail_r		proc
-local			print_group_end
+			local	print_group_end
 			set_border_colour	red_border	; Set border to red
 			ld	hl,num_fail
 			inc	(hl)				; Increment numbers of failing tests
@@ -43,10 +43,10 @@ print_group_end		print_newline
 			endp
 
 assert_a_equals		macro	val			
-local 			passes, done
-			push	af		; store copy of A as it gets overwitten
+			local	passes, done
 			cp	val		; does A = val?
 			jp	z,passes	; pass if so
+			push	af		; store copy of A as it gets overwitten
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
 			ld	b,0
@@ -65,8 +65,7 @@ done
 			endm
 
 assert_a_not_equals	macro	val
-local 			passes, done
-			push	af
+			local	passes, done
 			cp	val		; does A = val?
 			jp	nz,passes	; pass if it doesn't
 			assert_fail		; otherwise, fail
