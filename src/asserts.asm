@@ -64,20 +64,20 @@ passes			assert_pass
 done
 			endm
 
-assert_b_equals		macro	val			
+assert_register_equals	macro	val, register			
 			local	passes, done
 			push	af		; Backup A
-			ld	a,b		; Copy B into A
+			ld	a,register	; Copy register into A
 			assert_a_equals	val
 			pop	af		; Restore A
 			endm
 
+assert_b_equals		macro	val			
+			assert_register_equals val, b
+			endm
+
 assert_c_equals		macro	val			
-			local	passes, done
-			push	af		; Backup A
-			ld	a,c		; Copy C into A
-			assert_a_equals	val
-			pop	af		; Restore A
+			assert_register_equals val, c
 			endm
 
 assert_a_not_equals	macro	val
