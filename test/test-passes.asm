@@ -40,6 +40,5 @@ include src/zx-spec.asm
 
 			spec_end
 
-			print_zx_spec_test_end
 			ret
 			end	8000h

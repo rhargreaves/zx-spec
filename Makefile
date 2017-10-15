@@ -20,10 +20,10 @@ $(BIN)/zx-spec-mixture.tap: test/test-mixture.asm $(BIN)
 	$(PASMO) --tapbas $< $@
 
 $(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
-	$(PASMO) --equ output_stream=3 --tapbas $< $@
+	$(PASMO) --equ zx_spec_test_mode --tapbas $< $@
 
 $(BIN)/test-failures.tap: test/test-failures.asm $(BIN)
-	$(PASMO) --equ output_stream=3 --tapbas $< $@
+	$(PASMO) --equ zx_spec_test_mode --tapbas $< $@
 
 test:	$(BIN)/test-passes.tap $(BIN)/test-failures.tap
 	./test.py

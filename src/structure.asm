@@ -31,4 +31,7 @@ spec_init		macro
 spec_end		macro
 			update_border
 			call	print_summary
+			if defined zx_spec_test_mode
+				print_zx_spec_test_end
+			endif
 			endm

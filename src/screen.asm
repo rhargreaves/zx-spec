@@ -7,8 +7,10 @@ out_num_1		equ	1a1bh		; print line number (BC = number)
 ; Stream Constants
 screen_stream		equ	2
 printer_stream		equ	3
-if not defined output_stream
-	output_stream	equ	screen_stream	; Definable via Pasmo command line
+if defined zx_spec_test_mode			; Definable via Pasmo command line
+	output_stream	equ	printer_stream
+else
+	output_stream	equ	screen_stream
 endif
 
 ; Characters
