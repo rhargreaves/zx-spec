@@ -5,6 +5,9 @@ import time
 import glob
 import unittest
 
+ZX_SPEC_OUTPUT_FILE = "printout.txt"
+ZX_SPEC_TEST_END_MARKER = '-- ZX SPEC TEST END --'
+
 class TestPasses(unittest.TestCase):
 
     @classmethod
@@ -26,7 +29,7 @@ class TestPasses(unittest.TestCase):
                 self.num_tests))
 
     def test_framework_exited_correctly(self):
-        self.assertRegexpMatches(self.output, '-- ZX SPEC TEST END --') 
+        self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER) 
 
     @classmethod
     def tearDownClass(self):
@@ -56,7 +59,7 @@ class TestFailures(unittest.TestCase):
         ))
 
     def test_framework_exited_correctly(self):
-        self.assertRegexpMatches(self.output, '-- ZX SPEC TEST END --')   
+        self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER)  
 
     @classmethod
     def tearDownClass(self):
@@ -80,18 +83,18 @@ def wait_for_printout(filename):
 
 def wait_for_framework_completion(filename):
     wait_count = 0
-    while "-- ZX SPEC TEST END --" not in printout_txt(filename):
+    while ZX_SPEC_TEST_END_MARKER not in printout_txt(filename):
         time.sleep(1)
         wait_count += 1
         if wait_count == 20:
             raise Exception('Framework did not indicate clean exit in time')
 
-def run_zx_spec(tape):
-    ZX_SPEC_OUTPUT_FILE = "printout.txt"
-    cmd_line = os.getenv("FUSE","fuse") + \
-        " --zxprinter --printer --tape " + tape + " --auto-load --no-autosave-settings"
-    proc = subprocess.Popen(cmd_line, shell=True)
-
+def run_zx_spec(tape):  
+    cmd_line = "{0} --zxprinter --printer --tape {1} --auto-load --no-autosave-settings".format(
+        os.getenv("FUSE", "fuse"),
+        tape)
+    proc = subprocess.Popen(
+        cmd_line, shell=True)
     wait_for_printout(ZX_SPEC_OUTPUT_FILE)
     wait_for_framework_completion(ZX_SPEC_OUTPUT_FILE)
     proc.kill()
