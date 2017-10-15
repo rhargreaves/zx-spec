@@ -80,6 +80,14 @@ assert_c_equals		macro	val
 			assert_reg_equals val, c
 			endm
 
+assert_d_equals		macro	val			
+			assert_reg_equals val, d
+			endm
+
+assert_e_equals		macro	val			
+			assert_reg_equals val, e
+			endm
+
 assert_a_not_equals	macro	val
 			local	passes, done
 			cp	val		; does A = val?
@@ -103,6 +111,14 @@ assert_b_not_equals	macro	val
 
 assert_c_not_equals	macro	val
 			assert_reg_not_equals	val, c
+			endm
+
+assert_d_not_equals	macro	val
+			assert_reg_not_equals	val, d
+			endm
+
+assert_e_not_equals	macro	val
+			assert_reg_not_equals	val, e
 			endm
 
 assert_a_is_zero	macro

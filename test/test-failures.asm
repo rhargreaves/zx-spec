@@ -31,6 +31,20 @@ include src/zx-spec.asm
 			ld	c,5
 			assert_a_equals 255
 
+	describe 'assert_d_equals'
+
+		it 'fails for different value'
+
+			ld	d,5
+			assert_d_equals 255
+
+	describe 'assert_e_equals'
+
+		it 'fails for different value'
+
+			ld	e,5
+			assert_e_equals 255
+
 	describe 'assert_a_not_equals'
 
 		it 'fails for same value'
@@ -51,6 +65,20 @@ include src/zx-spec.asm
 
 			ld	c,5
 			assert_c_not_equals 5
+
+	describe 'assert_d_not_equals'
+
+		it 'fails for same value'
+
+			ld	d,5
+			assert_d_not_equals 5
+
+	describe 'assert_e_not_equals'
+
+		it 'fails for same value'
+
+			ld	e,5
+			assert_e_not_equals 5
 
 	describe 'assert_a_is_zero'
 

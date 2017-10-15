@@ -31,6 +31,20 @@ include src/zx-spec.asm
 			ld	c,5
 			assert_c_equals 5
 
+	describe 'assert_d_equals'
+
+		it 'passes for same value'
+
+			ld	d,5
+			assert_d_equals 5
+
+	describe 'assert_e_equals'
+
+		it 'passes for same value'
+
+			ld	e,5
+			assert_e_equals 5
+
 	describe 'assert_a_not_equals'
 		
 		it 'passes for different value'
@@ -51,6 +65,20 @@ include src/zx-spec.asm
 
 			ld	c,0
 			assert_c_not_equals 5
+
+	describe 'assert_d_not_equals'
+		
+		it 'passes for different value'
+
+			ld	d,0
+			assert_d_not_equals 5
+
+	describe 'assert_e_not_equals'
+		
+		it 'passes for different value'
+
+			ld	e,0
+			assert_e_not_equals 5
 
 	describe 'assert_a_is_zero'
 
