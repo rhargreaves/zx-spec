@@ -6,7 +6,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 env:
-  - FUSE: docker run -v /tmp/.X11-unix:/tmp/.X11-unix --privileged -e DISPLAY=$DISPLAY -t rhargreaves/fuse-emulator fuse
+  - FUSE: "docker run -v /tmp/.X11-unix:/tmp/.X11-unix --privileged -e DISPLAY=$DISPLAY -t rhargreaves/fuse-emulator fuse"
 
 script: make test
 sudo: required
