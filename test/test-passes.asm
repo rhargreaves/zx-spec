@@ -23,6 +23,13 @@ include src/zx-spec.asm
 
 			ld	b,5
 			assert_b_equals 5
+			
+	describe 'assert_c_equals'
+
+		it 'passes for same value'
+
+			ld	c,5
+			assert_c_equals 5
 
 	describe 'assert_a_not_equals'
 		

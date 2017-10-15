@@ -72,6 +72,14 @@ assert_b_equals		macro	val
 			pop	af		; Restore A
 			endm
 
+assert_c_equals		macro	val			
+			local	passes, done
+			push	af		; Backup A
+			ld	a,c		; Copy C into A
+			assert_a_equals	val
+			pop	af		; Restore A
+			endm
+
 assert_a_not_equals	macro	val
 			local	passes, done
 			cp	val		; does A = val?
