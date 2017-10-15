@@ -4,6 +4,10 @@ chan_open		equ	1601h		; open channel
 pr_string		equ	203ch		; print string (DE = start, BC = length)
 out_num_1		equ	1a1bh		; print line number (BC = number)
 
+; System Variables
+attr_p			equ	5c8dh		; permanent set colours
+attr_t			equ	5c8fh		; temporary set colours
+
 ; Stream Constants
 screen_stream		equ	2
 printer_stream		equ	3

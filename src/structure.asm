@@ -22,6 +22,8 @@ test_name_end		ld	hl,test_name_start
 			endm
 
 spec_init		macro
+			;ld 	a,7		; gray on black screen
+			;ld	(attr_p),a 
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
