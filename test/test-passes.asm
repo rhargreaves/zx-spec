@@ -45,6 +45,13 @@ include src/zx-spec.asm
 			ld	b,0
 			assert_b_not_equals 5
 
+	describe 'assert_c_not_equals'
+		
+		it 'passes for different value'
+
+			ld	c,0
+			assert_c_not_equals 5
+
 	describe 'assert_a_is_zero'
 
 		it 'passes for zero'

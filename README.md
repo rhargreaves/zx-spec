@@ -28,12 +28,16 @@ You can optionally name a set of asserts using the `it` macro. This groups the a
 
 ### Assertions
 
-Currently you can only assert on register values (and only A atm), although I plan to add memory-based assertions too.
+Currently you can only assert on register values, although I plan to add memory-based assertions too.
 
 See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
 * `assert_a_equals`
 * `assert_a_not_equals`
+* `assert_b_equals`
+* `assert_b_not_equals`
+* `assert_c_equals`
+* `assert_c_not_equals`
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
 * `assert_fail`
