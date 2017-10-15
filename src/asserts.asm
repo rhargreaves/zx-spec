@@ -42,6 +42,29 @@ print_group_end		print_newline
 			ret
 			endp
 
+assert_b_equals		macro	val			
+			local	passes, done
+			ld	a,b		; Copy B into A
+			cp	val		; does A = val?
+			jp	z,passes	; pass if so
+			push	af		; store copy of A as it gets overwitten
+			assert_fail		; otherwise, fail
+			print_text expected_txt, expected_txt_end
+			ld	b,0
+			ld	c,val
+			call	out_num_1
+			print_text actual_txt, actual_txt_end
+			pop	af		; restore A for printing actual value
+			ld	b,0
+			ld	c,a
+			call	out_num_1
+			print_char	nl
+			print_char	nl
+			jp	done
+passes			assert_pass
+done
+			endm
+
 assert_a_equals		macro	val			
 			local	passes, done
 			cp	val		; does A = val?
@@ -66,6 +89,17 @@ done
 
 assert_a_not_equals	macro	val
 			local	passes, done
+			cp	val		; does A = val?
+			jp	nz,passes	; pass if it doesn't
+			assert_fail		; otherwise, fail
+			jp	done
+passes			assert_pass
+done
+			endm
+
+assert_b_not_equals	macro	val
+			local	passes, done
+			ld	b,a		; copy B to A
 			cp	val		; does A = val?
 			jp	nz,passes	; pass if it doesn't
 			assert_fail		; otherwise, fail

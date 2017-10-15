@@ -17,12 +17,26 @@ include src/zx-spec.asm
 			ld	a,5
 			assert_a_equals 5
 
+	describe 'assert_b_equals'
+
+		it 'passes for same value'
+
+			ld	b,5
+			assert_b_equals 5
+
 	describe 'assert_a_not_equals'
 		
 		it 'passes for different value'
 
 			ld	a,0
 			assert_a_not_equals 5
+
+	describe 'assert_b_not_equals'
+		
+		it 'passes for different value'
+
+			ld	b,0
+			assert_b_not_equals 5
 
 	describe 'assert_a_is_zero'
 
