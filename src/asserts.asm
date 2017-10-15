@@ -44,6 +44,7 @@ print_group_end		print_newline
 
 assert_a_equals		macro	val			
 			local	passes, done
+			push	af		; Backup A
 			cp	val		; does A = val?
 			jp	z,passes	; pass if so
 			push	af		; store copy of A as it gets overwitten
@@ -61,7 +62,7 @@ assert_a_equals		macro	val
 			print_char	nl
 			jp	done
 passes			assert_pass
-done
+done			pop	af		; Restore A
 			endm
 
 assert_reg_equals	macro	val, reg			

@@ -17,6 +17,12 @@ include src/zx-spec.asm
 			ld	a,5
 			assert_a_equals 5
 
+		it "doesn't affect value of a"
+
+			ld	a,5
+			assert_a_equals 5		
+			assert_a_equals 5
+
 	describe 'assert_b_equals'
 
 		it 'passes for same value'
