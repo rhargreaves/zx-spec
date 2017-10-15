@@ -1,5 +1,6 @@
 PASMO = docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
 BIN = bin
+FUSE = fuse
 
 .PHONY: test clean run
 
@@ -28,10 +29,10 @@ test:	$(BIN)/test-passes.tap $(BIN)/test-failures.tap
 	./test.py
 
 demo-mix:	$(BIN)/zx-spec-mixture.tap
-	fuse --tape $< --auto-load --no-autosave-settings
+	$(FUSE) --tape $< --auto-load --no-autosave-settings
 
 demo-green:	$(BIN)/zx-spec-green.tap
-	fuse --tape $< --auto-load --no-autosave-settings
+	$(FUSE) --tape $< --auto-load --no-autosave-settings
 
 demo-red:	$(BIN)/zx-spec-red.tap
-	fuse --tape $< --auto-load --no-autosave-settings
+	$(FUSE) --tape $< --auto-load --no-autosave-settings
