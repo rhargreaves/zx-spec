@@ -11,15 +11,22 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
+        self.num_tests = 5
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
 
     def test_indicators_show_tests_passed(self):
-        self.assertRegexpMatches(self.output, '\.' * 4)
+        self.assertRegexpMatches(self.output, '\.' * self.num_tests)
 
     def test_all_tests_pass(self):
-        self.assertRegexpMatches(self.output, 'Pass: 5, Fail: 0, Total: 5')
+        self.assertRegexpMatches(
+            self.output,
+            'Pass: {0}, Fail: 0, Total: {0}'.format(
+                self.num_tests))
+
+    def test_framework_exited_correctly(self):
+        self.assertRegexpMatches(self.output, '-- ZX SPEC TEST END --') 
 
     @classmethod
     def tearDownClass(self):
@@ -30,6 +37,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
+        self.num_tests = 5
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -43,7 +51,12 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
 
     def test_all_tests_failed(self):
-        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: 5, Total: 5')
+        self.assertRegexpMatches(self.output, 'Pass: 0, Fail: {0}, Total: {0}'.format(
+            self.num_tests
+        ))
+
+    def test_framework_exited_correctly(self):
+        self.assertRegexpMatches(self.output, '-- ZX SPEC TEST END --')   
 
     @classmethod
     def tearDownClass(self):

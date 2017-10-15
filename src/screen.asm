@@ -61,6 +61,7 @@ print_summary		print_text	ok_txt, ok_txt_end
 			ld		b,0
 			ld		c,a
 			call		out_num_1	; print number of total tests
+			print_newline
 			ret
 
 set_border_colour	macro	colour
@@ -75,4 +76,8 @@ local			update_border_end
 			jp	nz,update_border_end
 			set_border_colour	green_border
 update_border_end	equ	$
+			endm
+
+print_zx_spec_test_end	macro
+			print_text	exit_txt, exit_txt_end
 			endm

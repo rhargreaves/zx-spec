@@ -11,3 +11,5 @@ expected_txt		db	'Expected: '
 expected_txt_end	equ	$
 actual_txt		db	', Actual: '
 actual_txt_end		equ	$
+exit_txt		db	'-- ZX SPEC TEST END --'
+exit_txt_end		equ	$
