@@ -3,10 +3,11 @@ language: generic
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  - "xhost +"
   - sleep 3 # give xvfb some time to start
 
 env:
-  - FUSE: "'docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=$DISPLAY -it rhargreaves/fuse-emulator fuse'"
+  - FUSE: "'docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=unix$DISPLAY -it rhargreaves/fuse-emulator'"
 
 script: make test
 sudo: required
