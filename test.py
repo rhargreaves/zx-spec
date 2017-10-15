@@ -90,7 +90,7 @@ def wait_for_framework_completion(filename):
             raise Exception('Framework did not indicate clean exit in time')
 
 def run_zx_spec(tape):  
-    cmd_line = "{0} --zxprinter --printer --tape {1} --auto-load --no-autosave-settings".format(
+    cmd_line = "{0} --no-sound --zxprinter --printer --tape {1} --auto-load --no-autosave-settings".format(
         os.getenv("FUSE", "fuse"),
         tape)
     proc = subprocess.Popen(
