@@ -39,24 +39,30 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
 ## Dependencies
 
-1. Install Docker
-2. Install Fuse Emulator
+* Docker
+* Fuse Emulator
     
     **Linux**
 
-    ```
+    ```sh
     $ sudo apt-get install fuse-emulator-common spectrum-roms
     ```
     
     **macOS**
     
-    ```
+    ```sh
     $ brew install homebrew/games/fuse-emulator
     ```
+    
+    You can also run [Fuse with Docker](https://github.com/rhargreaves/fuse-emulator-docker/blob/master/run-fuse.sh) by setting the `FUSE` environment variable accordingly:
+    
+    ```sh
+    $ export "FUSE=docker run -v /tmp/.X11-unix:/tmp/.X11-unix --privileged -e DISPLAY=unix$DISPLAY -it rhargreaves/fuse-emulator"
+    ```
 
-## Automated Tests
+## Tests
 
-ZX Spec can itself be tested by running:
+ZX Spec can be tested by running:
 
 ```
 $ make test
