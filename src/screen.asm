@@ -61,18 +61,7 @@ print_summary		print_text	ok_txt, ok_txt_end
 			ld		b,0
 			ld		c,a
 			call		out_num_1	; print number of total tests
-			print_text	pause_txt, pause_txt_end
 			ret
-
-wait_for_key		proc
-local			loop
-			ld	hl,23560	; LAST K system variable.
-			ld	(hl),0		; put null value there.
-loop			ld	a,(hl)		; new value of LAST K.
-			cp	0		; is it still zero?
-			jr	z,loop		; yes, so no key pressed.
-			ret			; key was pressed.
-			endp
 
 set_border_colour	macro	colour
 			ld	a,colour

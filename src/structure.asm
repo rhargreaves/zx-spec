@@ -31,5 +31,4 @@ spec_init		macro
 spec_end		macro
 			update_border
 			call	print_summary
-			call	wait_for_key
 			endm

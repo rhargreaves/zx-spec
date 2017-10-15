@@ -7,8 +7,6 @@ fail_txt		db	', Fail: '
 fail_txt_end		equ	$
 total_txt		db	', Total: '
 total_txt_end		equ	$
-pause_txt		db	nl, nl, 'Press any key.'
-pause_txt_end		equ	$
 expected_txt		db	'Expected: ' 
 expected_txt_end	equ	$
 actual_txt		db	', Actual: '
