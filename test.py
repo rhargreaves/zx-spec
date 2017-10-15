@@ -73,9 +73,9 @@ def printout_txt(filename):
 def wait_for_printout(filename):
     wait_count = 0
     while not os.path.exists(filename):
-        time.sleep(0.1)
+        time.sleep(1)
         wait_count += 1
-        if wait_count == 20:
+        if wait_count == 60:
             raise IOError('Output file not produced in time')
 
 def wait_for_framework_completion(filename):
