@@ -88,11 +88,9 @@ def wait_for_framework_completion(filename):
 
 def run_zx_spec(tape):
     ZX_SPEC_OUTPUT_FILE = "printout.txt"
-    proc = subprocess.Popen([
-        "fuse",
-        "--tape", tape,
-        "--auto-load",
-        "--no-autosave-settings"])
+    cmd_line = os.getenv("FUSE","fuse") + \
+        " --tape " + tape + " --auto-load --no-autosave-settings"
+    proc = subprocess.Popen(cmd_line, shell=True)
 
     wait_for_printout(ZX_SPEC_OUTPUT_FILE)
     wait_for_framework_completion(ZX_SPEC_OUTPUT_FILE)

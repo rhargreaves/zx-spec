@@ -1,5 +1,14 @@
 language: generic
-script: make bin/zx-spec-green.tap
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
+env:
+  - FUSE=docker run -v /tmp/.X11-unix:/tmp/.X11-unix --privileged -e DISPLAY=$DISPLAY -t rhargreaves/fuse-emulator
+
+script: make test
 sudo: required
 
 services:

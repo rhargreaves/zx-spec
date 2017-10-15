@@ -1,6 +1,6 @@
-PASMO = docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
-BIN = bin
-FUSE = fuse
+PASMO := docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
+BIN := bin
+FUSE ?= fuse
 
 .PHONY: test clean run
 
