@@ -41,8 +41,9 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
 ## Dependencies
 
-* Docker
+* Docker (for running Pasmo)
 * Fuse Emulator
+* Python 2.7 (for running ZX Spec tests)
     
     **Linux**
 
