@@ -72,15 +72,17 @@ $ make test
 
 Two sets of automated tests will run. One set results in all tests passing, and the other set results in all tests failing. The results are sent to an emulated ZX Printer (rather than sent to the display) which is then output by the emulator to a text file. This file is then validated to ensure the framework is working correctly.
 
-## Run Demos
+## Demos
 
-When all tests pass...
+You can run a couple of example demos:
+
+### When all tests pass...
 
 ```
 $ make demo-green
 ```
 
-When all tests fail...
+### When all tests fail...
 
 ```
 $ make demo-red
