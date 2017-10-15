@@ -29,6 +29,12 @@ include src/zx-spec.asm
 
 			ld	b,5
 			assert_b_equals 5
+
+		it "doesn't affect value of b"
+
+			ld	b,5
+			assert_a_equals 5		
+			assert_a_equals 5
 			
 	describe 'assert_c_equals'
 
@@ -37,11 +43,23 @@ include src/zx-spec.asm
 			ld	c,5
 			assert_c_equals 5
 
+		it "doesn't affect value of c"
+
+			ld	c,5
+			assert_a_equals 5		
+			assert_a_equals 5
+
 	describe 'assert_d_equals'
 
 		it 'passes for same value'
 
 			ld	d,5
+			assert_d_equals 5
+
+		it "doesn't affect value of d"
+
+			ld	d,5
+			assert_d_equals 5		
 			assert_d_equals 5
 
 	describe 'assert_e_equals'
@@ -51,6 +69,12 @@ include src/zx-spec.asm
 			ld	e,5
 			assert_e_equals 5
 
+		it "doesn't affect value of e"
+
+			ld	e,5
+			assert_e_equals 5		
+			assert_e_equals 5
+
 	describe 'assert_h_equals'
 
 		it 'passes for same value'
@@ -58,11 +82,23 @@ include src/zx-spec.asm
 			ld	h,5
 			assert_h_equals 5
 
+		it "doesn't affect value of h"
+
+			ld	h,5
+			assert_h_equals 5		
+			assert_h_equals 5
+
 	describe 'assert_l_equals'
 
 		it 'passes for same value'
 
 			ld	l,5
+			assert_l_equals 5
+
+		it "doesn't affect value of l"
+
+			ld	l,5
+			assert_l_equals 5		
 			assert_l_equals 5
 
 	describe 'assert_a_not_equals'

@@ -89,12 +89,16 @@ assert_e_equals		macro	val
 			assert_reg_equals val, e
 			endm
 
-assert_h_equals		macro	val			
+assert_h_equals		macro	val
+			push	hl	
 			assert_reg_equals val, h
+			pop	hl
 			endm
 
-assert_l_equals		macro	val			
+assert_l_equals		macro	val	
+			push	hl		
 			assert_reg_equals val, l
+			pop	hl
 			endm
 
 assert_a_not_equals	macro	val
