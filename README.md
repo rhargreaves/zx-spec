@@ -7,6 +7,8 @@ A TDD framework for the ZX Spectrum. This is a **Work In Progress**. The API is 
 
 ## Usage
 
+The framework has been written with the [Pasmo assembler](http://pasmo.speccy.org/pasmodoc.html). It could well work with other assemblers although I've not tried it.
+
 ```asm
 include src/zx-spec.asm
 
