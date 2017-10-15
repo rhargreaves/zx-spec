@@ -38,6 +38,14 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 * `assert_b_not_equals`
 * `assert_c_equals`
 * `assert_c_not_equals`
+* `assert_d_equals`
+* `assert_d_not_equals`
+* `assert_e_equals`
+* `assert_e_not_equals`
+* `assert_h_equals`
+* `assert_h_not_equals`
+* `assert_l_equals`
+* `assert_l_not_equals`
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
 * `assert_fail`

@@ -14,7 +14,7 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 13
+        self.num_tests = 17
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
@@ -40,7 +40,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 13
+        self.num_tests = 17
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -86,7 +86,7 @@ def wait_for_framework_completion(filename):
     while ZX_SPEC_TEST_END_MARKER not in printout_txt(filename):
         time.sleep(1)
         wait_count += 1
-        if wait_count == 20:
+        if wait_count == 40:
             raise Exception('Framework did not indicate clean exit in time')
 
 def run_zx_spec(tape):  
