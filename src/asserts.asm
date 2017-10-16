@@ -44,7 +44,7 @@ print_group_end		print_newline
 
 assert_hl_equals	macro	val			
 			local	passes, done
-			push	hl		; Backup HL
+			push	hl		; Backup HL & BC
 			ld	bc,val
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
