@@ -8,10 +8,15 @@ include src/zx-spec.asm
 		it 'passes test'
 			assert_pass
 
-	;describe 'assert_hl_equals'
-	;	it 'passes for same value'
-	;		ld	hl,$0102
-	;		assert_hl_equals $0102
+	describe 'assert_hl_equals'
+		it 'passes for same value'
+			ld	hl,$0102
+			assert_hl_equals $0102
+
+		it "doesn't affect value of hl"
+			ld	hl,$0102
+			assert_hl_equals $0102
+			assert_hl_equals $0102
 
 	describe 'assert_a_equals'
 		it 'passes for same value'

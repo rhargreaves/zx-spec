@@ -66,20 +66,16 @@ done			ret
 
 assert_hl_equals	macro	val			
 			local	passes, done
-			push	hl		; Backup HL & BC
+			push	bc		; Backup BC
 			ld	bc,val
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
 			pop	hl
 			jp	z,passes	; pass if zero
-			push	hl		; store copy of HL as it gets overwitten
-			push	bc		; store copy of BC as it gets overwitten by assert_fail
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
-			pop	bc
 			call	safe_out_num_1
 			print_text actual_txt, actual_txt_end
-			pop	hl		; restore HL for printing actual value
 			ld	b,h
 			ld	c,l
 			call	safe_out_num_1
@@ -87,7 +83,7 @@ assert_hl_equals	macro	val
 			print_char	nl
 			jp	done
 passes			assert_pass
-done			pop	hl		; Restore HL
+done			pop	bc		; Restore BC
 			endm
 
 assert_a_equals		macro	val

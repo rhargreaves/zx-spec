@@ -14,13 +14,15 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 31
+        self.num_tests = 34
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
 
     def test_indicators_show_tests_passed(self):
-        self.assertRegexpMatches(self.output, '\.' * self.num_tests)
+        self.assertRegexpMatches(
+            self.output,
+            ('\.' * 32) + '\n' + ('\.' * (self.num_tests-32)))
 
     def test_all_tests_pass(self):
         self.assertRegexpMatches(
@@ -40,7 +42,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 17
+        self.num_tests = 19
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):

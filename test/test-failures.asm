@@ -8,11 +8,11 @@ include src/zx-spec.asm
 		it 'fails test'
 			assert_fail
 
-	;describe 'assert_hl_equals'
-	;	it 'passes for same value'
-	;		ld	hl,$0102
-	;		assert_hl_equals $0202
-	;		assert_hl_equals $0101
+	describe 'assert_hl_equals'
+		it 'fails for different value'
+			ld	hl,$0102
+			assert_hl_equals $0202
+			assert_hl_equals $0101
 
 	describe 'assert_a_equals'
 		it 'fails for different value'
