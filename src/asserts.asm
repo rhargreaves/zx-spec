@@ -27,13 +27,14 @@ assert_fail_r		proc
 			ld	hl,shown_names
 			bit	0,(hl)				; Group name shown already?
 			jp	nz,print_group_end		; Skip if so.
-			ld	de,(cur_group_name_addr)	; text address
-			ld	bc,(cur_group_name_len)		; string length
-			ld	a,c
+			push	de
+			ld	de,(cur_group_name_len)		; get string length
+			ld	a,e
+			pop	de
 			cp	0				; is group name undefined?
 			jp	z,print_group_end		; skip printing of name if so
 			print_newline
-			call	pr_string
+			print_text_with_len	(cur_group_name_addr), (cur_group_name_len)
 			ld	hl,shown_names
 			set	0,(hl)				; Set shown group name
 print_group_end		print_newline
