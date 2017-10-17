@@ -2,7 +2,7 @@
 cl_all			equ	0dafh		; clear screen
 chan_open		equ	1601h		; open channel
 pr_string		equ	203ch		; print string (DE = start, BC = length)
-out_num_1		equ	1a1bh		; print line number (BC = number)
+out_num_1		equ	1a1bh		; print line number (BC = number), WIPES A!
 
 ; System Variables
 attr_p			equ	5c8dh		; permanent set colours
@@ -64,7 +64,7 @@ print_newline		macro
 print_value_at_hl	push	bc
 			ld	b,0
 			ld	c,(hl)
-			call	out_num_1
+			call	safe_out_num_1
 			pop	bc
 			ret
 
@@ -76,7 +76,7 @@ print_total		macro
 			add		a,c
 			ld		b,0
 			ld		c,a
-			call		out_num_1	; print number of total tests
+			call		safe_out_num_1	; print number of total tests
 			endm
 
 print_summary		proc
@@ -111,3 +111,10 @@ update_border_end	equ	$
 print_zx_spec_test_end	macro
 			print_text	exit_txt, exit_txt_end
 			endm
+
+safe_out_num_1		proc
+			push	af
+			call	out_num_1
+			pop	af
+			ret
+			endp
