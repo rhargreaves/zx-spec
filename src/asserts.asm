@@ -36,9 +36,7 @@ assert_fail_r		proc
 			set	0,(hl)				; Set shown group name
 print_group_end		print_newline
 			print_char space			; indent test name
-			ld	de,(cur_test_name_addr)		; text address
-			ld	bc,(cur_test_name_len)		; string length
-			call	pr_string			; print string
+			print_text_with_len	(cur_test_name_addr), (cur_test_name_len)
 			print_newline
 			print_newline
 			ret

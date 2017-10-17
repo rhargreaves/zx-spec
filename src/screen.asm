@@ -33,7 +33,7 @@ print_text		macro	txt_start, txt_end 	; Prints text
 			print_text_with_len	txt_start,txt_end-txt_start
 			endm
 
-print_text_with_len	macro	txt_start, txt_len
+print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			push	de
 			push	bc
 			ld	de,txt_start		; text address
