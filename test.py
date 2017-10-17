@@ -48,7 +48,7 @@ class TestFailures(unittest.TestCase):
 
     def test_shows_failed_tests(self):
         self.assertRegexpMatches(self.output, 'assert_fail')
-        self.assertRegexpMatches(self.output, 'assert_a_equals')
+        self.assertRegexpMatches(self.output, 'assert_a_equals\n fails for different value\n\nExpected: 255, Actual: 5')
         self.assertRegexpMatches(self.output, 'assert_a_not_equals')
         self.assertRegexpMatches(self.output, 'assert_a_is_zero')
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
