@@ -30,10 +30,14 @@ green_border		equ	4
 
 ; Macros
 print_text		macro	txt_start, txt_end 	; Prints text
+			print_text_with_len	txt_start,txt_end-txt_start
+			endm
+
+print_text_with_len	macro	txt_start, txt_len
 			push	de
 			push	bc
 			ld	de,txt_start		; text address
-			ld	bc,txt_end - txt_start	; string length
+			ld	bc,txt_len		; string length
 			call	pr_string		; print string
 			pop	bc
 			pop	de
