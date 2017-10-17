@@ -40,22 +40,28 @@ print_text		macro	txt_start, txt_end 	; Prints text
 			endm
 
 print_value		macro	addr		; Prints value at memory location
+			push	hl
 			ld	hl,addr
 			call	print_value_at_hl
+			pop	hl
 			endm
 
 print_char		macro	code
+			push	af
 			ld	a,code
 			rst	16
+			pop	af
 			endm
 
 print_newline		macro
 			print_char nl
 			endm
 
-print_value_at_hl	ld	b,0
+print_value_at_hl	push	bc
+			ld	b,0
 			ld	c,(hl)
 			call	out_num_1
+			pop	bc
 			ret
 
 print_summary		print_text	ok_txt, ok_txt_end
@@ -75,17 +81,21 @@ print_summary		print_text	ok_txt, ok_txt_end
 			ret
 
 set_border_colour	macro	colour
+			push	af
 			ld	a,colour
 			out	(border_port),a
+			pop	af
 			endm
 
 update_border		macro
 local			update_border_end
+			push	af
 			ld	a,(num_fail)
 			cp	0
 			jp	nz,update_border_end
 			set_border_colour	green_border
 update_border_end	equ	$
+			pop	af
 			endm
 
 print_zx_spec_test_end	macro

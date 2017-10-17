@@ -8,9 +8,11 @@ assert_fail		macro
 			endm
 
 assert_pass_r		proc
+			push		hl
 			ld		hl,num_pass
 			inc		(hl)			; Increment numbers of passing tests
 			print_char	period
+			pop		hl
 			ret
 			endp
 			
