@@ -17,37 +17,37 @@ include src/zx-spec.asm
 	describe 'assert_a_equals'
 		it 'fails for different value'
 			ld	a,5
-			assert_a_equals 255
+			assert_a_equals 250
 
 	describe 'assert_b_equals'
 		it 'fails for different value'
 			ld	b,5
-			assert_a_equals 255
+			assert_a_equals 250
 
 	describe 'assert_c_equals'
 		it 'fails for different value'
 			ld	c,5
-			assert_a_equals 255
+			assert_a_equals 250
 
 	describe 'assert_d_equals'
 		it 'fails for different value'
 			ld	d,5
-			assert_d_equals 255
+			assert_d_equals 250
 
 	describe 'assert_e_equals'
 		it 'fails for different value'
 			ld	e,5
-			assert_e_equals 255
+			assert_e_equals 250
 
 	describe 'assert_h_equals'
 		it 'fails for different value'
 			ld	h,5
-			assert_h_equals 255
+			assert_h_equals 250
 
 	describe 'assert_l_equals'
 		it 'fails for different value'
 			ld	l,5
-			assert_l_equals 255
+			assert_l_equals 250
 
 	describe 'assert_a_not_equals'
 		it 'fails for same value'
