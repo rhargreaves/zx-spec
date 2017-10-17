@@ -22,7 +22,7 @@ assert_fail_r		proc
 			print_char	cross
 			ld	hl,shown_names
 			bit	0,(hl)				; Group name shown already?
-			jp	nz,print_group_end
+			jp	nz,print_group_end		; Skip if so.
 			ld	de,(cur_group_name_addr)	; text address
 			ld	bc,(cur_group_name_len)		; string length
 			ld	a,c
@@ -39,6 +39,29 @@ print_group_end		print_newline
 			call	pr_string			; print string
 			print_newline
 			print_newline
+			ret
+			endp
+
+assert_a_equals_r	proc
+			local	passes, done
+			push	af		; Backup A
+			cp	c		; does A = val?
+			jp	z,passes	; pass if so
+			push	af		; store copy of A as it gets overwitten
+			assert_fail		; otherwise, fail
+			print_text expected_txt, expected_txt_end
+			ld	b,0
+			call	out_num_1
+			print_text actual_txt, actual_txt_end
+			pop	af		; restore A for printing actual value
+			ld	b,0
+			ld	c,a
+			call	out_num_1
+			print_char	nl
+			print_char	nl
+			jp	done
+passes			assert_pass
+done			pop	af		; Restore 
 			ret
 			endp
 
@@ -69,30 +92,11 @@ done			pop	hl		; Restore HL
 			endm
 
 assert_a_equals		macro	val			
-			local	passes, done
-			push	af		; Backup A
-			cp	val		; does A = val?
-			jp	z,passes	; pass if so
-			push	af		; store copy of A as it gets overwitten
-			assert_fail		; otherwise, fail
-			print_text expected_txt, expected_txt_end
-			ld	b,0
-			ld	c,val
-			call	out_num_1
-			print_text actual_txt, actual_txt_end
-			pop	af		; restore A for printing actual value
-			ld	b,0
-			ld	c,a
-			call	out_num_1
-			print_char	nl
-			print_char	nl
-			jp	done
-passes			assert_pass
-done			pop	af		; Restore A
+			ld	c,val		; Store expected in C
+			call	assert_a_equals_r
 			endm
 
 assert_reg_equals	macro	val, reg			
-			local	passes, done
 			push	af		; Backup A
 			ld	a,reg		; Copy register into A
 			assert_a_equals	val
