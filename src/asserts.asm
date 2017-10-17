@@ -7,21 +7,23 @@ assert_fail		macro
 			call	assert_fail_r
 			endm
 
-assert_pass_r		proc
+inc_done		macro		num_done, done_char
 			push		hl
-			ld		hl,num_pass
-			inc		(hl)			; Increment numbers of passing tests
-			print_char	period
+			ld		hl,num_done
+			inc		(hl)			; Increment number done
+			print_char	done_char		; Print done char
 			pop		hl
+			endm
+
+assert_pass_r		proc
+			inc_done	num_pass, period	; Increment number passed
 			ret
 			endp
 			
 assert_fail_r		proc
 			local	print_group_end
 			set_border_colour	red_border	; Set border to red
-			ld	hl,num_fail
-			inc	(hl)				; Increment numbers of failing tests
-			print_char	cross
+			inc_done	num_fail, cross		; Increment number failed
 			ld	hl,shown_names
 			bit	0,(hl)				; Group name shown already?
 			jp	nz,print_group_end		; Skip if so.
@@ -49,12 +51,14 @@ assert_a_equals_r	proc			; C = expected, A = actual
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
+			push	bc
 			ld	b,0
 			call	out_num_1
 			print_text actual_txt, actual_txt_end
 			ld	b,0
 			ld	c,a
 			call	out_num_1
+			pop	bc
 			print_char	nl
 			print_char	nl
 			jp	done
