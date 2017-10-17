@@ -42,18 +42,16 @@ print_group_end		print_newline
 			ret
 			endp
 
-assert_a_equals_r	proc
+
+assert_a_equals_r	proc			; C = expected, A = actual
 			local	passes, done
-			push	af		; Backup A
 			cp	c		; does A = val?
 			jp	z,passes	; pass if so
-			push	af		; store copy of A as it gets overwitten
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
 			ld	b,0
 			call	out_num_1
 			print_text actual_txt, actual_txt_end
-			pop	af		; restore A for printing actual value
 			ld	b,0
 			ld	c,a
 			call	out_num_1
@@ -61,8 +59,7 @@ assert_a_equals_r	proc
 			print_char	nl
 			jp	done
 passes			assert_pass
-done			pop	af		; Restore 
-			ret
+done			ret
 			endp
 
 assert_hl_equals	macro	val			
