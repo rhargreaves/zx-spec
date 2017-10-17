@@ -136,9 +136,9 @@ assert_l_equals		macro	val
 assert_a_not_equals	macro	val
 			local	passes, done
 			cp	val		; does A = val?
-			jp	nz,passes	; pass if it doesn't
+			jr	nz,passes	; pass if it doesn't
 			assert_fail		; otherwise, fail
-			jp	done
+			jr	done
 passes			assert_pass
 done
 			endm
