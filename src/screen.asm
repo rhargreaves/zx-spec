@@ -38,7 +38,9 @@ print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			push	bc
 			ld	de,txt_start		; text address
 			ld	bc,txt_len		; string length
+			push	af
 			call	pr_string		; print string
+			pop	af
 			pop	bc
 			pop	de
 			endm

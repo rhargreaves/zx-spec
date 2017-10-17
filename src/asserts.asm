@@ -47,7 +47,6 @@ print_group_end		print_newline
 
 assert_a_equals_r	proc			; C = expected, A = actual
 			local	passes, done
-			push	af
 			cp	c		; does A = val?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
@@ -56,16 +55,13 @@ assert_a_equals_r	proc			; C = expected, A = actual
 			call	safe_out_num_1
 			print_text actual_txt, actual_txt_end
 			ld	b,0
-			pop	af
 			ld	c,a
-			push	af
 			call	safe_out_num_1
 			print_char	nl
 			print_char	nl
 			jp	done
 passes			assert_pass
-done			pop	af
-			ret
+done			ret
 			endp
 
 assert_hl_equals	macro	val			
