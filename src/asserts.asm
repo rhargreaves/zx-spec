@@ -44,26 +44,27 @@ print_group_end		print_newline
 			ret
 			endp
 
-
 assert_a_equals_r	proc			; C = expected, A = actual
 			local	passes, done
+			push	af
 			cp	c		; does A = val?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
-			push	bc
 			ld	b,0
 			call	out_num_1
 			print_text actual_txt, actual_txt_end
 			ld	b,0
+			pop	af
 			ld	c,a
+			push	af
 			call	out_num_1
-			pop	bc
 			print_char	nl
 			print_char	nl
 			jp	done
 passes			assert_pass
-done			ret
+done			pop	af
+			ret
 			endp
 
 assert_hl_equals	macro	val			
@@ -92,9 +93,11 @@ passes			assert_pass
 done			pop	hl		; Restore HL
 			endm
 
-assert_a_equals		macro	val			
+assert_a_equals		macro	val
+			push	bc		
 			ld	c,val		; Store expected in C
 			call	assert_a_equals_r
+			pop	bc
 			endm
 
 assert_reg_equals	macro	val, reg			
