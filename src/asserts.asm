@@ -50,10 +50,8 @@ assert_a_equals_r	proc			; C = expected, A = actual
 			push	af
 			cp	c		; does A = val?
 			jp	z,passes	; pass if so
-			push	bc
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
-			pop	bc
 			ld	b,0
 			call	out_num_1
 			print_text actual_txt, actual_txt_end
