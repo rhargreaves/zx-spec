@@ -64,11 +64,7 @@ print_value_at_hl	push	bc
 			pop	bc
 			ret
 
-print_summary		print_text	ok_txt, ok_txt_end
-			print_value	num_pass	; print number of passing tests		
-			print_text	fail_txt, fail_txt_end
-			print_value	num_fail	; print number of failing tests
-			print_text	total_txt, total_txt_end
+print_total		macro
 			ld		hl,num_fail
 			ld		c,(hl)
 			ld		hl,num_pass
@@ -77,8 +73,18 @@ print_summary		print_text	ok_txt, ok_txt_end
 			ld		b,0
 			ld		c,a
 			call		out_num_1	; print number of total tests
+			endm
+
+print_summary		proc
+			print_text	ok_txt, ok_txt_end
+			print_value	num_pass	; print number of passing tests		
+			print_text	fail_txt, fail_txt_end
+			print_value	num_fail	; print number of failing tests
+			print_text	total_txt, total_txt_end
+			print_total
 			print_newline
 			ret
+			endp
 
 set_border_colour	macro	colour
 			push	af
