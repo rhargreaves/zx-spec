@@ -47,7 +47,7 @@ print_group_end		print_newline
 
 assert_a_equals_r	proc			; C = expected, A = actual
 			local	passes, done
-			cp	c		; does A = val?
+			cp	c		; does A = expected?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
@@ -59,7 +59,17 @@ assert_a_equals_r	proc			; C = expected, A = actual
 			call	safe_out_num_1
 			print_char	nl
 			print_char	nl
-			jp	done
+			jr	done
+passes			assert_pass
+done			ret
+			endp
+
+assert_a_not_equals_r	proc			; C = not expected, A = actual
+			local	passes, done
+			cp	c		; does A = not expected?
+			jr	nz,passes	; pass if it doesn't
+			assert_fail		; otherwise, fail
+			jr	done
 passes			assert_pass
 done			ret
 			endp
@@ -131,13 +141,10 @@ assert_l_equals		macro	val
 			endm
 
 assert_a_not_equals	macro	val
-			local	passes, done
-			cp	val		; does A = val?
-			jr	nz,passes	; pass if it doesn't
-			assert_fail		; otherwise, fail
-			jr	done
-passes			assert_pass
-done
+			push	bc
+			ld	c,val
+			call	assert_a_not_equals_r
+			pop	bc
 			endm
 
 assert_reg_not_equals	macro	val, reg
