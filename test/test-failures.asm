@@ -23,7 +23,13 @@ include src/zx-spec.asm
 		it 'fails for different value'
 			ld	bc,500
 			assert_bc_equals 502
-			assert_bc_equals 503			
+			assert_bc_equals 503
+
+	describe 'assert_de_equals'
+		it 'fails for different value'
+			ld	de,500
+			assert_de_equals 502
+			assert_de_equals 503					
 
 	describe 'assert_a_equals'
 		it 'fails for different value'
@@ -103,7 +109,12 @@ include src/zx-spec.asm
 	describe 'assert_bc_not_equals'
 		it 'fails for same value'
 			ld	bc,$0102
-			assert_bc_not_equals $0102				
+			assert_bc_not_equals $0102
+
+	describe 'assert_de_not_equals'
+		it 'fails for same value'
+			ld	de,$0102
+			assert_de_not_equals $0102						
 
 	describe 'assert_a_is_zero'
 		it 'fails for non-zero'

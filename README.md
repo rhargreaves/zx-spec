@@ -56,6 +56,10 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
 #### 16-bit Registers
 
+* `assert_bc_equals`
+* `assert_bc_not_equals`
+* `assert_de_equals`
+* `assert_de_not_equals`
 * `assert_hl_equals`
 * `assert_hl_not_equals`
 

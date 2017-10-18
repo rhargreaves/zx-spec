@@ -123,20 +123,13 @@ assert_bc_equals	macro	val
 			pop	hl
 			endm
 
-assert_hl_not_equals	macro	val			
-			push	bc
-			ld	bc,val
-			call	assert_hl_not_equals_r
-			pop	bc
-			endm	
-
-assert_bc_not_equals	macro	val			
+assert_de_equals	macro	val			
 			push	hl
-			ld	h,b
-			ld	l,c
-			assert_hl_not_equals	val
+			ld	h,d
+			ld	l,e
+			assert_hl_equals	val
 			pop	hl
-			endm					
+			endm								
 
 assert_a_equals		macro	val
 			push	bc		
@@ -217,6 +210,29 @@ assert_h_not_equals	macro	val
 assert_l_not_equals	macro	val
 			assert_reg_not_equals	val, l
 			endm
+
+assert_hl_not_equals	macro	val			
+			push	bc
+			ld	bc,val
+			call	assert_hl_not_equals_r
+			pop	bc
+			endm	
+
+assert_bc_not_equals	macro	val			
+			push	hl
+			ld	h,b
+			ld	l,c
+			assert_hl_not_equals	val
+			pop	hl
+			endm
+
+assert_de_not_equals	macro	val
+			push	hl
+			ld	h,d
+			ld	l,e
+			assert_hl_not_equals	val
+			pop	hl
+			endm				
 
 assert_a_is_zero	macro
 			assert_a_equals 0

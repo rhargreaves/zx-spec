@@ -14,7 +14,7 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 39
+        self.num_tests = 43
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
@@ -42,7 +42,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 25
+        self.num_tests = 28
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -58,7 +58,8 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_h_equals\n fails for different value\n\nExpected: 250, Actual: 5')
         self.assertRegexpMatches(self.output, 'assert_l_equals\n fails for different value\n\nExpected: 250, Actual: 5')
         self.assertRegexpMatches(self.output, 'assert_hl_equals\n fails for different value\n\nExpected: 502, Actual: 500')
-        self.assertRegexpMatches(self.output, 'assert_bc_equals\n fails for different value\n\nExpected: 502, Actual: 500')        
+        self.assertRegexpMatches(self.output, 'assert_bc_equals\n fails for different value\n\nExpected: 502, Actual: 500') 
+        self.assertRegexpMatches(self.output, 'assert_de_equals\n fails for different value\n\nExpected: 502, Actual: 500')     
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 503, Actual: 500')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 2, Actual: 1')  
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 3, Actual: 1')
@@ -70,7 +71,8 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_h_not_equals')
         self.assertRegexpMatches(self.output, 'assert_l_not_equals')
         self.assertRegexpMatches(self.output, 'assert_hl_not_equals')
-        self.assertRegexpMatches(self.output, 'assert_bc_not_equals')         
+        self.assertRegexpMatches(self.output, 'assert_bc_not_equals')
+        self.assertRegexpMatches(self.output, 'assert_de_not_equals')    
         self.assertRegexpMatches(self.output, 'assert_a_is_zero')
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
 
