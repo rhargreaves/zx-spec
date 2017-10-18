@@ -18,6 +18,16 @@ include src/zx-spec.asm
 			assert_hl_equals $0102
 			assert_hl_equals $0102
 
+	describe 'assert_bc_equals'
+		it 'passes for same value'
+			ld	bc,$0102
+			assert_bc_equals $0102
+
+		it "doesn't affect value of bc"
+			ld	bc,$0102
+			assert_bc_equals $0102
+			assert_bc_equals $0102			
+
 	describe 'assert_a_equals'
 		it 'passes for same value'
 			ld	a,5
