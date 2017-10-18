@@ -98,7 +98,12 @@ include src/zx-spec.asm
 	describe 'assert_hl_not_equals'
 		it 'fails for same value'
 			ld	hl,$0102
-			assert_hl_not_equals $0102	
+			assert_hl_not_equals $0102
+
+	describe 'assert_bc_not_equals'
+		it 'fails for same value'
+			ld	bc,$0102
+			assert_bc_not_equals $0102				
 
 	describe 'assert_a_is_zero'
 		it 'fails for non-zero'

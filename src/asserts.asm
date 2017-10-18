@@ -128,7 +128,15 @@ assert_hl_not_equals	macro	val
 			ld	bc,val
 			call	assert_hl_not_equals_r
 			pop	bc
-			endm			
+			endm	
+
+assert_bc_not_equals	macro	val			
+			push	hl
+			ld	h,b
+			ld	l,c
+			assert_hl_not_equals	val
+			pop	hl
+			endm					
 
 assert_a_equals		macro	val
 			push	bc		
