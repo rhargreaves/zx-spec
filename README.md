@@ -63,8 +63,8 @@ See [test/test-passes.asm](test/test-passes.asm) for examples.
 
 #### Single-Byte Memory
 
-* `assert_mem_equals        mem_addr, val`
-* `assert_mem_not_equals    mem_addr, val`
+* `assert_mem_equals`
+* `assert_mem_not_equals`
 
 ## Dependencies
 
