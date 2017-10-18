@@ -126,7 +126,16 @@ include src/zx-spec.asm
 			ld	a,0
 			assert_a_is_not_zero
 
+	describe 'assert_mem_equals'
+		it 'fails for different value'
+			assert_mem_equals  tmp_1, $FF
+
+	describe 'assert_mem_not_equals'
+		it 'fails for same value'
+			assert_mem_not_equals  tmp_1, $CC			
+
 			spec_end
 
 			ret
+tmp_1			db	$CC			
 			end	8000h

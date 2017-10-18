@@ -131,6 +131,20 @@ assert_de_equals	macro	val
 			pop	hl
 			endm								
 
+assert_mem_equals	macro	mem_addr, val
+			push	af
+			ld	a,(mem_addr)
+			assert_a_equals	val
+			pop	af
+			endm
+
+assert_mem_not_equals	macro	mem_addr, val
+			push	af
+			ld	a,(mem_addr)
+			assert_a_not_equals	val
+			pop	af
+			endm			
+
 assert_a_equals		macro	val
 			push	bc		
 			ld	c,val		; Store expected in C

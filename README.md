@@ -28,9 +28,7 @@ You can optionally name a set of asserts using the `it` macro. This groups the a
 
 ### Assertions
 
-Currently you can only assert on register values, although I plan to add memory-based assertions too.
-
-See [test/test-passes.asm](test/test-passes.asm) for example usages.
+See [test/test-passes.asm](test/test-passes.asm) for examples.
 
 * `assert_pass`
 * `assert_fail`
@@ -62,6 +60,11 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 * `assert_de_not_equals`
 * `assert_hl_equals`
 * `assert_hl_not_equals`
+
+#### Single-Byte Memory
+
+* `assert_mem_equals        mem_addr, val`
+* `assert_mem_not_equals    mem_addr, val`
 
 ## Dependencies
 
