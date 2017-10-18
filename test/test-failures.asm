@@ -10,9 +10,14 @@ include src/zx-spec.asm
 
 	describe 'assert_hl_equals'
 		it 'fails for different value'
-			ld	hl,$0102
-			assert_hl_equals $0202
-			assert_hl_equals $0101
+			ld	hl,500
+			assert_hl_equals 502
+			assert_hl_equals 503
+
+		it 'fails for different value'
+			ld	hl,1
+			assert_hl_equals 2
+			assert_hl_equals 3			
 
 	describe 'assert_a_equals'
 		it 'fails for different value'
