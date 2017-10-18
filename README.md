@@ -17,7 +17,7 @@ spec_init
     describe 'ld a,n'
         it 'sets A register to value'
             ld a,5
-            assert_a_equals 5
+            assert_a_equal 5
 
 spec_end
 ```
@@ -35,36 +35,36 @@ See [test/test-passes.asm](test/test-passes.asm) for examples.
 
 #### 8-bit Registers
 
-* `assert_a_equals`
-* `assert_a_not_equals`
-* `assert_b_equals`
-* `assert_b_not_equals`
-* `assert_c_equals`
-* `assert_c_not_equals`
-* `assert_d_equals`
-* `assert_d_not_equals`
-* `assert_e_equals`
-* `assert_e_not_equals`
-* `assert_h_equals`
-* `assert_h_not_equals`
-* `assert_l_equals`
-* `assert_l_not_equals`
+* `assert_a_equal`
+* `assert_a_not_equal`
+* `assert_b_equal`
+* `assert_b_not_equal`
+* `assert_c_equal`
+* `assert_c_not_equal`
+* `assert_d_equal`
+* `assert_d_not_equal`
+* `assert_e_equal`
+* `assert_e_not_equal`
+* `assert_h_equal`
+* `assert_h_not_equal`
+* `assert_l_equal`
+* `assert_l_not_equal`
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
 
 #### 16-bit Registers
 
-* `assert_bc_equals`
-* `assert_bc_not_equals`
-* `assert_de_equals`
-* `assert_de_not_equals`
-* `assert_hl_equals`
-* `assert_hl_not_equals`
+* `assert_bc_equal`
+* `assert_bc_not_equal`
+* `assert_de_equal`
+* `assert_de_not_equal`
+* `assert_hl_equal`
+* `assert_hl_not_equal`
 
 #### Single-Byte Memory
 
-* `assert_mem_equals`
-* `assert_mem_not_equals`
+* `assert_mem_equal`
+* `assert_mem_not_equal`
 
 ## Dependencies
 

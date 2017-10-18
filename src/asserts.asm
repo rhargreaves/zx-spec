@@ -45,7 +45,7 @@ print_group_end		print_newline
 			ret
 			endp
 
-assert_a_equals_r	proc			; C = expected, A = actual
+assert_a_equal_r	proc			; C = expected, A = actual
 			local	passes, done
 			cp	c		; does A = expected?
 			jp	z,passes	; pass if so
@@ -64,7 +64,7 @@ passes			assert_pass
 done			ret
 			endp
 
-assert_a_not_equals_r	proc			; C = not expected, A = actual
+assert_a_not_equal_r	proc			; C = not expected, A = actual
 			local	passes, done
 			cp	c		; does A = not expected?
 			jr	nz,passes	; pass if it doesn't
@@ -74,7 +74,7 @@ passes			assert_pass
 done			ret
 			endp
 
-assert_hl_equals_r	proc			; HL = actual, BC = expected
+assert_hl_equal_r	proc			; HL = actual, BC = expected
 			local	passes, done
 			push	hl
 			push	hl
@@ -96,7 +96,7 @@ done			pop	hl
 			ret
 			endp
 
-assert_hl_not_equals_r	proc			; HL = actual, BC = unexpected
+assert_hl_not_equal_r	proc			; HL = actual, BC = unexpected
 			local	passes, done
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
@@ -108,150 +108,150 @@ done			pop	hl
 			ret
 			endp			
 
-assert_hl_equals	macro	val			
+assert_hl_equal	macro	val			
 			push	bc
 			ld	bc,val
-			call	assert_hl_equals_r
+			call	assert_hl_equal_r
 			pop	bc
 			endm
 
-assert_bc_equals	macro	val			
+assert_bc_equal	macro	val			
 			push	hl
 			ld	h,b
 			ld	l,c
-			assert_hl_equals	val
+			assert_hl_equal	val
 			pop	hl
 			endm
 
-assert_de_equals	macro	val			
+assert_de_equal	macro	val			
 			push	hl
 			ld	h,d
 			ld	l,e
-			assert_hl_equals	val
+			assert_hl_equal	val
 			pop	hl
 			endm								
 
-assert_mem_equals	macro	mem_addr, val
+assert_mem_equal	macro	mem_addr, val
 			push	af
 			ld	a,(mem_addr)
-			assert_a_equals	val
+			assert_a_equal	val
 			pop	af
 			endm
 
-assert_mem_not_equals	macro	mem_addr, val
+assert_mem_not_equal	macro	mem_addr, val
 			push	af
 			ld	a,(mem_addr)
-			assert_a_not_equals	val
+			assert_a_not_equal	val
 			pop	af
 			endm			
 
-assert_a_equals		macro	val
+assert_a_equal		macro	val
 			push	bc		
 			ld	c,val		; Store expected in C
-			call	assert_a_equals_r
+			call	assert_a_equal_r
 			pop	bc
 			endm
 
-assert_reg_equals	macro	val, reg			
+assert_reg_equal	macro	val, reg			
 			push	af		; Backup A
 			ld	a,reg		; Copy register into A
-			assert_a_equals	val
+			assert_a_equal	val
 			pop	af		; Restore A
 			endm
 
-assert_b_equals		macro	val			
-			assert_reg_equals val, b
+assert_b_equal		macro	val			
+			assert_reg_equal val, b
 			endm
 
-assert_c_equals		macro	val			
-			assert_reg_equals val, c
+assert_c_equal		macro	val			
+			assert_reg_equal val, c
 			endm
 
-assert_d_equals		macro	val			
-			assert_reg_equals val, d
+assert_d_equal		macro	val			
+			assert_reg_equal val, d
 			endm
 
-assert_e_equals		macro	val			
-			assert_reg_equals val, e
+assert_e_equal		macro	val			
+			assert_reg_equal val, e
 			endm
 
-assert_h_equals		macro	val
+assert_h_equal		macro	val
 			push	hl	
-			assert_reg_equals val, h
+			assert_reg_equal val, h
 			pop	hl
 			endm
 
-assert_l_equals		macro	val	
+assert_l_equal		macro	val	
 			push	hl		
-			assert_reg_equals val, l
+			assert_reg_equal val, l
 			pop	hl
 			endm
 
-assert_a_not_equals	macro	val
+assert_a_not_equal	macro	val
 			push	bc
 			ld	c,val
-			call	assert_a_not_equals_r
+			call	assert_a_not_equal_r
 			pop	bc
 			endm
 
-assert_reg_not_equals	macro	val, reg
+assert_reg_not_equal	macro	val, reg
 			push	af		; Backup A
 			ld	a,reg		; Copy register into A
-			assert_a_not_equals	val
+			assert_a_not_equal	val
 			pop	af		; Restore A
 			endm
 
-assert_b_not_equals	macro	val
-			assert_reg_not_equals	val, b
+assert_b_not_equal	macro	val
+			assert_reg_not_equal	val, b
 			endm
 
-assert_c_not_equals	macro	val
-			assert_reg_not_equals	val, c
+assert_c_not_equal	macro	val
+			assert_reg_not_equal	val, c
 			endm
 
-assert_d_not_equals	macro	val
-			assert_reg_not_equals	val, d
+assert_d_not_equal	macro	val
+			assert_reg_not_equal	val, d
 			endm
 
-assert_e_not_equals	macro	val
-			assert_reg_not_equals	val, e
+assert_e_not_equal	macro	val
+			assert_reg_not_equal	val, e
 			endm
 
-assert_h_not_equals	macro	val
-			assert_reg_not_equals	val, h
+assert_h_not_equal	macro	val
+			assert_reg_not_equal	val, h
 			endm
 
-assert_l_not_equals	macro	val
-			assert_reg_not_equals	val, l
+assert_l_not_equal	macro	val
+			assert_reg_not_equal	val, l
 			endm
 
-assert_hl_not_equals	macro	val			
+assert_hl_not_equal	macro	val			
 			push	bc
 			ld	bc,val
-			call	assert_hl_not_equals_r
+			call	assert_hl_not_equal_r
 			pop	bc
 			endm	
 
-assert_bc_not_equals	macro	val			
+assert_bc_not_equal	macro	val			
 			push	hl
 			ld	h,b
 			ld	l,c
-			assert_hl_not_equals	val
+			assert_hl_not_equal	val
 			pop	hl
 			endm
 
-assert_de_not_equals	macro	val
+assert_de_not_equal	macro	val
 			push	hl
 			ld	h,d
 			ld	l,e
-			assert_hl_not_equals	val
+			assert_hl_not_equal	val
 			pop	hl
 			endm				
 
 assert_a_is_zero	macro
-			assert_a_equals 0
+			assert_a_equal 0
 			endm
 
 assert_a_is_not_zero	macro
-			assert_a_not_equals 0
+			assert_a_not_equal 0
 			endm

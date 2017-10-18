@@ -8,14 +8,14 @@ include src/zx-spec.asm
 		it 'passes test'
 			assert_pass
 
-	describe 'assert_a_equals'
+	describe 'assert_a_equal'
 		it 'fails for different value'
 			ld	a,5
-			assert_a_equals 255
+			assert_a_equal 255
 
 		it 'fails again'
 			ld	a,5
-			assert_a_equals 255
+			assert_a_equal 255
 
 			spec_end
 
