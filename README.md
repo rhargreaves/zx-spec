@@ -32,8 +32,6 @@ Currently you can only assert on register values, although I plan to add memory-
 
 See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
-#### Immediate Pass or Fail
-
 * `assert_pass`
 * `assert_fail`
 

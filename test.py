@@ -68,6 +68,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_e_not_equals')
         self.assertRegexpMatches(self.output, 'assert_h_not_equals')
         self.assertRegexpMatches(self.output, 'assert_l_not_equals')
+        self.assertRegexpMatches(self.output, 'assert_hl_not_equals')        
         self.assertRegexpMatches(self.output, 'assert_a_is_zero')
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
 
