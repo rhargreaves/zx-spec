@@ -32,6 +32,13 @@ Currently you can only assert on register values, although I plan to add memory-
 
 See [test/test-passes.asm](test/test-passes.asm) for example usages.
 
+#### Immediate Pass or Fail
+
+* `assert_pass`
+* `assert_fail`
+
+#### 8-bit Registers
+
 * `assert_a_equals`
 * `assert_a_not_equals`
 * `assert_b_equals`
@@ -48,8 +55,11 @@ See [test/test-passes.asm](test/test-passes.asm) for example usages.
 * `assert_l_not_equals`
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
-* `assert_fail`
-* `assert_pass`
+
+#### 16-bit Registers
+
+* `assert_hl_equals`
+* `assert_hl_not_equals`
 
 ## Dependencies
 

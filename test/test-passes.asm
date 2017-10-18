@@ -123,6 +123,11 @@ include src/zx-spec.asm
 			ld	l,0
 			assert_l_not_equals 5
 
+	describe 'assert_hl_not_equals'
+		it 'passes for different value'
+			ld	hl,$0002
+			assert_hl_not_equals $0103			
+
 	describe 'assert_a_is_zero'
 		it 'passes for zero'
 			ld	a,0

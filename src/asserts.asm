@@ -80,7 +80,7 @@ assert_hl_equals_r	proc			; HL = actual, BC = expected
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
 			pop	hl
-			jp	z,passes	; pass if zero
+			jp	z,passes	; pass if same
 			push	hl
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
@@ -96,13 +96,31 @@ done			pop	hl
 			ret
 			endp
 
-assert_hl_equals	macro	val			
+assert_hl_not_equals_r	proc			; HL = actual, BC = unexpected
 			local	passes, done
-			push	bc		; Backup BC
+			push	hl
+			sbc	hl,bc		; Subtract val from HL
+			jp	nz,passes	; pass if different
+			assert_fail		; otherwise, fail
+			jr	done
+passes			assert_pass
+done			pop	hl
+			ret
+			endp			
+
+assert_hl_equals	macro	val			
+			push	bc
 			ld	bc,val
 			call	assert_hl_equals_r
-			pop	bc		; Restore BC
+			pop	bc
 			endm
+
+assert_hl_not_equals	macro	val			
+			push	bc
+			ld	bc,val
+			call	assert_hl_not_equals_r
+			pop	bc
+			endm			
 
 assert_a_equals		macro	val
 			push	bc		
