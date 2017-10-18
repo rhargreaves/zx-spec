@@ -74,11 +74,9 @@ passes			assert_pass
 done			ret
 			endp
 
-assert_hl_equals	macro	val			
+assert_hl_equals_r	proc			; HL = actual, BC = expected
 			local	passes, done
 			push	hl
-			push	bc		; Backup BC
-			ld	bc,val
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
 			pop	hl
@@ -94,8 +92,16 @@ assert_hl_equals	macro	val
 			print_char	nl
 			jp	done
 passes			assert_pass
-done			pop	bc		; Restore BC
-			pop	hl
+done			pop	hl
+			ret
+			endp
+
+assert_hl_equals	macro	val			
+			local	passes, done
+			push	bc		; Backup BC
+			ld	bc,val
+			call	assert_hl_equals_r
+			pop	bc		; Restore BC
 			endm
 
 assert_a_equals		macro	val
