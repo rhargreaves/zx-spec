@@ -36,7 +36,17 @@ include src/zx-spec.asm
 		it "doesn't affect value of de"
 			ld	de,$0102
 			assert_de_equal $0102
-			assert_de_equal $0102					
+			assert_de_equal $0102
+
+	describe 'assert_ix_equal'
+		it 'passes for same value'
+			ld	ix,$0102
+			assert_ix_equal $0102
+
+		it "doesn't affect value of ix"
+			ld	ix,$0102
+			assert_ix_equal $0102
+			assert_ix_equal $0102
 
 	describe 'assert_a_equal'
 		it 'passes for same value'
@@ -156,7 +166,12 @@ include src/zx-spec.asm
 	describe 'assert_de_not_equal'
 		it 'passes for different value'
 			ld	de,$0002
-			assert_de_not_equal $0103							
+			assert_de_not_equal $0103
+
+	describe 'assert_ix_not_equal'
+		it 'passes for different value'
+			ld	ix,$0002
+			assert_ix_not_equal $0103
 
 	describe 'assert_a_is_zero'
 		it 'passes for zero'

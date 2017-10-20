@@ -60,6 +60,10 @@ See [test/test-passes.asm](test/test-passes.asm) for examples.
 * `assert_de_not_equal`
 * `assert_hl_equal`
 * `assert_hl_not_equal`
+* `assert_ix_equal`
+* `assert_ix_not_equal`
+
+Asserting on the IY register value is not currently supported. The IY register is used by Spectrum ROM routines as a index to system variables and is not generally recommended to be used in custom routines due to the added complexity of ensuring its use does not interfere with normal operation.
 
 #### Single-Byte Memory
 

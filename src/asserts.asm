@@ -108,14 +108,14 @@ done			pop	hl
 			ret
 			endp			
 
-assert_hl_equal	macro	val			
+assert_hl_equal		macro	val			
 			push	bc
 			ld	bc,val
 			call	assert_hl_equal_r
 			pop	bc
 			endm
 
-assert_bc_equal	macro	val			
+assert_bc_equal		macro	val			
 			push	hl
 			ld	h,b
 			ld	l,c
@@ -123,13 +123,21 @@ assert_bc_equal	macro	val
 			pop	hl
 			endm
 
-assert_de_equal	macro	val			
+assert_de_equal		macro	val			
 			push	hl
 			ld	h,d
 			ld	l,e
 			assert_hl_equal	val
 			pop	hl
-			endm								
+			endm
+
+assert_ix_equal		macro	val		
+			push	de
+			ld	d,ixh
+			ld	e,ixl
+			assert_de_equal	val
+			pop	de
+			endm
 
 assert_mem_equal	macro	mem_addr, val
 			push	af
@@ -246,7 +254,15 @@ assert_de_not_equal	macro	val
 			ld	l,e
 			assert_hl_not_equal	val
 			pop	hl
-			endm				
+			endm
+
+assert_ix_not_equal	macro	val		
+			push	de
+			ld	d,ixh
+			ld	e,ixl
+			assert_de_not_equal	val
+			pop	de
+			endm
 
 assert_a_is_zero	macro
 			assert_a_equal 0
