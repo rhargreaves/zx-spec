@@ -70,6 +70,11 @@ Asserting on the IY register value is not currently supported. The IY register i
 * `assert_mem_equal`
 * `assert_mem_not_equal`
 
+#### Double-Byte Word Memory
+
+* `assert_word_equal`
+* `assert_word_not_equal`
+
 ## Dependencies
 
 * Python 2.7 (for running ZX Spec tests)

@@ -14,7 +14,7 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 49
+        self.num_tests = 51
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
@@ -42,7 +42,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 33
+        self.num_tests = 35
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -61,7 +61,8 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_bc_equal\n fails for different value\n\nExpected: 502, Actual: 500') 
         self.assertRegexpMatches(self.output, 'assert_de_equal\n fails for different value\n\nExpected: 502, Actual: 500')
         self.assertRegexpMatches(self.output, 'assert_ix_equal\n fails for different value')            
-        self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')   
+        self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
+        self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 259')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 503, Actual: 500')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 2, Actual: 1')  
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 3, Actual: 1')
@@ -79,6 +80,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_a_is_zero')
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
         self.assertRegexpMatches(self.output, 'assert_mem_not_equal')
+        self.assertRegexpMatches(self.output, 'assert_word_not_equal')
 
     def test_all_tests_failed(self):
         self.assertRegexpMatches(self.output, 'Pass: 0, Fail: {0}, Total: {0}'.format(

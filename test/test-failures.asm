@@ -143,10 +143,19 @@ include src/zx-spec.asm
 
 	describe 'assert_mem_not_equal'
 		it 'fails for same value'
-			assert_mem_not_equal  tmp_1, $CC			
+			assert_mem_not_equal  tmp_1, $CC
+
+	describe 'assert_word_equal'
+		it 'fails for different value'
+			assert_word_equal  tmp_2, $0102
+
+	describe 'assert_word_not_equal'
+		it 'fails for same value'
+			assert_word_not_equal  tmp_2, $0103						
 
 			spec_end
 
 			ret
-tmp_1			db	$CC			
+tmp_1			db	$CC
+tmp_2			dw	$0103		
 			end	8000h

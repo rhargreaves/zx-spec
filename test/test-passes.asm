@@ -189,11 +189,19 @@ include src/zx-spec.asm
 
 	describe 'assert_mem_not_equal'
 		it 'passes for different value'
-			assert_mem_not_equal  tmp_1, $DD			
+			assert_mem_not_equal  tmp_1, $DD
+
+	describe 'assert_word_equal'
+		it 'passes for same value'
+			assert_word_equal  tmp_2, $DDEE
+
+	describe 'assert_word_not_equal'
+		it 'passes for different value'
+			assert_word_not_equal  tmp_2, $FFAA
 
 			spec_end
-
 			ret
 
 tmp_1			db	$CC
+tmp_2			dw	$DDEE
 			end	8000h

@@ -151,7 +151,21 @@ assert_mem_not_equal	macro	mem_addr, val
 			ld	a,(mem_addr)
 			assert_a_not_equal	val
 			pop	af
-			endm			
+			endm
+
+assert_word_equal	macro	mem_addr, val
+			push	hl
+			ld	hl,(mem_addr)
+			assert_hl_equal	val
+			pop	hl
+			endm
+
+assert_word_not_equal	macro	mem_addr, val
+			push	hl
+			ld	hl,(mem_addr)
+			assert_hl_not_equal	val
+			pop	hl
+			endm							
 
 assert_a_equal		macro	val
 			push	bc		
