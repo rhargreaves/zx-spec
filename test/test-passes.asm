@@ -203,6 +203,10 @@ include src/zx-spec.asm
 		it 'passes for same value'
 			assert_str_equal  tmp_str, 'test string'
 
+	describe 'assert_str_not_equal'
+		it 'passes for different value'
+			assert_str_not_equal  tmp_str, 'diff string'
+
 			spec_end
 			ret
 

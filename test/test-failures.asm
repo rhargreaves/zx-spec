@@ -156,6 +156,10 @@ include src/zx-spec.asm
 	describe 'assert_str_equal'
 		it 'fails for different value'
 			assert_str_equal  tmp_str, 'diff test string'
+
+	describe 'assert_str_not_equal'
+		it 'fails for same value'
+			assert_str_not_equal  tmp_str, 'test string'		
 								
 			spec_end
 
