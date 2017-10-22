@@ -184,6 +184,10 @@ loop			ld	c,(hl)			; C = Actual char
 			assert_pass
 			jr	done
 fail			assert_fail
+			print_text expected_txt, expected_txt_end
+			print_char d_quote
+			print_text val_start, val_end
+			print_char d_quote
 			jr	done
 done			equ	$
 			endm			

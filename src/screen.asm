@@ -22,6 +22,7 @@ space			equ	' '
 nl			equ	13		; New line character
 cross			equ	'x'
 period			equ	'.'
+d_quote			equ	$22		; double quote
 
 ; Border Constants
 border_port		equ	0feh
