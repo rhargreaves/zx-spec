@@ -159,7 +159,10 @@ include src/zx-spec.asm
 
 	describe 'assert_str_not_equal'
 		it 'fails for same value'
-			assert_str_not_equal  tmp_str, 'test string'		
+			assert_str_not_equal  tmp_str, 'test string'
+
+		it "fails for same value with termination bit set"
+			assert_str_not_equal  copyright_rom_addr, "\x7f 1982 Sinclair Research Ltd"				
 								
 			spec_end
 
@@ -167,5 +170,6 @@ include src/zx-spec.asm
 tmp_1			db	$CC
 tmp_2			dw	$0103
 tmp_str			db	'test string'
-tmp_str_end		equ	$	
+tmp_str_end		equ	$
+copyright_rom_addr	equ	1539h
 			end	8000h
