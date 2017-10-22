@@ -81,6 +81,8 @@ Asserting on the IY register value is not currently supported. The IY register i
 * `assert_carry_reset`
 * `assert_s_set`
 * `assert_s_reset`
+* `assert_p_v_set`
+* `assert_p_v_reset`
 
 ### Memory
 
