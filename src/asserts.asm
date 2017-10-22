@@ -167,21 +167,31 @@ assert_word_not_equal	macro	mem_addr, val
 			pop	hl
 			endm
 
-assert_str_equal	macro	str_addr, val
-			local	val_start, val_end, fail, done, loop
-			jr	val_end
-val_start		db	val
-val_end			ld	b,val_end-val_start	; B = string length
-			ld	hl,str_addr		; HL = Actual start
-			ld	de,val_start		; DE = Expected start
+comp_str		proc	; Compares two strings
+				; Inputs: B = string length, HL = actual start, DE = expected start 
+				; Outputs: Z flag: 0 = string equal, 1 = not equal
+			local	loop, done
 loop			ld	c,(hl)			; C = Actual char
 			res	7,c			; Remove any string termination bit
 			ld	a,(de)			; A = Expected char
 			cp	c			; Compare actual with expected char
-			jp	nz,fail			; Not equal. Fail test.
+			jp	nz,done			; Not equal.
 			inc	hl			; Next actual char
 			inc	de			; Next expected char
 			djnz	loop			; Dec string length, loop if <> 0
+done			ret
+			endp
+
+assert_str_equal	macro	str_addr, val
+			local	val_start, val_end, fail, done
+			jr	val_end
+val_start		db	val
+val_end			equ	$
+			ld	b,val_end-val_start	; B = string length
+			ld	hl,str_addr		; HL = Actual start
+			ld	de,val_start		; DE = Expected start
+			call	comp_str
+			jr	nz,fail
 			assert_pass
 			jr	done
 fail			assert_fail
