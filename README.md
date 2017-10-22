@@ -76,7 +76,9 @@ Asserting on the IY register value is not currently supported. The IY register i
 #### Flags
 
 * `assert_z_set`
-* `assert_z_unset`
+* `assert_z_reset`
+* `assert_carry_set`
+* `assert_carry_reset`
 
 ### Memory
 

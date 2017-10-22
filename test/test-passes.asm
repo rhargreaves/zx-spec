@@ -220,7 +220,19 @@ include src/zx-spec.asm
 		it "passes when zero flag reset"
 			ld	a,5
 			or	0
-			assert_z_reset			
+			assert_z_reset
+
+	describe 'assert_carry_set'
+		it "passes when carry flag set"
+			ld	a,$FF
+			add	a,1
+			assert_carry_set
+
+	describe 'assert_carry_reset'
+		it "passes when carry flag reset"
+			ld	a,$00
+			add	a,1
+			assert_carry_reset
 
 			spec_end
 			ret

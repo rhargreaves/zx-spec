@@ -174,7 +174,19 @@ include src/zx-spec.asm
 		it "fails when zero flag set"
 			ld	a,0
 			or	a
-			assert_z_reset								
+			assert_z_reset
+
+	describe 'assert_carry_set'
+		it "fails when carry flag reset"
+			ld	a,$00
+			add	a,1
+			assert_carry_set
+
+	describe 'assert_carry_reset'
+		it "fails when carry flag set"
+			ld	a,$FF
+			add	a,1	
+			assert_carry_reset										
 								
 			spec_end
 

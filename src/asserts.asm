@@ -60,7 +60,15 @@ assert_z_set		macro	val
 
 assert_z_reset		macro	val
 			assert_cond	val, nz
-			endm			
+			endm
+
+assert_carry_set	macro	val
+			assert_cond	val, c
+			endm
+
+assert_carry_reset	macro	val
+			assert_cond	val, nc
+			endm		
 
 assert_a_equal_r	proc			; C = expected, A = actual
 			local	passes, done
