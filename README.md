@@ -73,6 +73,11 @@ These assertions will preserve register values.
 
 Asserting on the IY register value is not currently supported. The IY register is used by Spectrum ROM routines as a index to system variables and is not generally recommended to be used in custom routines due to the added complexity of ensuring its use does not interfere with normal operation.
 
+#### Flags
+
+* `assert_z_set`
+* `assert_z_unset`
+
 ### Memory
 
 Be warned that these assertions will not preserve register values.

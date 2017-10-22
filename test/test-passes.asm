@@ -210,6 +210,17 @@ include src/zx-spec.asm
 		it 'passes for different value'
 			assert_str_not_equal  tmp_str, 'diff string'
 
+	describe 'assert_z_set'
+		it "passes when zero flag set"
+			ld	a,0
+			or	a
+			assert_z_set
+
+	describe 'assert_z_reset'
+		it "passes when zero flag reset"
+			ld	a,5
+			or	0
+			assert_z_reset			
 
 			spec_end
 			ret

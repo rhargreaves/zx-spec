@@ -45,6 +45,24 @@ print_group_end		print_newline
 			ret
 			endp
 
+assert_z_set		macro	val
+			local	passes, done
+			jp	z,passes	; pass if Z set
+			assert_fail		; otherwise, fail
+			jr	done
+passes			assert_pass
+done			equ	$
+			endm
+
+assert_z_reset		macro	val
+			local	passes, done
+			jp	nz,passes	; pass if Z reset
+			assert_fail		; otherwise, fail
+			jr	done
+passes			assert_pass
+done			equ	$
+			endm			
+
 assert_a_equal_r	proc			; C = expected, A = actual
 			local	passes, done
 			cp	c		; does A = expected?
