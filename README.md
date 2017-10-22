@@ -26,14 +26,20 @@ spec_end
 
 You can optionally name a set of asserts using the `it` macro. This groups the asserts into a single test. In addition to `it`, you can use the `describe` macro to group one or more tests. Nested `describe` or `it` macros are not permitted.
 
-### Assertions
+## Assertions
 
 See [test/test-passes.asm](test/test-passes.asm) for examples.
+
+You can immediately pass or fail a test by using:
 
 * `assert_pass`
 * `assert_fail`
 
-#### 8-bit Registers
+### Registers
+
+These assertions will preserve register values.
+
+#### 8-bit
 
 * `assert_a_equal`
 * `assert_a_not_equal`
@@ -52,7 +58,7 @@ See [test/test-passes.asm](test/test-passes.asm) for examples.
 * `assert_a_is_zero`
 * `assert_a_is_not_zero`
 
-#### 16-bit Registers
+#### 16-bit
 
 * `assert_bc_equal`
 * `assert_bc_not_equal`
@@ -63,14 +69,20 @@ See [test/test-passes.asm](test/test-passes.asm) for examples.
 * `assert_ix_equal`
 * `assert_ix_not_equal`
 
+##### IY
+
 Asserting on the IY register value is not currently supported. The IY register is used by Spectrum ROM routines as a index to system variables and is not generally recommended to be used in custom routines due to the added complexity of ensuring its use does not interfere with normal operation.
 
-#### Single-Byte Memory
+### Memory
+
+Be warned that these assertions will not preserve register values.
+
+#### Single-Byte
 
 * `assert_mem_equal`
 * `assert_mem_not_equal`
 
-#### Double-Byte Word Memory
+#### Double-Byte Word
 
 * `assert_word_equal`
 * `assert_word_not_equal`
