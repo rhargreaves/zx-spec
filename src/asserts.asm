@@ -175,6 +175,7 @@ val_end			ld	b,val_end-val_start	; B = string length
 			ld	hl,str_addr		; HL = Actual start
 			ld	de,val_start		; DE = Expected start
 loop			ld	c,(hl)			; C = Actual char
+			res	7,c			; Remove any string termination bit
 			ld	a,(de)			; A = Expected char
 			cp	c			; Compare actual with expected char
 			jp	nz,fail			; Not equal. Fail test.

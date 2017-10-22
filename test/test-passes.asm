@@ -203,9 +203,13 @@ include src/zx-spec.asm
 		it 'passes for same value'
 			assert_str_equal  tmp_str, 'test string'
 
+		it 'supports spectrum terminated string'
+			assert_str_equal  copyright_rom_addr, "\x7f 1982 Sinclair Research Ltd"
+
 	describe 'assert_str_not_equal'
 		it 'passes for different value'
 			assert_str_not_equal  tmp_str, 'diff string'
+
 
 			spec_end
 			ret
@@ -214,4 +218,5 @@ tmp_1			db	$CC
 tmp_2			dw	$DDEE
 tmp_str			db	'test string'
 tmp_str_end		equ	$
+copyright_rom_addr	equ	1539h
 			end	8000h
