@@ -199,9 +199,15 @@ include src/zx-spec.asm
 		it 'passes for different value'
 			assert_word_not_equal  tmp_2, $FFAA
 
+	describe 'assert_str_equal'
+		it 'passes for same value'
+			assert_str_equal  tmp_str, 'test string'
+
 			spec_end
 			ret
 
 tmp_1			db	$CC
 tmp_2			dw	$DDEE
+tmp_str			db	'test string'
+tmp_str_end		equ	$
 			end	8000h

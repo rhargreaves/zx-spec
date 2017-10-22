@@ -165,7 +165,28 @@ assert_word_not_equal	macro	mem_addr, val
 			ld	hl,(mem_addr)
 			assert_hl_not_equal	val
 			pop	hl
-			endm							
+			endm
+
+assert_str_equal	macro	str_addr, val
+			local	val_end, fail, done, loop
+			jr	val_end
+val_start		db	val
+val_end			ld	b,val_end-val_start	; B = string length
+			ld	hl,str_addr		; HL = Actual start
+			ld	de,val_start		; DE = Expected start
+loop			ld	c,(hl)			; C = Actual char
+			ld	a,(de)			; A = Expected char
+			cp	c			; Compare actual with expected char
+			jp	nz,fail			; Not equal. Fail test.
+			inc	hl			; Next actual char
+			inc	de			; Next expected char
+			djnz	loop			; Dec string length, loop if <> 0
+			assert_pass
+			jr	done
+fail			assert_fail
+			jr	done
+done			equ	$
+			endm			
 
 assert_a_equal		macro	val
 			push	bc		
