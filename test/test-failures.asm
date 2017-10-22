@@ -151,7 +151,7 @@ include src/zx-spec.asm
 
 	describe 'assert_word_not_equal'
 		it 'fails for same value'
-			assert_word_not_equal  tmp_2, $0103
+			assert_word_not_equal  tmp_2, $FFDD
 
 	describe 'assert_str_equal'
 		it 'fails for different value'
@@ -168,7 +168,7 @@ include src/zx-spec.asm
 
 			ret
 tmp_1			db	$CC
-tmp_2			dw	$0103
+tmp_2			dw	$FFDD
 tmp_str			db	'test string'
 tmp_str_end		equ	$
 copyright_rom_addr	equ	1539h

@@ -52,11 +52,11 @@ assert_a_equal_r	proc			; C = expected, A = actual
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
 			ld	b,0
-			call	safe_out_num_1
+			call	print_num_in_bc
 			print_text actual_txt, actual_txt_end
 			ld	b,0
 			ld	c,a
-			call	safe_out_num_1
+			call	print_num_in_bc
 			print_char	nl
 			print_char	nl
 			jr	done
@@ -84,10 +84,10 @@ assert_hl_equal_r	proc			; HL = actual, BC = expected
 			push	hl
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
-			call	safe_out_num_1
+			call	print_num_in_bc
 			print_text actual_txt, actual_txt_end
 			pop	bc		; pop HL into BC
-			call	safe_out_num_1
+			call	print_num_in_bc
 			print_char	nl
 			print_char	nl
 			jp	done

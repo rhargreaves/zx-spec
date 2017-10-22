@@ -62,7 +62,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_de_equal\n fails for different value\n\nExpected: 502, Actual: 500')
         self.assertRegexpMatches(self.output, 'assert_ix_equal\n fails for different value')            
         self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
-        self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 259')
+        self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 65501')
         self.assertRegexpMatches(self.output, 'assert_str_equal\n fails for different value\n\nExpected: "diff test string", Ac\ntual: "test string\?\?\?\?\?"')        
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 503, Actual: 500')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 2, Actual: 1')  
@@ -83,6 +83,9 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_mem_not_equal')
         self.assertRegexpMatches(self.output, 'assert_word_not_equal')
         self.assertRegexpMatches(self.output, 'assert_str_not_equal')
+
+    def test_16_bit_numbers_displayed_correctly(self):
+        self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 65501')
 
     def test_all_tests_failed(self):
         self.assertRegexpMatches(self.output, 'Pass: 0, Fail: {0}, Total: {0}'.format(
