@@ -45,22 +45,21 @@ print_group_end		print_newline
 			ret
 			endp
 
-assert_z_set		macro	val
+assert_cond		macro	val, cond
 			local	passes, done
-			jp	z,passes	; pass if Z set
+			jp	cond,passes	; pass if flag set
 			assert_fail		; otherwise, fail
 			jr	done
 passes			assert_pass
 done			equ	$
 			endm
 
+assert_z_set		macro	val
+			assert_cond	val, z
+			endm
+
 assert_z_reset		macro	val
-			local	passes, done
-			jp	nz,passes	; pass if Z reset
-			assert_fail		; otherwise, fail
-			jr	done
-passes			assert_pass
-done			equ	$
+			assert_cond	val, nz
 			endm			
 
 assert_a_equal_r	proc			; C = expected, A = actual
