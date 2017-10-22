@@ -246,6 +246,18 @@ include src/zx-spec.asm
 			inc	a
 			assert_s_reset
 
+	describe 'assert_p_v_set'
+		it "passes when overflow flag set"
+			ld	a,$7F
+			inc	a
+			assert_p_v_set
+
+	describe 'assert_p_v_reset'
+		it "passes when overflow flag reset"
+			ld	a,$80
+			inc	a
+			assert_p_v_reset					
+
 			spec_end
 			ret
 

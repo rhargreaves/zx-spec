@@ -76,7 +76,15 @@ assert_s_set		macro	val
 
 assert_s_reset		macro	val
 			assert_cond	val, p
-			endm					
+			endm
+
+assert_p_v_set		macro	val
+			assert_cond	val, pe
+			endm
+
+assert_p_v_reset	macro	val
+			assert_cond	val, po
+			endm							
 
 assert_a_equal_r	proc			; C = expected, A = actual
 			local	passes, done

@@ -14,7 +14,7 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 60
+        self.num_tests = 62
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
@@ -42,7 +42,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 44
+        self.num_tests = 46
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -69,7 +69,9 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_carry_set\n fails when carry flag reset')
         self.assertRegexpMatches(self.output, 'assert_carry_reset\n fails when carry flag set')
         self.assertRegexpMatches(self.output, 'assert_s_set\n fails when signed flag reset')
-        self.assertRegexpMatches(self.output, 'assert_s_reset\n fails when signed flag set')              
+        self.assertRegexpMatches(self.output, 'assert_s_reset\n fails when signed flag set')
+        self.assertRegexpMatches(self.output, 'assert_p_v_set\n fails when overflow flag reset')
+        self.assertRegexpMatches(self.output, 'assert_p_v_reset\n fails when overflow flag set')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 503, Actual: 500')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 2, Actual: 1')  
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 3, Actual: 1')

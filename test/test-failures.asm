@@ -198,7 +198,19 @@ include src/zx-spec.asm
 		it "fails when signed flag set"
 			ld	a,$00
 			dec	a
-			assert_s_reset													
+			assert_s_reset
+
+	describe 'assert_p_v_set'
+		it "fails when overflow flag reset"
+			ld	a,$80
+			inc	a
+			assert_p_v_set
+
+	describe 'assert_p_v_reset'
+		it "fails when overflow flag set"
+			ld	a,$7F
+			inc	a
+			assert_p_v_reset															
 								
 			spec_end
 
