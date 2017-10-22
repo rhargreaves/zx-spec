@@ -186,7 +186,19 @@ include src/zx-spec.asm
 		it "fails when carry flag set"
 			ld	a,$FF
 			add	a,1	
-			assert_carry_reset										
+			assert_carry_reset
+
+	describe 'assert_s_set'
+		it "fails when signed flag reset"
+			ld	a,$00
+			inc	a
+			assert_s_set
+
+	describe 'assert_s_reset'
+		it "fails when signed flag set"
+			ld	a,$00
+			dec	a
+			assert_s_reset													
 								
 			spec_end
 

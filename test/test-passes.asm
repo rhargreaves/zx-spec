@@ -234,6 +234,18 @@ include src/zx-spec.asm
 			add	a,1
 			assert_carry_reset
 
+	describe 'assert_s_set'
+		it "passes when signed flag set"
+			ld	a,$00
+			dec	a
+			assert_s_set
+
+	describe 'assert_s_reset'
+		it "passes when signed flag reset"
+			ld	a,$00
+			inc	a
+			assert_s_reset
+
 			spec_end
 			ret
 
