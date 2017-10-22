@@ -188,6 +188,12 @@ fail			assert_fail
 			print_char d_quote
 			print_text val_start, val_end
 			print_char d_quote
+			print_text actual_txt, actual_txt_end
+			print_char d_quote
+			print_text_with_len str_addr, val_end-val_start
+			print_char d_quote
+			print_newline
+			print_newline			
 			jr	done
 done			equ	$
 			endm			

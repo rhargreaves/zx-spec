@@ -154,7 +154,7 @@ include src/zx-spec.asm
 			assert_word_not_equal  tmp_2, $0103
 
 	describe 'assert_str_equal'
-		it 'passes for same value'
+		it 'fails for different value'
 			assert_str_equal  tmp_str, 'diff test string'
 								
 			spec_end

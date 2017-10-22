@@ -63,6 +63,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_ix_equal\n fails for different value')            
         self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 259')
+        self.assertRegexpMatches(self.output, 'assert_str_equal\n fails for different value\n\nExpected: "diff test string", Ac\ntual: "test string\?\?\?\?\?"')        
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 503, Actual: 500')
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 2, Actual: 1')  
         self.assertRegexpMatches(self.output, 'x\n fails for different value\n\nExpected: 3, Actual: 1')
