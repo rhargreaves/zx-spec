@@ -34,7 +34,7 @@ By default, expected and actual values are displayed as decimals. You can switch
     display_numbers_as_hex    equ    $FF
 ```
 
-See [test/test-hex.asm](test/test-hex.asm) for example usage. Not that `assert_bytes_equals` always displays expected/actual bytes as a comma-seperated list of hexadecimal pairs.
+See [test/test-hex.asm](test/test-hex.asm) for example usage. Note that `assert_bytes_equals` always displays expected/actual bytes as a comma-seperated list of hexadecimal pairs, regardless of this setting.
 
 ## Assertions
 
