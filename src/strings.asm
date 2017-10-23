@@ -13,3 +13,7 @@ actual_txt		db	', Actual: '
 actual_txt_end		equ	$
 exit_txt		db	'-- ZX SPEC TEST END --'
 exit_txt_end		equ	$
+pass_indicator_txt	db	10h,04h,'.',10h,00h
+pass_indicator_txt_end	equ	$
+fail_indicator_txt	db	10h,02h,'x',10h,00h
+fail_indicator_txt_end	equ	$

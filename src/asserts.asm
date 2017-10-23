@@ -7,23 +7,23 @@ assert_fail		macro
 			call	assert_fail_r
 			endm
 
-inc_done		macro		num_done, done_char
+inc_done		macro		num_done, done_txt_start, done_txt_end
 			push		hl
 			ld		hl,num_done
-			inc		(hl)			; Increment number done
-			print_char	done_char		; Print done char
+			inc		(hl)				; Increment number done
+			print_text	done_txt_start, done_txt_end	; Print 'done' indicator
 			pop		hl
 			endm
 
 assert_pass_r		proc
-			inc_done	num_pass, period	; Increment number passed
+			inc_done	num_pass, pass_indicator_txt, pass_indicator_txt_end	; Increment number passed
 			ret
 			endp
 			
 assert_fail_r		proc
-			local		print_group_end
-			set_border_colour	red_border	; Set border to red
-			inc_done	num_fail, cross		; Increment number failed
+			local			print_group_end
+			set_border_colour	red_border		; Set border to red
+			inc_done	num_fail, fail_indicator_txt, fail_indicator_txt_end	; Increment number failed
 			ld		hl,shown_names
 			bit		0,(hl)				; Group name shown already?
 			jp		nz,print_group_end		; Skip if so.
@@ -38,7 +38,7 @@ assert_fail_r		proc
 			ld		hl,shown_names
 			set		0,(hl)				; Set shown group name
 print_group_end		print_newline
-			print_char space			; indent test name
+			print_char space				; indent test name
 			print_text_with_len	(cur_test_name_addr), (cur_test_name_len)
 			print_newline
 			print_newline
