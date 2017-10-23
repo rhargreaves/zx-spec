@@ -1,5 +1,5 @@
 # ZX Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
-A TDD framework for the Sinclair ZX Spectrum 48k. This is a **Work In Progress**. The API is not stable at present.
+A framework for test-driving assembly code for the Sinclair ZX Spectrum 48k. This is a **Work In Progress**. The API is not stable at present.
 
 <p align="center">
     <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/green.png" width="600" />
