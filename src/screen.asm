@@ -68,7 +68,7 @@ print_newline		macro
 print_value_at_hl	push	bc
 			ld	b,0
 			ld	c,(hl)
-			call	print_num_in_bc
+			call	print_bc_as_dec
 			pop	bc
 			ret
 
@@ -80,7 +80,7 @@ print_total		macro
 			add		a,c
 			ld		b,0
 			ld		c,a
-			call		print_num_in_bc	; print number of total tests
+			call		print_bc_as_dec	; print number of total tests
 			endm
 
 print_summary		proc
@@ -116,7 +116,16 @@ print_zx_spec_test_end	macro
 			print_text	exit_txt, exit_txt_end
 			endm
 
-print_num_in_bc		proc
+print_bc_as_hex		proc
+			push	hl
+			ld	h,b
+			ld	l,c
+			call	print_hl_as_hex
+			pop	hl
+			ret
+			endp
+
+print_bc_as_dec		proc
 			push	af
 			push	bc
 			push	de
@@ -125,5 +134,35 @@ print_num_in_bc		proc
 			pop	de
 			pop	bc
 			pop	af
+			ret
+			endp			
+
+print_num_in_bc		proc
+			if defined display_numbers_as_hex
+				call	print_bc_as_hex
+			else
+				call	print_bc_as_dec
+			endif
+			ret
+			endp
+
+print_hl_as_hex		proc
+			local	conv, print_c_as_hex
+			ld	c,h
+			call	print_c_as_hex
+			ld	c,l
+print_c_as_hex		ld	a,c
+			rra
+			rra
+			rra
+			rra
+			call	conv
+			ld	a,c
+conv			and	$0F
+			add	a,$90
+			daa
+			adc	a,$40
+			daa
+			rst	16
 			ret
 			endp

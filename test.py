@@ -107,6 +107,24 @@ class TestFailures(unittest.TestCase):
     def tearDownClass(self):
         clean()
 
+class TestHexDisplay(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        clean()
+        self.output = run_zx_spec("bin/test-hex.tap")
+
+    def test_hex_values_are_displayed_correctly(self):
+        self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 0000, Actual: FFFF')
+        self.assertRegexpMatches(self.output, 'fails for different value\n\nExpected: ACDC, Actual: FFFF')
+
+    def test_framework_exited_correctly(self):
+        self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER)
+
+    @classmethod
+    def tearDownClass(self):
+        clean()
+
 def clean():
     for f in glob.glob("printout.*"):
         os.remove(f)
@@ -120,7 +138,7 @@ def wait_for_printout(filename):
     while not os.path.exists(filename):
         time.sleep(1)
         wait_count += 1
-        if wait_count == 60:
+        if wait_count == 120:
             raise IOError('Output file not produced in time')
 
 def wait_for_framework_completion(filename):
@@ -128,7 +146,7 @@ def wait_for_framework_completion(filename):
     while ZX_SPEC_TEST_END_MARKER not in printout_txt(filename):
         time.sleep(1)
         wait_count += 1
-        if wait_count == 60:
+        if wait_count == 120:
             raise Exception('Framework did not indicate clean exit in time')
 
 def run_zx_spec(tape):  
