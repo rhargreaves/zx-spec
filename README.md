@@ -156,6 +156,8 @@ $ make test
 
 Two sets of automated tests will run. One set results in all tests passing, and the other set results in all tests failing. The results are sent to an emulated ZX Printer (rather than sent to the display) which is then output by the emulator to a text file. This file is then validated to ensure the framework is working correctly.
 
+Unfortunately, the speed of the ZX Printer is also emulated resulting in the tests taking a few minutes to complete. I don't currently know of a way to speed this up!
+
 ## Demos
 
 You can run a couple of example demos:
