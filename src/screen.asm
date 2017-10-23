@@ -4,6 +4,7 @@ chan_open		equ	1601h		; open channel
 pr_string		equ	203ch		; print string (DE = start, BC = length)
 stack_bc		equ	2d2bh
 print_fb		equ	2de3h		; Print FP number
+border_int		equ	229bh		; Set border colour
 
 ; System Variables
 attr_p			equ	5c8dh		; permanent set colours
@@ -85,7 +86,15 @@ print_total		macro
 			endm
 
 print_summary		proc
-			print_text	ok_txt, ok_txt_end
+			local	set_fail_colour, print_line
+			print_newline
+			ld	a,(num_fail)
+			cp	0
+			jr	nz, set_fail_colour
+			print_text	pass_colour_txt, pass_colour_txt_end
+			jr	print_line
+set_fail_colour		print_text	fail_colour_txt, fail_colour_txt_end
+print_line		print_text	ok_txt, ok_txt_end
 			print_value	num_pass	; print number of passing tests		
 			print_text	fail_txt, fail_txt_end
 			print_value	num_fail	; print number of failing tests
@@ -197,3 +206,15 @@ loop			ld	a,(hl)		; A = current byte
 			djnz	loop
 done			equ	$			
 			endm
+
+normal_ink		macro
+			print_text normal_colour_txt, normal_colour_txt_end
+			endm
+
+pass_ink		macro
+			print_text pass_colour_txt, pass_colour_txt_end
+			endm
+
+fail_ink		macro
+			print_text fail_colour_txt, fail_colour_txt_end
+			endm						

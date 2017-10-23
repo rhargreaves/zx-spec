@@ -22,8 +22,11 @@ test_name_end		ld	hl,test_name_start
 			endm
 
 spec_init		macro
-			;ld 	a,7		; gray on black screen
-			;ld	(attr_p),a 
+			ld	a,normal_paper_colour	; Set border to background colour to avoid last
+							; two lines being wrong colour
+			call	border_int
+			ld 	a,normal_ink_colour	; Set ink colour
+			ld	(attr_p),a
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel

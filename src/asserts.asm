@@ -24,6 +24,7 @@ assert_fail_r		proc
 			local			print_group_end
 			set_border_colour	red_border		; Set border to red
 			inc_done	num_fail, fail_indicator_txt, fail_indicator_txt_end	; Increment number failed
+			fail_ink
 			ld		hl,shown_names
 			bit		0,(hl)				; Group name shown already?
 			jp		nz,print_group_end		; Skip if so.
@@ -42,6 +43,7 @@ print_group_end		print_newline
 			print_text_with_len	(cur_test_name_addr), (cur_test_name_len)
 			print_newline
 			print_newline
+			normal_ink
 			ret
 			endp
 
@@ -91,13 +93,15 @@ assert_a_equal_r	proc			; C = expected, A = actual
 			cp	c		; does A = expected?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
+			fail_ink
 			print_text expected_txt, expected_txt_end
 			call	print_num_in_c
 			print_text actual_txt, actual_txt_end
 			ld	c,a
 			call	print_num_in_c
-			print_char	nl
-			print_char	nl
+			print_newline
+			print_newline
+			normal_ink
 			jr	done
 passes			assert_pass
 done			ret
@@ -122,13 +126,15 @@ assert_hl_equal_r	proc			; HL = actual, BC = expected
 			jp	z,passes	; pass if same
 			push	hl
 			assert_fail		; otherwise, fail
+			fail_ink
 			print_text expected_txt, expected_txt_end
 			call	print_num_in_bc
 			print_text actual_txt, actual_txt_end
 			pop	bc		; pop HL into BC
 			call	print_num_in_bc
-			print_char	nl
-			print_char	nl
+			print_newline
+			print_newline
+			normal_ink
 			jp	done
 passes			assert_pass
 done			pop	hl
@@ -245,12 +251,14 @@ assert_bytes_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			assert_pass
 			jr	done
 fail			assert_fail
+			fail_ink
 			print_text expected_txt, expected_txt_end
 			print_bytes bytes_2_start, bytes_1_length
 			print_text actual_txt, actual_txt_end
 			print_bytes bytes_1_start, bytes_1_length
 			print_newline
 			print_newline
+			normal_ink
 done			equ	$
 			endm
 
@@ -280,6 +288,7 @@ val_end			equ	$
 			assert_pass
 			jr	done
 fail			assert_fail
+			fail_ink
 			print_text expected_txt, expected_txt_end
 			print_char d_quote
 			print_text val_start, val_end
@@ -289,7 +298,8 @@ fail			assert_fail
 			print_text_with_len str_addr, val_end-val_start
 			print_char d_quote
 			print_newline
-			print_newline	
+			print_newline
+			normal_ink
 done			equ	$
 			endm
 
