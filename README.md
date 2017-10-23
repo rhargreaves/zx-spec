@@ -26,6 +26,16 @@ spec_end
 
 You can optionally name a set of asserts using the `it` macro. This groups the asserts into a single test. In addition to `it`, you can use the `describe` macro to group one or more tests. Nested `describe` or `it` macros are not permitted.
 
+### Hexadecimals
+
+By default, expected and actual values are displayed as decimals. You can switch to hexadecimal by defining `display_numbers_as_hex` as non-zero either on the command-line of Pasmo (`--equ display_numbers_as_hex`), or in code before you call `spec_init`:
+
+```
+    display_numbers_as_hex    equ    $FF
+```
+
+See [test/test-hex.asm](test/test-hex.asm) for example usage. Not that `assert_bytes_equals` always displays expected/actual bytes as a comma-seperated list of hexadecimal pairs.
+
 ## Assertions
 
 See [test/test-passes.asm](test/test-passes.asm) for examples.
@@ -107,16 +117,6 @@ Be warned that these assertions will not preserve register values.
 
 * `assert_bytes_equal`
 * `assert_bytes_not_equal`
-
-### Hexadecimal Formatting
-
-By default, mismatched expected and actual values will be displayed as decimal values. You can switch to hexadecimal values by defining `display_numbers_as_hex` as non-zero either on the command-line of Pasmo (`--equ display_numbers_as_hex`), or in code before you call `spec_init`:
-
-```
-    display_numbers_as_hex    equ    $FF
-```
-
-See [test/test-hex.asm](test/test-hex.asm) for example usage.
 
 ## Dependencies
 
