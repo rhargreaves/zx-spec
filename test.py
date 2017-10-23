@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os
 import subprocess
 import time
@@ -136,17 +137,23 @@ def printout_txt(filename):
 def wait_for_printout(filename):
     wait_count = 0
     while not os.path.exists(filename):
-        time.sleep(1)
+        time.sleep(0.2)
         wait_count += 1
-        if wait_count == 120:
+        if wait_count == 120 * 5:
             raise IOError('Output file not produced in time')
 
 def wait_for_framework_completion(filename):
     wait_count = 0
-    while ZX_SPEC_TEST_END_MARKER not in printout_txt(filename):
-        time.sleep(1)
+    cursor = 0
+    while 1:
+        contents = printout_txt(filename)
+        if ZX_SPEC_TEST_END_MARKER in contents:
+            break
+        print(contents[cursor:], end='')
+        cursor = len(contents)
+        time.sleep(0.2)
         wait_count += 1
-        if wait_count == 120:
+        if wait_count == 120 * 5:
             raise Exception('Framework did not indicate clean exit in time')
 
 def run_zx_spec(tape):  
