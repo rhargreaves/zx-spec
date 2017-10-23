@@ -92,12 +92,10 @@ assert_a_equal_r	proc			; C = expected, A = actual
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
 			print_text expected_txt, expected_txt_end
-			ld	b,0
-			call	print_num_in_bc
+			call	print_num_in_c
 			print_text actual_txt, actual_txt_end
-			ld	b,0
 			ld	c,a
-			call	print_num_in_bc
+			call	print_num_in_c
 			print_char	nl
 			print_char	nl
 			jr	done

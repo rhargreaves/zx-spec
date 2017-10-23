@@ -146,8 +146,22 @@ print_num_in_bc		proc
 			ret
 			endp
 
+print_num_in_c		proc
+			if defined display_numbers_as_hex
+				push	af
+				call	print_c_as_hex
+				pop	af
+			else
+				push	bc
+				ld	b,0
+				call	print_bc_as_dec
+				pop	bc
+			endif
+			ret
+			endp			
+
 print_hl_as_hex		proc
-			local	conv, print_c_as_hex
+			local	conv
 			ld	c,h
 			call	print_c_as_hex
 			ld	c,l
