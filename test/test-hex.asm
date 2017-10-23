@@ -5,9 +5,9 @@ include src/zx-spec.asm
 
 			spec_init
 
-	describe 'assert_mem_equal'
+	describe 'assert_byte_equal'
 		it 'fails for different value'
-			assert_mem_equal tmp_2, $34
+			assert_byte_equal tmp_2, $34
 
 	describe 'assert_word_equal'
 		it 'fails for different value'

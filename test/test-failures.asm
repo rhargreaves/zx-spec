@@ -137,13 +137,13 @@ include src/zx-spec.asm
 			ld	a,0
 			assert_a_is_not_zero
 
-	describe 'assert_mem_equal'
+	describe 'assert_byte_equal'
 		it 'fails for different value'
-			assert_mem_equal  tmp_1, $FF
+			assert_byte_equal  tmp_1, $FF
 
-	describe 'assert_mem_not_equal'
+	describe 'assert_byte_not_equal'
 		it 'fails for same value'
-			assert_mem_not_equal  tmp_1, $CC
+			assert_byte_not_equal  tmp_1, $CC
 
 	describe 'assert_word_equal'
 		it 'fails for different value'

@@ -183,13 +183,13 @@ include src/zx-spec.asm
 			ld	a,5
 			assert_a_is_not_zero
 
-	describe 'assert_mem_equal'
+	describe 'assert_byte_equal'
 		it 'passes for same value'
-			assert_mem_equal  tmp_1, $CC
+			assert_byte_equal  tmp_1, $CC
 
-	describe 'assert_mem_not_equal'
+	describe 'assert_byte_not_equal'
 		it 'passes for different value'
-			assert_mem_not_equal  tmp_1, $DD
+			assert_byte_not_equal  tmp_1, $DD
 
 	describe 'assert_word_equal'
 		it 'passes for same value'

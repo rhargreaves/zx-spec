@@ -62,7 +62,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_bc_equal\n fails for different value\n\nExpected: 502, Actual: 500') 
         self.assertRegexpMatches(self.output, 'assert_de_equal\n fails for different value\n\nExpected: 502, Actual: 500')
         self.assertRegexpMatches(self.output, 'assert_ix_equal\n fails for different value')            
-        self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
+        self.assertRegexpMatches(self.output, 'assert_byte_equal\n fails for different value\n\nExpected: 255, Actual: 204')
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 65501')
         self.assertRegexpMatches(self.output, 'assert_str_equal\n fails for different value\n\nExpected: "diff test string", Ac\ntual: "test string\?\?\?\?\?"')
         self.assertRegexpMatches(self.output, 'assert_bytes_equal\n fails for different value\n\nExpected: 12,34,55,66,AA,BB,DE,F\n0, Actual: 12,34,56,78,9A,BC,DE,\nF0')
@@ -91,7 +91,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_ix_not_equal')
         self.assertRegexpMatches(self.output, 'assert_a_is_zero')
         self.assertRegexpMatches(self.output, 'assert_a_is_not_zero')
-        self.assertRegexpMatches(self.output, 'assert_mem_not_equal')
+        self.assertRegexpMatches(self.output, 'assert_byte_not_equal')
         self.assertRegexpMatches(self.output, 'assert_word_not_equal')
         self.assertRegexpMatches(self.output, 'assert_str_not_equal')
 
@@ -120,7 +120,7 @@ class TestHexDisplay(unittest.TestCase):
     def test_hex_values_are_displayed_correctly(self):
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 0000, Actual: FFFF')
         self.assertRegexpMatches(self.output, 'fails for different value\n\nExpected: ACDC, Actual: FFFF')
-        self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 34, Actual: 12')
+        self.assertRegexpMatches(self.output, 'assert_byte_equal\n fails for different value\n\nExpected: 34, Actual: 12')
 
     def test_framework_exited_correctly(self):
         self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER)

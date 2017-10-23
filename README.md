@@ -104,8 +104,8 @@ Be warned that these assertions will not preserve register values.
 
 #### Single-Byte
 
-* `assert_mem_equal`
-* `assert_mem_not_equal`
+* `assert_byte_equal`
+* `assert_byte_not_equal`
 
 #### Double-Byte Word
 

@@ -184,14 +184,14 @@ assert_ix_equal		macro	val
 			pop	de
 			endm
 
-assert_mem_equal	macro	mem_addr, val
+assert_byte_equal	macro	mem_addr, val
 			push	af
 			ld	a,(mem_addr)
 			assert_a_equal	val
 			pop	af
 			endm
 
-assert_mem_not_equal	macro	mem_addr, val
+assert_byte_not_equal	macro	mem_addr, val
 			push	af
 			ld	a,(mem_addr)
 			assert_a_not_equal	val
