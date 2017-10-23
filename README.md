@@ -36,6 +36,10 @@ By default, expected and actual values are displayed as decimals. You can switch
 
 See [test/test-hex.asm](test/test-hex.asm) for example usage. Note that `assert_bytes_equals` always displays expected/actual bytes as a comma-seperated list of hexadecimal pairs, regardless of this setting.
 
+<p align="center">
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/hex.png" width="600" />
+</p>
+
 ## Assertions
 
 See [test/test-passes.asm](test/test-passes.asm) for examples.
