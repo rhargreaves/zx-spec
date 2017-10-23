@@ -217,9 +217,49 @@ loop			ld	c,(hl)			; C = Actual char
 			jp	nz,done			; Not equal.
 			inc	hl			; Next actual char
 			inc	de			; Next expected char
-			djnz	loop			; Dec string length, loop if <> 0
+			djnz	loop			; Decrement string length, loop if <> 0
 done			ret
 			endp
+
+comp_bytes		proc	; Compares two sequence of bytes
+				; Inputs: B = length, HL = actual start, DE = expected start 
+				; Outputs: Z flag: 1 = string equal, 0 = not equal
+			local	loop, done
+loop			ld	c,(hl)			; C = Actual byte
+			ld	a,(de)			; A = Expected byte
+			cp	c			; Compare actual with expected byte
+			jp	nz,done			; Not equal.
+			inc	hl			; Next actual byte
+			inc	de			; Next expected byte
+			djnz	loop			; Decrement length, loop if <> 0
+done			ret
+			endp			
+
+assert_bytes_equal	macro	bytes_1_start, bytes_1_len, bytes_2_start
+			local	fail, done
+			ld	b,bytes_1_len		; B = bytes length
+			ld	hl,bytes_1_start	; HL = Actual start
+			ld	de,bytes_2_start	; DE = Expected start
+			call	comp_bytes		; Compare bytes
+			jr	nz,fail			; If Z not set, string not equal, fail test
+			assert_pass
+			jr	done
+fail			assert_fail
+done			equ	$
+			endm
+
+assert_bytes_not_equal	macro	bytes_1_start, bytes_1_len, bytes_2_start
+			local	pass, done
+			ld	b,bytes_1_len		; B = bytes length
+			ld	hl,bytes_1_start	; HL = Actual start
+			ld	de,bytes_2_start	; DE = Expected start
+			call	comp_bytes		; Compare bytes
+			jr	nz,pass			; If Z not set, bytes not equal, pass test
+			assert_fail
+			jr	done
+pass			assert_pass
+done			equ	$
+			endm					
 
 assert_str_equal	macro	str_addr, val
 			local	val_start, val_end, fail, done

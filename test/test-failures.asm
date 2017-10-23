@@ -164,6 +164,14 @@ include src/zx-spec.asm
 		it "fails for same value with termination bit set"
 			assert_str_not_equal  copyright_rom_addr, "\x7f 1982 Sinclair Research Ltd"
 
+	describe 'assert_bytes_equal'
+		it 'fails for different value'
+			assert_bytes_equal  bytes_1, 8, bytes_3
+
+	describe 'assert_bytes_not_equal'
+		it 'fails for same value'
+			assert_bytes_not_equal  bytes_1, 8, bytes_2			
+
 	describe 'assert_z_set'
 		it "fails when zero flag reset"
 			ld	a,5
@@ -215,6 +223,9 @@ include src/zx-spec.asm
 			spec_end
 
 			ret
+bytes_1			db	$12,$34,$56,$78,$9A,$BC,$DE,$F0
+bytes_2			db	$12,$34,$56,$78,$9A,$BC,$DE,$F0
+bytes_3			db	$12,$34,$55,$66,$AA,$BB,$DE,$F0			
 tmp_1			db	$CC
 tmp_2			dw	$FFDD
 tmp_str			db	'test string'

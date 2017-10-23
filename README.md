@@ -103,6 +103,11 @@ Be warned that these assertions will not preserve register values.
 * `assert_str_equal`
 * `assert_str_not_equal`
 
+#### Multiple Bytes
+
+* `assert_bytes_equal`
+* `assert_bytes_not_equal`
+
 ### Hexadecimal Formatting
 
 By default, mismatched expected and actual values will be displayed as decimal values. You can switch to hexadecimal values by defining `display_numbers_as_hex` as non-zero either on the command-line of Pasmo (`--equ display_numbers_as_hex`), or in code before you call `spec_init`:

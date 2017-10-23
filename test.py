@@ -15,7 +15,7 @@ class TestPasses(unittest.TestCase):
     def setUpClass(self):
         clean()
         self.output = run_zx_spec("bin/test-passes.tap")
-        self.num_tests = 62
+        self.num_tests = 64
 
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
@@ -43,7 +43,7 @@ class TestFailures(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         clean()
-        self.num_tests = 46
+        self.num_tests = 48
         self.output = run_zx_spec("bin/test-failures.tap")
 
     def test_zx_spec_header_displayed(self):
@@ -65,6 +65,8 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 65501')
         self.assertRegexpMatches(self.output, 'assert_str_equal\n fails for different value\n\nExpected: "diff test string", Ac\ntual: "test string\?\?\?\?\?"')
+        self.assertRegexpMatches(self.output, 'assert_bytes_equal\n fails for different value')
+        self.assertRegexpMatches(self.output, 'assert_bytes_not_equal\n fails for same value')
         self.assertRegexpMatches(self.output, 'assert_z_set\n fails when zero flag reset')
         self.assertRegexpMatches(self.output, 'assert_z_reset\n fails when zero flag set')
         self.assertRegexpMatches(self.output, 'assert_carry_set\n fails when carry flag reset')

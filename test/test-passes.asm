@@ -210,6 +210,14 @@ include src/zx-spec.asm
 		it 'passes for different value'
 			assert_str_not_equal  tmp_str, 'diff string'
 
+	describe 'assert_bytes_equal'
+		it 'passes for same value'
+			assert_bytes_equal  bytes_1, 8, bytes_2
+
+	describe 'assert_bytes_not_equal'
+		it 'passes for same value'
+			assert_bytes_not_equal  bytes_1, 8, bytes_3
+
 	describe 'assert_z_set'
 		it "passes when zero flag set"
 			ld	a,0
@@ -261,6 +269,10 @@ include src/zx-spec.asm
 			spec_end
 			ret
 
+
+bytes_1			db	$12,$34,$56,$78,$9A,$BC,$DE,$F0
+bytes_2			db	$12,$34,$56,$78,$9A,$BC,$DE,$F0
+bytes_3			db	$12,$34,$55,$66,$AA,$BB,$DE,$F0
 tmp_1			db	$CC
 tmp_2			dw	$DDEE
 tmp_str			db	'test string'
