@@ -120,7 +120,7 @@ class TestHexDisplay(unittest.TestCase):
     def test_hex_values_are_displayed_correctly(self):
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 0000, Actual: FFFF')
         self.assertRegexpMatches(self.output, 'fails for different value\n\nExpected: ACDC, Actual: FFFF')
-        self.assertRegexpMatches(self.output, 'assert_byte_equal\n fails for different value\n\nExpected: 34, Actual: 12')
+        self.assertRegexpMatches(self.output, 'assert_byte_equal\n fails for different value\n\nExpected: 3B, Actual: 2A')
 
     def test_framework_exited_correctly(self):
         self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER)
