@@ -23,6 +23,7 @@ space			equ	' '
 nl			equ	13		; New line character
 cross			equ	'x'
 period			equ	'.'
+comma			equ	','
 d_quote			equ	$22		; double quote
 
 ; Border Constants
@@ -180,3 +181,19 @@ conv			and	$0F
 			rst	16
 			ret
 			endp
+
+print_bytes		macro	start, length
+			local	loop, done
+			ld	b,length	; B = length
+			ld	hl,start	; HL = start
+loop			ld	a,(hl)		; A = current byte
+			ld	c,a		; Copy A into C
+			call	print_c_as_hex	; Print C
+			ld	a,b		; Load length into accumulator
+			cp	1		; Is 1?
+			jr	z,done		; If 1 - we're done
+			print_char	comma	; Print comma otherwise
+			inc	hl		; Next byte
+			djnz	loop
+done			equ	$			
+			endm

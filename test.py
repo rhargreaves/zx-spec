@@ -65,7 +65,7 @@ class TestFailures(unittest.TestCase):
         self.assertRegexpMatches(self.output, 'assert_mem_equal\n fails for different value\n\nExpected: 255, Actual: 204')
         self.assertRegexpMatches(self.output, 'assert_word_equal\n fails for different value\n\nExpected: 258, Actual: 65501')
         self.assertRegexpMatches(self.output, 'assert_str_equal\n fails for different value\n\nExpected: "diff test string", Ac\ntual: "test string\?\?\?\?\?"')
-        self.assertRegexpMatches(self.output, 'assert_bytes_equal\n fails for different value')
+        self.assertRegexpMatches(self.output, 'assert_bytes_equal\n fails for different value\n\nExpected: 12,34,55,66,AA,BB,DE,F\n0, Actual: 12,34,56,78,9A,BC,DE,\nF0')
         self.assertRegexpMatches(self.output, 'assert_bytes_not_equal\n fails for same value')
         self.assertRegexpMatches(self.output, 'assert_z_set\n fails when zero flag reset')
         self.assertRegexpMatches(self.output, 'assert_z_reset\n fails when zero flag set')

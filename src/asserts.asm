@@ -235,22 +235,28 @@ loop			ld	c,(hl)			; C = Actual byte
 done			ret
 			endp			
 
-assert_bytes_equal	macro	bytes_1_start, bytes_1_len, bytes_2_start
+assert_bytes_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			local	fail, done
-			ld	b,bytes_1_len		; B = bytes length
+			ld	b,bytes_1_length	; B = bytes length
 			ld	hl,bytes_1_start	; HL = Actual start
 			ld	de,bytes_2_start	; DE = Expected start
 			call	comp_bytes		; Compare bytes
-			jr	nz,fail			; If Z not set, string not equal, fail test
+			jr	nz,fail			; If Z not set, bytes not equal, fail test
 			assert_pass
 			jr	done
 fail			assert_fail
+			print_text expected_txt, expected_txt_end
+			print_bytes bytes_2_start, bytes_1_length
+			print_text actual_txt, actual_txt_end
+			print_bytes bytes_1_start, bytes_1_length
+			print_newline
+			print_newline
 done			equ	$
 			endm
 
-assert_bytes_not_equal	macro	bytes_1_start, bytes_1_len, bytes_2_start
+assert_bytes_not_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			local	pass, done
-			ld	b,bytes_1_len		; B = bytes length
+			ld	b,bytes_1_length	; B = bytes length
 			ld	hl,bytes_1_start	; HL = Actual start
 			ld	de,bytes_2_start	; DE = Expected start
 			call	comp_bytes		; Compare bytes
