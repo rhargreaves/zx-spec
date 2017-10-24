@@ -91,21 +91,21 @@ print_summary		proc
 			ld	a,(num_fail)
 			cp	0
 			jr	nz, set_fail_colour
-			print_text	pass_colour_txt, pass_colour_txt_end
+			print_text	_zxspec_text_pass_ink, _zxspec_text_pass_ink_end
 			jr	print_line
-set_fail_colour		print_text	fail_colour_txt, fail_colour_txt_end
-print_line		print_text	ok_txt, ok_txt_end
+set_fail_colour		print_text	_zxspec_text_fail_ink, _zxspec_text_fail_ink_end
+print_line		print_text	_zxspec_text_pass, _zxspec_text_pass_end
 			print_value	num_pass	; print number of passing tests		
-			print_text	fail_txt, fail_txt_end
+			print_text	_zxspec_text_fail, _zxspec_text_fail_end
 			print_value	num_fail	; print number of failing tests
-			print_text	total_txt, total_txt_end
+			print_text	_zxspec_text_total, _zxspec_text_total_end
 			print_total
 			print_newline
 			ret
 			endp
 
 print_zx_spec_test_end	macro
-			print_text	exit_txt, exit_txt_end
+			print_text	_zxspec_text_exit, _zxspec_text_exit_end
 			endm
 
 print_bc_as_hex		proc
@@ -195,15 +195,15 @@ done			ret
 			endp			
 
 normal_ink		macro
-			print_text normal_colour_txt, normal_colour_txt_end
+			print_text _zxspec_text_normal_ink, _zxspec_text_normal_ink_end
 			endm
 
 pass_ink		macro
-			print_text pass_colour_txt, pass_colour_txt_end
+			print_text _zxspec_text_pass_ink, _zxspec_text_pass_ink_end
 			endm
 
 fail_ink		macro
-			print_text fail_colour_txt, fail_colour_txt_end
+			print_text _zxspec_text_fail_ink, _zxspec_text_fail_ink_end
 			endm
 
 ; Border Painting

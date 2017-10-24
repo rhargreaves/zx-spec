@@ -217,9 +217,9 @@ assert_bytes_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			jr	done
 fail			assert_fail
 			fail_ink
-			print_text expected_txt, expected_txt_end
+			print_text _zxspec_text_expected, _zxspec_text_expected_end
 			print_bytes bytes_2_start, bytes_1_length
-			print_text actual_txt, actual_txt_end
+			print_text _zxspec_text_actual, _zxspec_text_actual_end
 			print_bytes bytes_1_start, bytes_1_length
 			print_newline
 			print_newline
@@ -254,11 +254,11 @@ val_end			equ	$
 			jr	done
 fail			assert_fail
 			fail_ink
-			print_text expected_txt, expected_txt_end
+			print_text _zxspec_text_expected, _zxspec_text_expected_end
 			print_char d_quote
 			print_text val_start, val_end
 			print_char d_quote
-			print_text actual_txt, actual_txt_end
+			print_text _zxspec_text_actual, _zxspec_text_actual_end
 			print_char d_quote
 			print_text_with_len str_addr, val_end-val_start
 			print_char d_quote
@@ -296,14 +296,14 @@ inc_done		macro		num_done, done_txt_start, done_txt_end
 			endm
 
 assert_pass_r		proc
-			inc_done	num_pass, pass_indicator_txt, pass_indicator_txt_end	; Increment number passed
+			inc_done	num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
 			ret
 			endp
 			
 assert_fail_r		proc
 			local		print_group_end
 			paint_border	red_border
-			inc_done	num_fail, fail_indicator_txt, fail_indicator_txt_end	; Increment number failed
+			inc_done	num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
 			fail_ink
 			ld		hl,shown_names
 			bit		0,(hl)				; Group name shown already?
@@ -342,9 +342,9 @@ assert_a_equal_r	proc			; C = expected, A = actual
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
 			fail_ink
-			print_text expected_txt, expected_txt_end
+			print_text _zxspec_text_expected, _zxspec_text_expected_end
 			call	print_num_in_c
-			print_text actual_txt, actual_txt_end
+			print_text _zxspec_text_actual, _zxspec_text_actual_end
 			ld	c,a
 			call	print_num_in_c
 			print_newline
@@ -375,9 +375,9 @@ assert_hl_equal_r	proc			; HL = actual, BC = expected
 			push	hl
 			assert_fail		; otherwise, fail
 			fail_ink
-			print_text expected_txt, expected_txt_end
+			print_text _zxspec_text_expected, _zxspec_text_expected_end
 			call	print_num_in_bc
-			print_text actual_txt, actual_txt_end
+			print_text _zxspec_text_actual, _zxspec_text_actual_end
 			pop	bc		; pop HL into BC
 			call	print_num_in_bc
 			print_newline

@@ -1,13 +1,13 @@
 spec_init		macro
 			ld	a,zxspec_config_normal_paper_colour	; Set border to background colour to avoid last
-							; two lines being wrong colour
+									; two lines being wrong colour
 			call	border_int
 			ld 	a,zxspec_config_normal_ink_colour	; Set ink colour
 			ld	(attr_p),a
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
 			call	chan_open	; open channel
-			print_text	banner_txt, banner_txt_end
+			print_text	_zxspec_text_banner, _zxspec_text_banner_end
 			endm
 
 describe		macro	group_name

@@ -20,7 +20,7 @@ class TestPasses(unittest.TestCase):
     def test_zx_spec_header_displayed(self):
         self.assertRegexpMatches(self.output, 'ZX Spec: The TDD Framework')
 
-    def test_indicators_show_tests_passed(self):
+    def test_marks_show_tests_passed(self):
         self.assertRegexpMatches(
             self.output.replace('\n', ''),
             '\.' * self.num_tests)
