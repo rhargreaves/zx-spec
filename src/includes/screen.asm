@@ -51,7 +51,11 @@ print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 print_value		macro	addr		; Prints value at memory location
 			push	hl
 			ld	hl,addr
-			call	print_value_at_hl
+			push	bc
+			ld	b,0
+			ld	c,(hl)
+			call	print_bc_as_dec
+			pop	bc
 			pop	hl
 			endm
 
@@ -66,22 +70,15 @@ print_newline		macro
 			print_char _nl
 			endm
 
-print_value_at_hl	push	bc
-			ld	b,0
-			ld	c,(hl)
-			call	print_bc_as_dec
-			pop	bc
-			ret
-
 print_total		macro
-			ld		hl,_zxspec_num_fail
-			ld		c,(hl)
-			ld		hl,_zxspec_num_pass
-			ld		a,(hl)
-			add		a,c
-			ld		b,0
-			ld		c,a
-			call		print_bc_as_dec	; print number of total tests
+			ld	hl,_zxspec_num_fail
+			ld	c,(hl)
+			ld	hl,_zxspec_num_pass
+			ld	a,(hl)
+			add	a,c
+			ld	b,0
+			ld	c,a
+			call	print_bc_as_dec	; print number of total tests
 			endm
 
 print_summary		proc
