@@ -3,77 +3,77 @@
 ;-------------------------
 
 assert_pass		macro
-			call	assert_pass_r
+			call	_assert_pass_r
 			endm
 
 assert_fail		macro
-			call	assert_fail_r
+			call	_assert_fail_r
 			endm
 
 assert_a_equal		macro	val
 			push	bc		
 			ld	c,val		; Store expected in C
-			call	assert_a_equal_r
+			call	_assert_a_equal_r
 			pop	bc
 			endm			
 
 assert_b_equal		macro	val			
-			assert_reg_equal val, b
+			_assert_reg_equal val, b
 			endm
 
 assert_c_equal		macro	val			
-			assert_reg_equal val, c
+			_assert_reg_equal val, c
 			endm
 
 assert_d_equal		macro	val			
-			assert_reg_equal val, d
+			_assert_reg_equal val, d
 			endm
 
 assert_e_equal		macro	val			
-			assert_reg_equal val, e
+			_assert_reg_equal val, e
 			endm
 
 assert_h_equal		macro	val
 			push	hl	
-			assert_reg_equal val, h
+			_assert_reg_equal val, h
 			pop	hl
 			endm
 
 assert_l_equal		macro	val	
 			push	hl		
-			assert_reg_equal val, l
+			_assert_reg_equal val, l
 			pop	hl
 			endm
 
 assert_a_not_equal	macro	val
 			push	bc
 			ld	c,val
-			call	assert_a_not_equal_r
+			call	_assert_a_not_equal_r
 			pop	bc
 			endm
 
 assert_b_not_equal	macro	val
-			assert_reg_not_equal	val, b
+			_assert_reg_not_equal	val, b
 			endm
 
 assert_c_not_equal	macro	val
-			assert_reg_not_equal	val, c
+			_assert_reg_not_equal	val, c
 			endm
 
 assert_d_not_equal	macro	val
-			assert_reg_not_equal	val, d
+			_assert_reg_not_equal	val, d
 			endm
 
 assert_e_not_equal	macro	val
-			assert_reg_not_equal	val, e
+			_assert_reg_not_equal	val, e
 			endm
 
 assert_h_not_equal	macro	val
-			assert_reg_not_equal	val, h
+			_assert_reg_not_equal	val, h
 			endm
 
 assert_l_not_equal	macro	val
-			assert_reg_not_equal	val, l
+			_assert_reg_not_equal	val, l
 			endm
 
 assert_a_is_zero	macro
@@ -87,7 +87,7 @@ assert_a_is_not_zero	macro
 assert_hl_equal		macro	val			
 			push	bc
 			ld	bc,val
-			call	assert_hl_equal_r
+			call	_assert_hl_equal_r
 			pop	bc
 			endm
 
@@ -118,7 +118,7 @@ assert_ix_equal		macro	val
 assert_hl_not_equal	macro	val			
 			push	bc
 			ld	bc,val
-			call	assert_hl_not_equal_r
+			call	_assert_hl_not_equal_r
 			pop	bc
 			endm	
 
@@ -147,35 +147,35 @@ assert_ix_not_equal	macro	val
 			endm					
 
 assert_z_set		macro	val
-			assert_cond	val, z
+			_assert_cond	val, z
 			endm
 
 assert_z_reset		macro	val
-			assert_cond	val, nz
+			_assert_cond	val, nz
 			endm
 
 assert_carry_set	macro	val
-			assert_cond	val, c
+			_assert_cond	val, c
 			endm
 
 assert_carry_reset	macro	val
-			assert_cond	val, nc
+			_assert_cond	val, nc
 			endm
 
 assert_s_set		macro	val
-			assert_cond	val, m
+			_assert_cond	val, m
 			endm
 
 assert_s_reset		macro	val
-			assert_cond	val, p
+			_assert_cond	val, p
 			endm
 
 assert_p_v_set		macro	val
-			assert_cond	val, pe
+			_assert_cond	val, pe
 			endm
 
 assert_p_v_reset	macro	val
-			assert_cond	val, po
+			_assert_cond	val, po
 			endm		
 
 assert_byte_equal	macro	mem_addr, val
@@ -211,7 +211,7 @@ assert_bytes_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			ld	b,bytes_1_length	; B = bytes length
 			ld	hl,bytes_1_start	; HL = Actual start
 			ld	de,bytes_2_start	; DE = Expected start
-			call	comp_bytes		; Compare bytes
+			call	_comp_bytes		; Compare bytes
 			jr	nz,fail			; If Z not set, bytes not equal, fail test
 			assert_pass
 			jr	done
@@ -232,7 +232,7 @@ assert_bytes_not_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			ld	b,bytes_1_length	; B = bytes length
 			ld	hl,bytes_1_start	; HL = Actual start
 			ld	de,bytes_2_start	; DE = Expected start
-			call	comp_bytes		; Compare bytes
+			call	_comp_bytes		; Compare bytes
 			jr	nz,pass			; If Z not set, bytes not equal, pass test
 			assert_fail
 			jr	done
@@ -248,7 +248,7 @@ val_end			equ	$
 			ld	b,val_end-val_start	; B = string length
 			ld	hl,str_addr		; HL = Actual start
 			ld	de,val_start		; DE = Expected start
-			call	comp_str		; Compare string
+			call	_comp_str		; Compare string
 			jr	nz,fail			; If Z not set, string not equal, fail test
 			assert_pass
 			jr	done
@@ -275,7 +275,7 @@ val_start		db	val
 val_end			ld	b,val_end-val_start	; B = string length
 			ld	hl,str_addr		; HL = Actual start
 			ld	de,val_start		; DE = Expected start
-			call	comp_str		; Compare string
+			call	_comp_str		; Compare string
 			jr	nz,pass			; If Z not set, string not equal, pass test
 			assert_fail
 			jr	done
@@ -287,7 +287,7 @@ done			equ	$
 ; Private
 ;-------------------------
 
-inc_done		macro		num_done, done_txt_start, done_txt_end
+_inc_done		macro		num_done, done_txt_start, done_txt_end
 			push		hl
 			ld		hl,num_done
 			inc		(hl)				; Increment number done
@@ -295,15 +295,15 @@ inc_done		macro		num_done, done_txt_start, done_txt_end
 			pop		hl
 			endm
 
-assert_pass_r		proc
-			inc_done	_zxspec_num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
+_assert_pass_r		proc
+			_inc_done	_zxspec_num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
 			ret
 			endp
 			
-assert_fail_r		proc
+_assert_fail_r		proc
 			local		print_group_end
 			_paint_border	_zxspec_red_border
-			inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
+			_inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
 			_fail_ink
 			ld		hl,_zxspec_shown_names
 			bit		0,(hl)				; Group name shown already?
@@ -327,7 +327,7 @@ print_group_end		_print_newline
 			ret
 			endp
 
-assert_cond		macro	val, cond
+_assert_cond		macro	val, cond
 			local	passes, done
 			jp	cond,passes	; pass if flag set
 			assert_fail		; otherwise, fail
@@ -336,7 +336,7 @@ passes			assert_pass
 done			equ	$
 			endm					
 
-assert_a_equal_r	proc			; C = expected, A = actual
+_assert_a_equal_r	proc			; C = expected, A = actual
 			local	passes, done
 			cp	c		; does A = expected?
 			jp	z,passes	; pass if so
@@ -355,7 +355,7 @@ passes			assert_pass
 done			ret
 			endp
 
-assert_a_not_equal_r	proc			; C = not expected, A = actual
+_assert_a_not_equal_r	proc			; C = not expected, A = actual
 			local	passes, done
 			cp	c		; does A = not expected?
 			jr	nz,passes	; pass if it doesn't
@@ -365,7 +365,7 @@ passes			assert_pass
 done			ret
 			endp
 
-assert_hl_equal_r	proc			; HL = actual, BC = expected
+_assert_hl_equal_r	proc			; HL = actual, BC = expected
 			local	passes, done
 			push	hl
 			push	hl
@@ -389,7 +389,7 @@ done			pop	hl
 			ret
 			endp
 
-assert_hl_not_equal_r	proc			; HL = actual, BC = unexpected
+_assert_hl_not_equal_r	proc			; HL = actual, BC = unexpected
 			local	passes, done
 			push	hl
 			sbc	hl,bc		; Subtract val from HL
@@ -401,7 +401,7 @@ done			pop	hl
 			ret
 			endp			
 
-comp_str		proc	; Compares two strings
+_comp_str		proc	; Compares two strings
 				; Inputs: B = string length, HL = actual start, DE = expected start 
 				; Outputs: Z flag: 1 = string equal, 0 = not equal
 			local	loop, done
@@ -416,7 +416,7 @@ loop			ld	c,(hl)			; C = Actual char
 done			ret
 			endp
 
-comp_bytes		proc	; Compares two sequence of bytes
+_comp_bytes		proc	; Compares two sequence of bytes
 				; Inputs: B = length, HL = actual start, DE = expected start 
 				; Outputs: Z flag: 1 = string equal, 0 = not equal
 			local	loop, done
@@ -430,14 +430,14 @@ loop			ld	c,(hl)			; C = Actual byte
 done			ret
 			endp			
 
-assert_reg_equal	macro	val, reg			
+_assert_reg_equal	macro	val, reg			
 			push	af		; Backup A
 			ld	a,reg		; Copy register into A
 			assert_a_equal	val
 			pop	af		; Restore A
 			endm
 
-assert_reg_not_equal	macro	val, reg
+_assert_reg_not_equal	macro	val, reg
 			push	af		; Backup A
 			ld	a,reg		; Copy register into A
 			assert_a_not_equal	val
