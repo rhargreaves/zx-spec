@@ -1,8 +1,8 @@
 spec_init		macro
-			ld	a,normal_paper_colour	; Set border to background colour to avoid last
+			ld	a,zxspec_config_normal_paper_colour	; Set border to background colour to avoid last
 							; two lines being wrong colour
 			call	border_int
-			ld 	a,normal_ink_colour	; Set ink colour
+			ld 	a,zxspec_config_normal_ink_colour	; Set ink colour
 			ld	(attr_p),a
 			call	cl_all		; clear screen
 			ld	a,output_stream	; upper screen
