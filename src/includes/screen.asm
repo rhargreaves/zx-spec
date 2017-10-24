@@ -203,20 +203,20 @@ _fail_ink		macro
 			endm
 
 ; Border Painting
-paint_border		macro	colour
+_paint_border		macro	colour
 			push	af
 			ld	a,colour
 			out	(_zxspec_border_port),a
 			pop	af
 			endm
 
-update_border		macro
+_update_border		macro
 local			update_border_end
 			push	af
 			ld	a,(_zxspec_num_fail)
 			cp	0
 			jp	nz,update_border_end
-			paint_border	_zxspec_green_border
+			_paint_border	_zxspec_green_border
 update_border_end	equ	$
 			pop	af
 			endm					

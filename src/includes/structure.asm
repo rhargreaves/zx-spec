@@ -33,7 +33,7 @@ test_name_end		ld	hl,test_name_start
 			endm
 
 spec_end		macro
-			update_border
+			_update_border
 			call	_print_summary
 			if defined zx_spec_test_mode
 				_print_zx_spec_test_end

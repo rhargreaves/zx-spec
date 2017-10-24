@@ -302,7 +302,7 @@ assert_pass_r		proc
 			
 assert_fail_r		proc
 			local		print_group_end
-			paint_border	_zxspec_red_border
+			_paint_border	_zxspec_red_border
 			inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
 			_fail_ink
 			ld		hl,_zxspec_shown_names
