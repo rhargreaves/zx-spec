@@ -1,8 +1,8 @@
 			jp	init
-include src/config.asm
-include src/structure.asm
-include src/screen.asm
-include src/asserts.asm
-include src/state.asm
-include src/strings.asm
+include includes/config.asm
+include includes/structure.asm
+include includes/screen.asm
+include includes/asserts.asm
+include includes/state.asm
+include includes/strings.asm
 init			equ	$

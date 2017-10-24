@@ -1,4 +1,4 @@
-PASMO := docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo
+PASMO := docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo -I src
 BIN := bin
 FUSE ?= fuse
 
