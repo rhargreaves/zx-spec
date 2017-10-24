@@ -1,14 +1,14 @@
 ; ROM Routine Addresses
-cl_all			equ	0dafh		; clear screen
-chan_open		equ	1601h		; open channel
-pr_string		equ	203ch		; print string (DE = start, BC = length)
-stack_bc		equ	2d2bh
-print_fb		equ	2de3h		; Print FP number
-border_int		equ	229bh		; Set border colour
+_zxspec_rom_cl_all		equ	0dafh		; clear screen
+_zxspec_rom_chan_open		equ	1601h		; open channel
+_zxspec_rom_pr_string		equ	203ch		; print string (DE = start, BC = length)
+_zxspec_rom_stack_bc		equ	2d2bh
+_zxspec_rom_print_fb		equ	2de3h		; Print FP number
+_zxspec_rom_border_int		equ	229bh		; Set border colour
 
 ; System Variable Addresses
 attr_p			equ	5c8dh		; permanent set colours
-attr_t			equ	5c8fh		; temporary set colours
+;attr_t			equ	5c8fh		; temporary set colours
 
 ; Stream Constants
 screen_stream		equ	2
@@ -43,7 +43,7 @@ print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			ld	de,txt_start		; text address
 			ld	bc,txt_len		; string length
 			push	af
-			call	pr_string		; print string
+			call	_zxspec_rom_pr_string		; print string
 			pop	af
 			pop	bc
 			pop	de
@@ -121,8 +121,8 @@ print_bc_as_dec		proc
 			push	af
 			push	bc
 			push	de
-			call	stack_bc
-			call	print_fb
+			call	_zxspec_rom_stack_bc
+			call	_zxspec_rom_print_fb
 			pop	de
 			pop	bc
 			pop	af
