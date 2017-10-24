@@ -75,9 +75,9 @@ print_value_at_hl	push	bc
 			ret
 
 print_total		macro
-			ld		hl,num_fail
+			ld		hl,_zxspec_num_fail
 			ld		c,(hl)
-			ld		hl,num_pass
+			ld		hl,_zxspec_num_pass
 			ld		a,(hl)
 			add		a,c
 			ld		b,0
@@ -88,16 +88,16 @@ print_total		macro
 print_summary		proc
 			local	set_fail_colour, print_line
 			print_newline
-			ld	a,(num_fail)
+			ld	a,(_zxspec_num_fail)
 			cp	0
 			jr	nz, set_fail_colour
 			print_text	_zxspec_text_pass_ink, _zxspec_text_pass_ink_end
 			jr	print_line
 set_fail_colour		print_text	_zxspec_text_fail_ink, _zxspec_text_fail_ink_end
 print_line		print_text	_zxspec_text_pass, _zxspec_text_pass_end
-			print_value	num_pass	; print number of passing tests		
+			print_value	_zxspec_num_pass	; print number of passing tests		
 			print_text	_zxspec_text_fail, _zxspec_text_fail_end
-			print_value	num_fail	; print number of failing tests
+			print_value	_zxspec_num_fail	; print number of failing tests
 			print_text	_zxspec_text_total, _zxspec_text_total_end
 			print_total
 			print_newline
@@ -217,7 +217,7 @@ paint_border		macro	colour
 update_border		macro
 local			update_border_end
 			push	af
-			ld	a,(num_fail)
+			ld	a,(_zxspec_num_fail)
 			cp	0
 			jp	nz,update_border_end
 			paint_border	green_border

@@ -296,31 +296,31 @@ inc_done		macro		num_done, done_txt_start, done_txt_end
 			endm
 
 assert_pass_r		proc
-			inc_done	num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
+			inc_done	_zxspec_num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
 			ret
 			endp
 			
 assert_fail_r		proc
 			local		print_group_end
 			paint_border	red_border
-			inc_done	num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
+			inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
 			fail_ink
-			ld		hl,shown_names
+			ld		hl,_zxspec_shown_names
 			bit		0,(hl)				; Group name shown already?
 			jp		nz,print_group_end		; Skip if so.
 			push		de
-			ld		de,(cur_group_name_len)		; get string length
+			ld		de,(_zxspec_group_name_length)		; get string length
 			inc		e				; +1 -1 = 0
 			dec		e				; sets Z if group name undefined
 			pop		de
 			jp		z,print_group_end		; skip printing of name if so
 			print_newline
-			print_text_with_len	(cur_group_name_addr), (cur_group_name_len)
-			ld		hl,shown_names
+			print_text_with_len	(_zxspec_group_name), (_zxspec_group_name_length)
+			ld		hl,_zxspec_shown_names
 			set		0,(hl)				; Set shown group name
 print_group_end		print_newline
 			print_char space				; indent test name
-			print_text_with_len	(cur_test_name_addr), (cur_test_name_len)
+			print_text_with_len	(_zxspec_test_name), (_zxspec_test_name_length)
 			print_newline
 			print_newline
 			normal_ink

@@ -12,14 +12,14 @@ spec_init		macro
 
 describe		macro	group_name
 			local	group_name_start, group_name_end
-			ld	hl,shown_names
+			ld	hl,_zxspec_shown_names
 			res	0,(hl)		; Reset shown group name
 			jp	group_name_end
 group_name_start	db	group_name
 group_name_end		ld	hl,group_name_start
-			ld	(cur_group_name_addr),hl
+			ld	(_zxspec_group_name),hl
 			ld	hl,group_name_end - group_name_start
-			ld	(cur_group_name_len),hl
+			ld	(_zxspec_group_name_length),hl
 			endm
 
 it			macro	test_name
@@ -27,9 +27,9 @@ it			macro	test_name
 			jp	test_name_end
 test_name_start		db	test_name
 test_name_end		ld	hl,test_name_start
-			ld	(cur_test_name_addr),hl
+			ld	(_zxspec_test_name),hl
 			ld	hl,test_name_end - test_name_start
-			ld	(cur_test_name_len),hl
+			ld	(_zxspec_test_name_length),hl
 			endm
 
 spec_end		macro
