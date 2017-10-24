@@ -8,7 +8,6 @@ _zxspec_rom_border_int		equ	229bh		; Set border colour
 
 ; System Variable Addresses
 attr_p			equ	5c8dh		; permanent set colours
-;attr_t			equ	5c8fh		; temporary set colours
 
 ; Stream Constants
 screen_stream		equ	2
