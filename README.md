@@ -7,7 +7,7 @@ A framework for test-driving assembly code for the Sinclair ZX Spectrum 48k.
 
 ## Usage
 
-The framework has been written with the [Pasmo assembler](http://pasmo.speccy.org/pasmodoc.html). It could well work with other assemblers although I've not tried it.
+The framework has been written with the [Pasmo assembler](http://pasmo.speccy.org/pasmodoc.html). Simply grab the source in `src` and include `zx-spec.asm` to write tests:
 
 ```asm
 include src/zx-spec.asm
