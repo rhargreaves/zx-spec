@@ -195,6 +195,11 @@ print_bytes		macro	start, length
 			local	loop, done
 			ld	b,length	; B = length
 			ld	hl,start	; HL = start
+			call	print_bytes_r			
+			endm
+
+print_bytes_r		proc			; Input: HL = start addr, B = length
+			local	loop, done
 loop			ld	a,(hl)		; A = current byte
 			ld	c,a		; Copy A into C
 			call	print_c_as_hex	; Print C
@@ -204,8 +209,8 @@ loop			ld	a,(hl)		; A = current byte
 			print_char	comma	; Print comma otherwise
 			inc	hl		; Next byte
 			djnz	loop
-done			equ	$			
-			endm
+done			ret		
+			endp			
 
 normal_ink		macro
 			print_text normal_colour_txt, normal_colour_txt_end
