@@ -216,14 +216,14 @@ assert_bytes_equal	macro	bytes_1_start, bytes_1_length, bytes_2_start
 			assert_pass
 			jr	done
 fail			assert_fail
-			fail_ink
-			print_text _zxspec_text_expected, _zxspec_text_expected_end
-			print_bytes bytes_2_start, bytes_1_length
-			print_text _zxspec_text_actual, _zxspec_text_actual_end
-			print_bytes bytes_1_start, bytes_1_length
-			print_newline
-			print_newline
-			normal_ink
+			_fail_ink
+			_print_text _zxspec_text_expected, _zxspec_text_expected_end
+			_print_bytes bytes_2_start, bytes_1_length
+			_print_text _zxspec_text_actual, _zxspec_text_actual_end
+			_print_bytes bytes_1_start, bytes_1_length
+			_print_newline
+			_print_newline
+			_normal_ink
 done			equ	$
 			endm
 
@@ -253,18 +253,18 @@ val_end			equ	$
 			assert_pass
 			jr	done
 fail			assert_fail
-			fail_ink
-			print_text _zxspec_text_expected, _zxspec_text_expected_end
-			print_char _d_quote
-			print_text val_start, val_end
-			print_char _d_quote
-			print_text _zxspec_text_actual, _zxspec_text_actual_end
-			print_char _d_quote
-			print_text_with_len str_addr, val_end-val_start
-			print_char _d_quote
-			print_newline
-			print_newline
-			normal_ink
+			_fail_ink
+			_print_text _zxspec_text_expected, _zxspec_text_expected_end
+			_print_char _d_quote
+			_print_text val_start, val_end
+			_print_char _d_quote
+			_print_text _zxspec_text_actual, _zxspec_text_actual_end
+			_print_char _d_quote
+			_print_text_with_len str_addr, val_end-val_start
+			_print_char _d_quote
+			_print_newline
+			_print_newline
+			_normal_ink
 done			equ	$
 			endm
 
@@ -291,7 +291,7 @@ inc_done		macro		num_done, done_txt_start, done_txt_end
 			push		hl
 			ld		hl,num_done
 			inc		(hl)				; Increment number done
-			print_text	done_txt_start, done_txt_end	; Print 'done' indicator
+			_print_text	done_txt_start, done_txt_end	; Print 'done' indicator
 			pop		hl
 			endm
 
@@ -304,7 +304,7 @@ assert_fail_r		proc
 			local		print_group_end
 			paint_border	_zxspec_red_border
 			inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
-			fail_ink
+			_fail_ink
 			ld		hl,_zxspec_shown_names
 			bit		0,(hl)				; Group name shown already?
 			jp		nz,print_group_end		; Skip if so.
@@ -314,16 +314,16 @@ assert_fail_r		proc
 			dec		e				; sets Z if group name undefined
 			pop		de
 			jp		z,print_group_end		; skip printing of name if so
-			print_newline
-			print_text_with_len	(_zxspec_group_name), (_zxspec_group_name_length)
+			_print_newline
+			_print_text_with_len	(_zxspec_group_name), (_zxspec_group_name_length)
 			ld		hl,_zxspec_shown_names
 			set		0,(hl)				; Set shown group name
-print_group_end		print_newline
-			print_char _space				; indent test name
-			print_text_with_len	(_zxspec_test_name), (_zxspec_test_name_length)
-			print_newline
-			print_newline
-			normal_ink
+print_group_end		_print_newline
+			_print_char _space				; indent test name
+			_print_text_with_len	(_zxspec_test_name), (_zxspec_test_name_length)
+			_print_newline
+			_print_newline
+			_normal_ink
 			ret
 			endp
 
@@ -341,15 +341,15 @@ assert_a_equal_r	proc			; C = expected, A = actual
 			cp	c		; does A = expected?
 			jp	z,passes	; pass if so
 			assert_fail		; otherwise, fail
-			fail_ink
-			print_text _zxspec_text_expected, _zxspec_text_expected_end
-			call	print_num_in_c
-			print_text _zxspec_text_actual, _zxspec_text_actual_end
+			_fail_ink
+			_print_text _zxspec_text_expected, _zxspec_text_expected_end
+			call	_print_num_in_c
+			_print_text _zxspec_text_actual, _zxspec_text_actual_end
 			ld	c,a
-			call	print_num_in_c
-			print_newline
-			print_newline
-			normal_ink
+			call	_print_num_in_c
+			_print_newline
+			_print_newline
+			_normal_ink
 			jr	done
 passes			assert_pass
 done			ret
@@ -374,15 +374,15 @@ assert_hl_equal_r	proc			; HL = actual, BC = expected
 			jp	z,passes	; pass if same
 			push	hl
 			assert_fail		; otherwise, fail
-			fail_ink
-			print_text _zxspec_text_expected, _zxspec_text_expected_end
-			call	print_num_in_bc
-			print_text _zxspec_text_actual, _zxspec_text_actual_end
+			_fail_ink
+			_print_text _zxspec_text_expected, _zxspec_text_expected_end
+			call	_print_num_in_bc
+			_print_text _zxspec_text_actual, _zxspec_text_actual_end
 			pop	bc		; pop HL into BC
-			call	print_num_in_bc
-			print_newline
-			print_newline
-			normal_ink
+			call	_print_num_in_bc
+			_print_newline
+			_print_newline
+			_normal_ink
 			jp	done
 passes			assert_pass
 done			pop	hl

@@ -32,11 +32,11 @@ _zxspec_red_border	equ	2
 _zxspec_green_border	equ	4
 
 ; Printing
-print_text		macro	txt_start, txt_end 	; Prints text
-			print_text_with_len	txt_start,txt_end-txt_start
+_print_text		macro	txt_start, txt_end 	; Prints text
+			_print_text_with_len	txt_start,txt_end-txt_start
 			endm
 
-print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
+_print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			push	de
 			push	bc
 			ld	de,txt_start		; text address
@@ -48,29 +48,29 @@ print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			pop	de
 			endm
 
-print_value		macro	addr		; Prints value at memory location
+_print_value		macro	addr		; Prints value at memory location
 			push	hl
 			ld	hl,addr
 			push	bc
 			ld	b,0
 			ld	c,(hl)
-			call	print_bc_as_dec
+			call	_print_bc_as_dec
 			pop	bc
 			pop	hl
 			endm
 
-print_char		macro	code
+_print_char		macro	code
 			push	af
 			ld	a,code
 			rst	16
 			pop	af
 			endm
 
-print_newline		macro
-			print_char _nl
+_print_newline		macro
+			_print_char _nl
 			endm
 
-print_total		macro
+_print_total		macro
 			ld	hl,_zxspec_num_fail
 			ld	c,(hl)
 			ld	hl,_zxspec_num_pass
@@ -78,42 +78,42 @@ print_total		macro
 			add	a,c
 			ld	b,0
 			ld	c,a
-			call	print_bc_as_dec	; print number of total tests
+			call	_print_bc_as_dec	; print number of total tests
 			endm
 
-print_summary		proc
+_print_summary		proc
 			local	set_fail_colour, print_line
-			print_newline
+			_print_newline
 			ld	a,(_zxspec_num_fail)
 			cp	0
 			jr	nz, set_fail_colour
-			print_text	_zxspec_text_pass_ink, _zxspec_text_pass_ink_end
+			_print_text	_zxspec_text_pass_ink, _zxspec_text_pass_ink_end
 			jr	print_line
-set_fail_colour		print_text	_zxspec_text_fail_ink, _zxspec_text_fail_ink_end
-print_line		print_text	_zxspec_text_pass, _zxspec_text_pass_end
-			print_value	_zxspec_num_pass	; print number of passing tests		
-			print_text	_zxspec_text_fail, _zxspec_text_fail_end
-			print_value	_zxspec_num_fail	; print number of failing tests
-			print_text	_zxspec_text_total, _zxspec_text_total_end
-			print_total
-			print_newline
+set_fail_colour		_print_text	_zxspec_text_fail_ink, _zxspec_text_fail_ink_end
+print_line		_print_text	_zxspec_text_pass, _zxspec_text_pass_end
+			_print_value	_zxspec_num_pass	; print number of passing tests		
+			_print_text	_zxspec_text_fail, _zxspec_text_fail_end
+			_print_value	_zxspec_num_fail	; print number of failing tests
+			_print_text	_zxspec_text_total, _zxspec_text_total_end
+			_print_total
+			_print_newline
 			ret
 			endp
 
-print_zx_spec_test_end	macro
-			print_text	_zxspec_text_exit, _zxspec_text_exit_end
+_print_zx_spec_test_end	macro
+			_print_text	_zxspec_text_exit, _zxspec_text_exit_end
 			endm
 
-print_bc_as_hex		proc
+_print_bc_as_hex	proc
 			push	hl
 			ld	h,b
 			ld	l,c
-			call	print_hl_as_hex
+			call	_print_hl_as_hex
 			pop	hl
 			ret
 			endp
 
-print_bc_as_dec		proc
+_print_bc_as_dec	proc
 			push	af
 			push	bc
 			push	de
@@ -125,35 +125,35 @@ print_bc_as_dec		proc
 			ret
 			endp			
 
-print_num_in_bc		proc
+_print_num_in_bc	proc
 			if defined display_numbers_as_hex
-				call	print_bc_as_hex
+				call	_print_bc_as_hex
 			else
-				call	print_bc_as_dec
+				call	_print_bc_as_dec
 			endif
 			ret
 			endp
 
-print_num_in_c		proc
+_print_num_in_c		proc
 			if defined display_numbers_as_hex
 				push	af
-				call	print_c_as_hex
+				call	_print_c_as_hex
 				pop	af
 			else
 				push	bc
 				ld	b,0
-				call	print_bc_as_dec
+				call	_print_bc_as_dec
 				pop	bc
 			endif
 			ret
 			endp			
 
-print_hl_as_hex		proc
+_print_hl_as_hex	proc
 			local	conv
 			ld	c,h
-			call	print_c_as_hex
+			call	_print_c_as_hex
 			ld	c,l
-print_c_as_hex		ld	a,c
+_print_c_as_hex		ld	a,c
 			rra
 			rra
 			rra
@@ -169,37 +169,37 @@ conv			and	$0F
 			ret
 			endp
 
-print_bytes		macro	start, length
+_print_bytes		macro	start, length
 			local	loop, done
 			ld	b,length	; B = length
 			ld	hl,start	; HL = start
-			call	print_bytes_r			
+			call	_print_bytes_r			
 			endm
 
-print_bytes_r		proc			; Input: HL = start addr, B = length
+_print_bytes_r		proc			; Input: HL = start addr, B = length
 			local	loop, done
 loop			ld	a,(hl)		; A = current byte
 			ld	c,a		; Copy A into C
-			call	print_c_as_hex	; Print C
+			call	_print_c_as_hex	; Print C
 			ld	a,b		; Load length into accumulator
 			cp	1		; Is 1?
 			jr	z,done		; If 1 - we're done
-			print_char	_comma	; Print _comma otherwise
+			_print_char	_comma	; Print _comma otherwise
 			inc	hl		; Next byte
 			djnz	loop
 done			ret		
 			endp			
 
-normal_ink		macro
-			print_text _zxspec_text_normal_ink, _zxspec_text_normal_ink_end
+_normal_ink		macro
+			_print_text _zxspec_text_normal_ink, _zxspec_text_normal_ink_end
 			endm
 
-pass_ink		macro
-			print_text _zxspec_text_pass_ink, _zxspec_text_pass_ink_end
+_pass_ink		macro
+			_print_text _zxspec_text_pass_ink, _zxspec_text_pass_ink_end
 			endm
 
-fail_ink		macro
-			print_text _zxspec_text_fail_ink, _zxspec_text_fail_ink_end
+_fail_ink		macro
+			_print_text _zxspec_text_fail_ink, _zxspec_text_fail_ink_end
 			endm
 
 ; Border Painting

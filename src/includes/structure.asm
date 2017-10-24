@@ -7,7 +7,7 @@ spec_init		macro
 			call	_zxspec_rom_cl_all	; clear screen
 			ld	a,_zxspec_output_stream	; upper screen
 			call	_zxspec_rom_chan_open	; open channel
-			print_text	_zxspec_text_banner, _zxspec_text_banner_end
+			_print_text	_zxspec_text_banner, _zxspec_text_banner_end
 			endm
 
 describe		macro	group_name
@@ -34,8 +34,8 @@ test_name_end		ld	hl,test_name_start
 
 spec_end		macro
 			update_border
-			call	print_summary
+			call	_print_summary
 			if defined zx_spec_test_mode
-				print_zx_spec_test_end
+				_print_zx_spec_test_end
 			endif
 			endm
