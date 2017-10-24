@@ -1,4 +1,3 @@
-
 ;-------------------------
 ; Public
 ;-------------------------
@@ -302,8 +301,8 @@ assert_pass_r		proc
 			endp
 			
 assert_fail_r		proc
-			local			print_group_end
-			set_border_colour	red_border		; Set border to red
+			local		print_group_end
+			paint_border	red_border
 			inc_done	num_fail, fail_indicator_txt, fail_indicator_txt_end	; Increment number failed
 			fail_ink
 			ld		hl,shown_names

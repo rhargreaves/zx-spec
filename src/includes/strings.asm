@@ -1,4 +1,3 @@
-; Resources
 banner_txt		db	nl,'   ',10h,banner_ink_colour,'ZX Spec: The TDD Framework',10h,normal_ink_colour,nl,nl
 banner_txt_end		equ	$
 ok_txt			db	nl, 'Pass: '

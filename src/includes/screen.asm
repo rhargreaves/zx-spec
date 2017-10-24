@@ -1,4 +1,4 @@
-; ROM Routines
+; ROM Routine Addresses
 cl_all			equ	0dafh		; clear screen
 chan_open		equ	1601h		; open channel
 pr_string		equ	203ch		; print string (DE = start, BC = length)
@@ -6,7 +6,7 @@ stack_bc		equ	2d2bh
 print_fb		equ	2de3h		; Print FP number
 border_int		equ	229bh		; Set border colour
 
-; System Variables
+; System Variable Addresses
 attr_p			equ	5c8dh		; permanent set colours
 attr_t			equ	5c8fh		; temporary set colours
 
@@ -32,7 +32,7 @@ border_port		equ	0feh
 red_border		equ	2
 green_border		equ	4
 
-; Macros
+; Printing
 print_text		macro	txt_start, txt_end 	; Prints text
 			print_text_with_len	txt_start,txt_end-txt_start
 			endm
@@ -103,24 +103,6 @@ print_line		print_text	ok_txt, ok_txt_end
 			print_newline
 			ret
 			endp
-
-set_border_colour	macro	colour
-			push	af
-			ld	a,colour
-			out	(border_port),a
-			pop	af
-			endm
-
-update_border		macro
-local			update_border_end
-			push	af
-			ld	a,(num_fail)
-			cp	0
-			jp	nz,update_border_end
-			set_border_colour	green_border
-update_border_end	equ	$
-			pop	af
-			endm
 
 print_zx_spec_test_end	macro
 			print_text	exit_txt, exit_txt_end
@@ -222,4 +204,23 @@ pass_ink		macro
 
 fail_ink		macro
 			print_text fail_colour_txt, fail_colour_txt_end
-			endm						
+			endm
+
+; Border Painting
+paint_border		macro	colour
+			push	af
+			ld	a,colour
+			out	(border_port),a
+			pop	af
+			endm
+
+update_border		macro
+local			update_border_end
+			push	af
+			ld	a,(num_fail)
+			cp	0
+			jp	nz,update_border_end
+			paint_border	green_border
+update_border_end	equ	$
+			pop	af
+			endm					
