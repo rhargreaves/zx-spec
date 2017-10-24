@@ -1,10 +1,10 @@
-_zxspec_text_banner		db	nl, '   '
+_zxspec_text_banner		db	_nl, '   '
 				db	10h, zxspec_config_banner_ink_colour
 				db	'ZX Spec: The TDD Framework'
 				db	10h, zxspec_config_normal_ink_colour
-				db	nl, nl
+				db	_nl, _nl
 _zxspec_text_banner_end		equ	$
-_zxspec_text_pass		db	nl, 'Pass: '
+_zxspec_text_pass		db	_nl, 'Pass: '
 _zxspec_text_pass_end		equ	$
 _zxspec_text_fail		db	', Fail: '
 _zxspec_text_fail_end		equ	$

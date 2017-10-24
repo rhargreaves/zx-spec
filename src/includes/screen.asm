@@ -7,29 +7,29 @@ _zxspec_rom_print_fb		equ	2de3h		; Print FP number
 _zxspec_rom_border_int		equ	229bh		; Set border colour
 
 ; System Variable Addresses
-attr_p			equ	5c8dh		; permanent set colours
+_zxspec_attr_p			equ	5c8dh		; permanent set colours
 
 ; Stream Constants
-screen_stream		equ	2
-printer_stream		equ	3
-if defined zx_spec_test_mode			; Definable via Pasmo command line
-	output_stream	equ	printer_stream
+_zxspec_screen_stream		equ	2
+_zxspec_printer_stream		equ	3
+if defined zx_spec_test_mode				; Definable via Pasmo command line
+	_zxspec_output_stream	equ	_zxspec_printer_stream
 else
-	output_stream	equ	screen_stream
+	_zxspec_output_stream	equ	_zxspec_screen_stream
 endif
 
 ; Characters
-space			equ	' '
-nl			equ	13		; New line character
-cross			equ	'x'
-period			equ	'.'
-comma			equ	','
-d_quote			equ	$22		; double quote
+_space			equ	' '
+_nl			equ	13	; New line character
+_cross			equ	'x'
+_period			equ	'.'
+_comma			equ	','
+_d_quote		equ	$22	; double quote
 
 ; Border Constants
-border_port		equ	0feh
-red_border		equ	2
-green_border		equ	4
+_zxspec_border_port	equ	0feh
+_zxspec_red_border	equ	2
+_zxspec_green_border	equ	4
 
 ; Printing
 print_text		macro	txt_start, txt_end 	; Prints text
@@ -42,7 +42,7 @@ print_text_with_len	macro	txt_start, txt_len	; Supports NN or (NN)
 			ld	de,txt_start		; text address
 			ld	bc,txt_len		; string length
 			push	af
-			call	_zxspec_rom_pr_string		; print string
+			call	_zxspec_rom_pr_string	; print string
 			pop	af
 			pop	bc
 			pop	de
@@ -63,7 +63,7 @@ print_char		macro	code
 			endm
 
 print_newline		macro
-			print_char nl
+			print_char _nl
 			endm
 
 print_value_at_hl	push	bc
@@ -187,7 +187,7 @@ loop			ld	a,(hl)		; A = current byte
 			ld	a,b		; Load length into accumulator
 			cp	1		; Is 1?
 			jr	z,done		; If 1 - we're done
-			print_char	comma	; Print comma otherwise
+			print_char	_comma	; Print _comma otherwise
 			inc	hl		; Next byte
 			djnz	loop
 done			ret		
@@ -209,7 +209,7 @@ fail_ink		macro
 paint_border		macro	colour
 			push	af
 			ld	a,colour
-			out	(border_port),a
+			out	(_zxspec_border_port),a
 			pop	af
 			endm
 
@@ -219,7 +219,7 @@ local			update_border_end
 			ld	a,(_zxspec_num_fail)
 			cp	0
 			jp	nz,update_border_end
-			paint_border	green_border
+			paint_border	_zxspec_green_border
 update_border_end	equ	$
 			pop	af
 			endm					

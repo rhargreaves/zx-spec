@@ -255,13 +255,13 @@ val_end			equ	$
 fail			assert_fail
 			fail_ink
 			print_text _zxspec_text_expected, _zxspec_text_expected_end
-			print_char d_quote
+			print_char _d_quote
 			print_text val_start, val_end
-			print_char d_quote
+			print_char _d_quote
 			print_text _zxspec_text_actual, _zxspec_text_actual_end
-			print_char d_quote
+			print_char _d_quote
 			print_text_with_len str_addr, val_end-val_start
-			print_char d_quote
+			print_char _d_quote
 			print_newline
 			print_newline
 			normal_ink
@@ -302,7 +302,7 @@ assert_pass_r		proc
 			
 assert_fail_r		proc
 			local		print_group_end
-			paint_border	red_border
+			paint_border	_zxspec_red_border
 			inc_done	_zxspec_num_fail, _zxspec_text_fail_mark, _zxspec_text_fail_mark_end	; Increment number failed
 			fail_ink
 			ld		hl,_zxspec_shown_names
@@ -319,7 +319,7 @@ assert_fail_r		proc
 			ld		hl,_zxspec_shown_names
 			set		0,(hl)				; Set shown group name
 print_group_end		print_newline
-			print_char space				; indent test name
+			print_char _space				; indent test name
 			print_text_with_len	(_zxspec_test_name), (_zxspec_test_name_length)
 			print_newline
 			print_newline
