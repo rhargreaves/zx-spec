@@ -14,10 +14,6 @@ include src/zx-spec.asm
 
 			spec_init
 
-clear_b			macro
-			ld	b,$FF		; Set B to something other than a valid price
-			endm			
-
 load_items		macro	items		; Loads item string.
 						; Output: HL = start, DE = length
 			local	_start, _end
@@ -30,7 +26,6 @@ _end			equ	$
 
 	describe 'price'
 		it 'Returns 0 for no items'
-			clear_b
 			ld	hl,0		; Any mem address
 			ld	de,0		; Zero length items
 
@@ -39,7 +34,6 @@ _end			equ	$
 			assert_b_equal	0
 
 		it 'Returns price for item A'
-			clear_b
 			load_items	'A'
 
 			call	price
@@ -47,7 +41,6 @@ _end			equ	$
 			assert_b_equal	50
 
 		it 'Returns price for item B'
-			clear_b
 			load_items	'B'
 
 			call	price
@@ -55,7 +48,6 @@ _end			equ	$
 			assert_b_equal	30
 
 		it 'Returns price for item C'
-			clear_b
 			load_items	'C'
 
 			call	price
@@ -63,7 +55,6 @@ _end			equ	$
 			assert_b_equal	20
 
 		it 'Returns price for item D'
-			clear_b
 			load_items	'D'
 
 			call	price
@@ -71,7 +62,6 @@ _end			equ	$
 			assert_b_equal	15
 
 		it 'Returns price for AA'
-			clear_b
 			load_items	'AA'
 
 			call	price
@@ -80,7 +70,6 @@ _end			equ	$
 
 
 		it 'Returns price for ABCD'
-			clear_b
 			load_items	'ABCD'
 
 			call	price
@@ -122,12 +111,12 @@ price			proc	; The price routine
 			ret
 check_item		ld	b,e	; B = string length
 			ld	a,0	; Accumulator set to 0
-loop			push	bc	; Save B
+loop			push	bc
 			push	af
 			call	single_price	; Get price of item in HL; store in B
 			pop	af
 			add	a,b	; Add B to accumulator
-			pop	bc	; Restore B
+			pop	bc
 			inc	hl	; Next char
 			djnz	loop	; Decrement B; loop when != 0
 			ld	b,a	; Copy A (total price) into B
