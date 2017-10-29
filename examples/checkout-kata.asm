@@ -46,6 +46,23 @@ items			db	'A'
 items_end		equ	$
 			endp
 
+		it 'Returns price for item B'
+
+			proc
+			local	items, items_end
+			clear_a
+			ld	hl,items		; Items string start address
+			ld	de,items_end-items	; Items length (1)
+
+			call	price
+
+			assert_a_equal	30
+
+			jp	items_end
+items			db	'B'
+items_end		equ	$
+			endp
+
 			spec_end
 
 price			proc	; The price routine
@@ -54,10 +71,14 @@ price			proc	; The price routine
 				; Output: A = total price
 			ld	a,(hl)		; Load first char
 			cp	'A'		; Is A?
-			jr	z,ret_50	; Return 50 if so
-ret_0			ld	a,0		; Otherwise, return 0
+			jr	z,ret_A		; Return price for A
+			cp	'B'		; Otherwise, is B?
+			jr	z,ret_B		; Return price for B
+			ld	a,0		; Otherwise, return 0
 			ret
-ret_50			ld	a,50
+ret_A			ld	a,50
+			ret
+ret_B			ld	a,30
 			ret
 			endp
 
