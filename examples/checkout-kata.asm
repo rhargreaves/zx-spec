@@ -79,13 +79,13 @@ _end			equ	$
 			assert_b_equal	100
 
 
-		it 'Returns price for ABC'
+		it 'Returns price for ABCD'
 			clear_b
-			load_items	'ABC'
+			load_items	'ABCD'
 
 			call	price
 
-			assert_b_equal	100
+			assert_b_equal	115
 
 			spec_end
 
