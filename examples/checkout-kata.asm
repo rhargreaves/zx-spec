@@ -54,6 +54,14 @@ _end			equ	$
 
 			assert_a_equal	30
 
+		it 'Returns price for item C'
+			clear_a
+			load_items	'C'
+
+			call	price
+
+			assert_a_equal	20
+
 			spec_end
 
 price			proc	; The price routine
@@ -65,11 +73,15 @@ price			proc	; The price routine
 			jr	z,ret_A		; Return price for A
 			cp	'B'		; Otherwise, is B?
 			jr	z,ret_B		; Return price for B
+			cp	'C'		; Otherwise, is C?
+			jr	z,ret_C		; Return price for C
 			ld	a,0		; Otherwise, return 0
 			ret
 ret_A			ld	a,50
 			ret
 ret_B			ld	a,30
+			ret
+ret_C			ld	a,20
 			ret
 			endp
 
