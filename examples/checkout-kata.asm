@@ -62,6 +62,14 @@ _end			equ	$
 
 			assert_b_equal	20
 
+		it 'Returns price for item D'
+			clear_b
+			load_items	'D'
+
+			call	price
+
+			assert_b_equal	15
+
 		it 'Returns price for AA'
 			clear_b
 			load_items	'AA'
@@ -95,6 +103,9 @@ single_price		proc	; The single price routine
 			cp	'C'		; Otherwise, is C?
 			ld	b,20		; Load up return value
 			ret	z		; Return if C
+			cp	'D'		; Otherwise, is D?
+			ld	b,15		; Load up return value
+			ret	z		; Return if D
 			ld	b,0		; Otherwise, return 0
 			ret
 			endp
