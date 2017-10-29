@@ -62,12 +62,20 @@ _end			equ	$
 
 			assert_b_equal	20
 
+		it 'Returns price for AA'
+			clear_b
+			load_items	'AA'
+
+			call	price
+
+			assert_b_equal	100
+
 			spec_end
 
 single_price		proc	; The single price routine
 				; ------------------------
 				; Input: HL = item address
-				; Output: B = total price
+				; Output: B = price
 			ld	a,(hl)		; Load first char
 			cp	'A'		; Is A?
 			ld	b,50		; Load up return value
@@ -86,7 +94,23 @@ price			proc	; The price routine
 				; -----------------
 				; Input: HL = items start address, DE = items length
 				; Output: B = total price
-			call	single_price
+			local	loop
+			ld	a,e	; Prepare to check items length
+			cp	0	; Is items length zero?
+			jr	nz,check_item	; Check item if length non-zero
+			ld	b,0	; Return early 0 if so.
+			ret
+check_item		ld	b,e	; B = string length
+			ld	a,0	; Accumulator set to 0
+loop			push	bc	; Save B
+			push	af
+			call	single_price	; Get price of item in HL; store in B
+			pop	af
+			add	a,b	; Add B to accumulator
+			pop	bc	; Restore B
+			inc	hl	; Next char
+			djnz	loop	; Decrement B; loop when != 0
+			ld	b,a	; Copy A (total price) into B
 			ret
 			endp
 
