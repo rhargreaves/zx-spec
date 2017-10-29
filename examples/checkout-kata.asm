@@ -70,6 +70,15 @@ _end			equ	$
 
 			assert_b_equal	100
 
+
+		it 'Returns price for ABC'
+			clear_b
+			load_items	'ABC'
+
+			call	price
+
+			assert_b_equal	100
+
 			spec_end
 
 single_price		proc	; The single price routine
