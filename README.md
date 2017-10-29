@@ -26,12 +26,26 @@ spec_end
 
 You can optionally name a set of asserts using the `it` macro. This groups the asserts into a single test. In addition to `it`, you can use the `describe` macro to group one or more tests. Nested `describe` or `it` macros are not permitted.
 
-### Hexadecimals
+### Verbose Output
 
-By default, expected and actual values are displayed as decimals. You can switch to hexadecimal by defining `display_numbers_as_hex` as non-zero either on the command-line of Pasmo (`--equ display_numbers_as_hex`), or in code before you call `spec_init`:
+By default test descriptions are not output for tests that pass. You can output test descriptions even for passing tests by defining `zxspec_config_verbose_output` as non-zero either on the command-line of Pasmo (`--equ zxspec_config_verbose_output`), or in code before you call `spec_init`:
 
 ```
-    display_numbers_as_hex    equ    $FF
+    zxspec_config_verbose_output    equ    $FF
+```
+
+This can be used to generate a form of **living documentation** for your project.
+
+<p align="center">
+    <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/verbose.png" width="600" />
+</p>
+
+### Hexadecimals
+
+By default, expected and actual values are displayed as decimals. You can switch to hexadecimal by defining `zxspec_config_display_numbers_as_hex` as non-zero either on the command-line of Pasmo (`--equ zxspec_config_display_numbers_as_hex`), or in code before you call `spec_init`:
+
+```
+    zxspec_config_display_numbers_as_hex    equ    $FF
 ```
 
 See [test/test-hex.asm](test/test-hex.asm) for example usage. Note that `assert_bytes_equal` always displays expected/actual bytes as a comma-seperated list of hexadecimal pairs, regardless of this setting.

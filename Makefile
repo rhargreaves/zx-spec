@@ -16,22 +16,25 @@ $(BIN)/zx-spec-green.tap: test/test-passes.asm $(BIN)
 $(BIN)/zx-spec-red.tap: test/test-failures.asm $(BIN)
 	$(PASMO) --tapbas $< $@
 
-$(BIN)/zx-spec-mixture.tap: test/test-mixture.asm $(BIN)
+$(BIN)/zx-spec-mixture.tap: test/test-verbose-mix.asm $(BIN)
 	$(PASMO) --tapbas $< $@
 
 $(BIN)/zx-spec-hex.tap: test/test-hex.asm $(BIN)
 	$(PASMO) --tapbas $< $@	
 
 $(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
-	$(PASMO) --equ zx_spec_test_mode --tapbas $< $@
+	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
 
 $(BIN)/test-failures.tap: test/test-failures.asm $(BIN)
-	$(PASMO) --equ zx_spec_test_mode --tapbas $< $@
+	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
 
 $(BIN)/test-hex.tap: test/test-hex.asm $(BIN)
-	$(PASMO) --equ zx_spec_test_mode --tapbas $< $@
+	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
 
-test:	$(BIN)/test-passes.tap $(BIN)/test-failures.tap $(BIN)/test-hex.tap
+$(BIN)/test-verbose-mix.tap: test/test-verbose-mix.asm $(BIN)
+	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
+
+test:	$(BIN)/test-passes.tap $(BIN)/test-failures.tap $(BIN)/test-hex.tap $(BIN)/test-verbose-mix.tap
 	./test.py
 
 demo-mix:	$(BIN)/zx-spec-mixture.tap

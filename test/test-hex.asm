@@ -1,5 +1,5 @@
 			org	8000h
-display_numbers_as_hex	equ	$FF
+zxspec_config_display_numbers_as_hex	equ	$FF
 
 include src/zx-spec.asm
 

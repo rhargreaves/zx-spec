@@ -296,7 +296,30 @@ _inc_done		macro		num_done, done_txt_start, done_txt_end
 			endm
 
 _assert_pass_r		proc
+			local		print_group_end
 			_inc_done	_zxspec_num_pass, _zxspec_text_pass_mark, _zxspec_text_pass_mark_end	; Increment number passed
+			if defined zxspec_config_verbose_output
+				_pass_ink
+				ld		hl,_zxspec_shown_names
+				bit		0,(hl)				; Group name shown already?
+				jp		nz,print_group_end		; Skip if so.
+				push		de
+				ld		de,(_zxspec_group_name_length)		; get string length
+				inc		e				; +1 -1 = 0
+				dec		e				; sets Z if group name undefined
+				pop		de
+				jp		z,print_group_end		; skip printing of name if so
+				_print_newline
+				_print_text_with_len	(_zxspec_group_name), (_zxspec_group_name_length)
+				ld		hl,_zxspec_shown_names
+				set		0,(hl)				; Set shown group name
+print_group_end			_print_newline
+				_print_char _space				; indent test name
+				_print_text_with_len	(_zxspec_test_name), (_zxspec_test_name_length)
+				_print_newline
+				_print_newline
+				_normal_ink
+			endif
 			ret
 			endp
 			

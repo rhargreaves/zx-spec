@@ -12,7 +12,7 @@ _zxspec_attr_p			equ	5c8dh		; permanent set colours
 ; Stream Constants
 _zxspec_screen_stream		equ	2
 _zxspec_printer_stream		equ	3
-if defined zx_spec_test_mode				; Definable via Pasmo command line
+if defined zxspec_test_mode				; Definable via Pasmo command line
 	_zxspec_output_stream	equ	_zxspec_printer_stream
 else
 	_zxspec_output_stream	equ	_zxspec_screen_stream
@@ -100,7 +100,7 @@ print_line		_print_text	_zxspec_text_pass, _zxspec_text_pass_end
 			ret
 			endp
 
-_print_zx_spec_test_end	macro
+_print_zxspec_test_end	macro
 			_print_text	_zxspec_text_exit, _zxspec_text_exit_end
 			endm
 
@@ -126,7 +126,7 @@ _print_bc_as_dec	proc
 			endp			
 
 _print_num_in_bc	proc
-			if defined display_numbers_as_hex
+			if defined zxspec_config_display_numbers_as_hex
 				call	_print_bc_as_hex
 			else
 				call	_print_bc_as_dec
@@ -135,7 +135,7 @@ _print_num_in_bc	proc
 			endp
 
 _print_num_in_c		proc
-			if defined display_numbers_as_hex
+			if defined zxspec_config_display_numbers_as_hex
 				push	af
 				call	_print_c_as_hex
 				pop	af

@@ -129,6 +129,24 @@ class TestHexDisplay(unittest.TestCase):
     def tearDownClass(self):
         clean()
 
+class TestVerbose(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        clean()
+        self.output = run_zx_spec("bin/test-verbose-mix.tap")
+
+    def test_descriptions_displayed_correctly(self):
+        self.assertRegexpMatches(self.output, 'assert_pass\n passes test')
+        self.assertRegexpMatches(self.output, 'assert_a_equal\n passes for same value')
+
+    def test_framework_exited_correctly(self):
+        self.assertRegexpMatches(self.output, ZX_SPEC_TEST_END_MARKER)
+
+    @classmethod
+    def tearDownClass(self):
+        clean()
+
 def clean():
     for f in glob.glob("printout.*"):
         os.remove(f)

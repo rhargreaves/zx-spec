@@ -1,4 +1,5 @@
 			org	8000h
+zxspec_config_verbose_output	equ	$FF
 
 include src/zx-spec.asm
 
@@ -7,6 +8,11 @@ include src/zx-spec.asm
 	describe 'assert_pass'
 		it 'passes test'
 			assert_pass
+
+	describe 'assert_a_equal'
+		it 'passes for same value'
+			ld	a,5
+			assert_a_equal 5			
 
 	describe 'assert_a_equal'
 		it 'fails for different value'
