@@ -20,7 +20,10 @@ $(BIN)/zx-spec-mixture.tap: test/test-verbose-mix.asm $(BIN)
 	$(PASMO) --tapbas $< $@
 
 $(BIN)/zx-spec-hex.tap: test/test-hex.asm $(BIN)
-	$(PASMO) --tapbas $< $@	
+	$(PASMO) --tapbas $< $@
+
+$(BIN)/checkout-kata.tap: examples/checkout-kata.asm $(BIN)
+	$(PASMO) --tapbas $< $@		
 
 $(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
 	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
@@ -47,4 +50,7 @@ demo-red:	$(BIN)/zx-spec-red.tap
 	$(FUSE) --tape $< --auto-load --no-autosave-settings
 
 demo-hex:	$(BIN)/zx-spec-hex.tap
+	$(FUSE) --tape $< --auto-load --no-autosave-settings
+
+checkout-kata:	$(BIN)/checkout-kata.tap
 	$(FUSE) --tape $< --auto-load --no-autosave-settings
