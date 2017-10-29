@@ -67,7 +67,7 @@ _end			equ	$
 price			proc	; The price routine
 				; -----------------
 				; Input: HL = items start address, DE = items length
-				; Output: A = total price
+				; Output: B = total price
 			ld	a,(hl)		; Load first char
 			cp	'A'		; Is A?
 			ld	b,50		; Load up return value
