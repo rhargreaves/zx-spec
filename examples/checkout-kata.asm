@@ -18,9 +18,18 @@ clear_a			macro
 			ld	a,$FF		; Set A to something other than a valid price
 			endm			
 
+load_items		macro	items		; Loads item string.
+						; Output: HL = start, DE = length
+			local	_start, _end
+			jp	_end
+_start			db	items
+_end			equ	$
+			ld	hl,_start
+			ld	de,_end-_start
+			endm
+
 	describe 'price'
 		it 'Returns 0 for no items'
-
 			clear_a
 			ld	hl,0		; Any mem address
 			ld	de,0		; Zero length items
@@ -30,38 +39,20 @@ clear_a			macro
 			assert_a_equal	0
 
 		it 'Returns price for item A'
-
-			proc
-			local	items, items_end
 			clear_a
-			ld	hl,items		; Items string start address
-			ld	de,items_end-items	; Items length (1)
+			load_items	'A'
 
 			call	price
 
 			assert_a_equal	50
 
-			jp	items_end
-items			db	'A'
-items_end		equ	$
-			endp
-
 		it 'Returns price for item B'
-
-			proc
-			local	items, items_end
 			clear_a
-			ld	hl,items		; Items string start address
-			ld	de,items_end-items	; Items length (1)
+			load_items	'B'
 
 			call	price
 
 			assert_a_equal	30
-
-			jp	items_end
-items			db	'B'
-items_end		equ	$
-			endp
 
 			spec_end
 
