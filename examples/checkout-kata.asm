@@ -14,12 +14,16 @@ include src/zx-spec.asm
 
 			spec_init
 
+clear_a			macro
+			ld	a,$FF		; Set A to something other than a valid price
+			endm			
+
 	describe 'price'
 		it 'Returns 0 for no items'
 
-			ld	a,$FF		; Set A to something other than correct result
-			ld	de,0		; Zero length items
+			clear_a
 			ld	hl,0		; Any mem address
+			ld	de,0		; Zero length items
 
 			call	price
 
@@ -29,7 +33,7 @@ include src/zx-spec.asm
 
 			proc
 			local	items, items_end
-			ld	a,$FF			; Set A to something other than correct result
+			clear_a
 			ld	hl,(items)		; Items string start address
 			ld	de,items_end-items	; Items length (1)
 
@@ -42,7 +46,7 @@ items			db	'A'
 items_end		equ	$
 			endp
 
-			spec_end			
+			spec_end
 
 price			proc	; The price routine
 				; -----------------
