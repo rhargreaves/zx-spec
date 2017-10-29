@@ -34,7 +34,7 @@ clear_a			macro
 			proc
 			local	items, items_end
 			clear_a
-			ld	hl,(items)		; Items string start address
+			ld	hl,items		; Items string start address
 			ld	de,items_end-items	; Items length (1)
 
 			call	price
@@ -52,7 +52,12 @@ price			proc	; The price routine
 				; -----------------
 				; Input: HL = items start address, DE = items length
 				; Output: A = total price
-			ld	a,0	; Set price to 0
+			ld	a,(hl)		; Load first char
+			cp	'A'		; Is A?
+			jr	z,ret_50	; Return 50 if so
+ret_0			ld	a,0		; Otherwise, return 0
+			ret
+ret_50			ld	a,50
 			ret
 			endp
 
