@@ -1,6 +1,6 @@
-_zxspec_text_banner		db	_nl, '   '
+_zxspec_text_banner		db	_nl, ' '
 				db	10h, zxspec_config_banner_ink_colour
-				db	'ZX Spec: The TDD Framework'
+				db	'        ZX Spec v0.1.0'
 				db	10h, zxspec_config_normal_ink_colour
 				db	_nl, _nl
 _zxspec_text_banner_end		equ	$
