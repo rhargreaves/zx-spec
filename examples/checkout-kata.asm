@@ -64,9 +64,9 @@ _end			equ	$
 
 			spec_end
 
-price			proc	; The price routine
-				; -----------------
-				; Input: HL = items start address, DE = items length
+single_price		proc	; The single price routine
+				; ------------------------
+				; Input: HL = item address
 				; Output: B = total price
 			ld	a,(hl)		; Load first char
 			cp	'A'		; Is A?
@@ -79,6 +79,14 @@ price			proc	; The price routine
 			ld	b,20		; Load up return value
 			ret	z		; Return if C
 			ld	b,0		; Otherwise, return 0
+			ret
+			endp
+
+price			proc	; The price routine
+				; -----------------
+				; Input: HL = items start address, DE = items length
+				; Output: B = total price
+			call	single_price
 			ret
 			endp
 
