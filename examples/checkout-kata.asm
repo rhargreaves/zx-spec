@@ -16,6 +16,7 @@ include src/zx-spec.asm
 			spec_end
 
 price			proc
+			ld	a,0
 			ret
 			endp
 
