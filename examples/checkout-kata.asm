@@ -11,10 +11,7 @@
 			org	8000h
 
 zxspec_config_verbose_output	equ	$FF
-
 include src/zx-spec.asm
-
-			spec_init
 
 reset_item_count	macro			; Resets item counts for items A->D
 			ld	a,0
@@ -33,6 +30,8 @@ _end			equ	$
 			ld	hl,_start
 			ld	de,_end-_start
 			endm
+
+			spec_init
 
 	describe 'price'
 		it 'Returns 0 for no items'
