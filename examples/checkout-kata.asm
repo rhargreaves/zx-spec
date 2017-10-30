@@ -97,7 +97,28 @@ _end			equ	$
 
 			call	price
 
-			assert_b_equal	180			
+			assert_b_equal	180
+
+		it 'Applies discount for BB'
+			load_items	'BB'
+
+			call	price
+
+			assert_b_equal	45
+
+		it 'Applies discounts for AAABB'
+			load_items	'AAABB'
+
+			call	price
+
+			assert_b_equal	175
+
+		it 'Applies discount for BBBB'
+			load_items	'BBBB'
+
+			call	price
+
+			assert_b_equal	90							
 
 	describe 'inc_item'
 		it 'Increments item count for AA'
@@ -175,7 +196,7 @@ inc_item		proc	; Increment item count & apply any discount
 				; -----------------------------------------
 				; Input: HL = item address
 				; Output: B = total price minus any deductions
-			local	no_deduct
+			local	done
 			push	hl
 			ld	a,(hl)		; Load char into acc.
 			sub	'A'		; Convert item into index (Item A = 0, B = 1, C = 2...)
@@ -189,18 +210,28 @@ inc_item		proc	; Increment item count & apply any discount
 			; From here: A = Item Index, (HL) = Item Count
 			cp	0
 			jr	z,is_a		; Is A?
-			;cp	1
-			;jp	nz,is_b
-			jr	no_deduct
+			cp	1
+			jp	z,is_b		; Is B?
+			jr	done		; Otherwise, apply no discount
 is_a			ld	a,(hl)		; Load item count into acc
 			cp	3		; Is 3? (3xA = discount)
-			jr	nz,no_deduct	; No? Skip
+			jr	nz,done		; No? Skip
 			ld	a,b		; Load total price into A
 			sub	20		; Discount by 20
 			ld	b,a		; Store total price back into B
 			ld	a,0
 			ld	(item_counts),a	; Reset A item count to 0.
-no_deduct		pop	hl		; No deduction required
+			jr	done
+is_b			ld	a,(hl)		; Load item count into acc
+			cp	2		; Is 2? (2xB = discount)
+			jr	nz,done		; No? Skip
+			ld	a,b		; Load total price into A
+			sub	15		; Discount by 15
+			ld	b,a		; Store total price back into B
+			ld	a,0
+			ld	(item_counts+1),a ; Reset B item count to 0.
+			jr	done			
+done			pop	hl		; No deduction required
 			ret
 			endp
 
