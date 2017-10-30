@@ -161,15 +161,6 @@ price			proc	; The price routine
 				; -----------------
 				; Input: HL = items start address, DE = items length
 				; Output: B = total price
-			call	subtotal_prices
-			ret
-			endp
-
-subtotal_prices		proc	; The sub-total price routine
-				; Calculates cost of all items pre-deductions
-				; --------------------------------------------------
-				; Input: HL = items start address, DE = items length
-				; Output: B = total price
 			local	loop
 			ld	a,e		; Prepare to check items length
 			cp	0		; Is items length zero?
@@ -191,7 +182,7 @@ loop			push	bc
 			ret
 			endp
 
-apply_any_discount	macro	item_index, threshold, discount
+apply_discount		macro	item_index, threshold, discount
 			local	done
 			ld	a,(hl)		; Load item count into acc
 			cp	threshold	; Is at threshold for discount?
@@ -225,9 +216,9 @@ inc_item		proc	; Increment item count & apply any discount
 			cp	1
 			jr	z,is_b		; Is B?
 			jr	done		; Otherwise, apply no discount
-is_a			apply_any_discount	0, 3, 20
+is_a			apply_discount	0, 3, 20
 			jr	done
-is_b			apply_any_discount	1, 2, 15
+is_b			apply_discount	1, 2, 15
 			jr	done			
 done			pop	hl
 			ret
