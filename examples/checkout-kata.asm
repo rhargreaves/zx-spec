@@ -14,16 +14,6 @@ include src/zx-spec.asm
 
 			spec_init
 
-load_items		macro	items		; Loads item string.
-						; Output: HL = start, DE = length
-			local	_start, _end
-			jp	_end
-_start			db	items
-_end			equ	$
-			ld	hl,_start
-			ld	de,_end-_start
-			endm
-
 reset_item_count	macro			; Resets item counts for items A->D
 			ld	a,0
 			ld	(item_counts),a
@@ -31,6 +21,18 @@ reset_item_count	macro			; Resets item counts for items A->D
 			ld	(item_counts+2),a
 			ld	(item_counts+3),a
 			endm
+
+load_items		macro	items		; Loads item string.
+						; Output: HL = start, DE = length
+			local	_start, _end
+			reset_item_count
+			jp	_end
+_start			db	items
+_end			equ	$
+			ld	hl,_start
+			ld	de,_end-_start
+			endm
+
 
 	describe 'price'
 		it 'Returns 0 for no items'
@@ -76,7 +78,6 @@ reset_item_count	macro			; Resets item counts for items A->D
 
 			assert_b_equal	100
 
-
 		it 'Returns price for ABCD'
 			load_items	'ABCD'
 
@@ -84,16 +85,21 @@ reset_item_count	macro			; Resets item counts for items A->D
 
 			assert_b_equal	115
 
-		; it 'Adds deduction for AAA'
-		; 	load_items	'AAA'
+		it 'Applies deduction for AAA'
+			load_items	'AAA'
 
-		; 	call	price
+			call	price
 
-		; 	assert_b_equal	130
+			assert_b_equal	130
+
+		it 'Applies deduction for AAAA'
+			load_items	'AAAA'
+
+			call	price
+
+			assert_b_equal	180			
 
 	describe 'inc_item'
-		reset_item_count
-
 		it 'Increments item count for AA'
 			load_items	'A'
 			
@@ -107,7 +113,27 @@ reset_item_count	macro			; Resets item counts for items A->D
 			
 			call	inc_item
 
-			assert_byte_equal item_counts+1, 1				
+			assert_byte_equal item_counts, 0
+			assert_byte_equal item_counts+1, 1
+
+		it 'does not apply discount for AA'
+			load_items	'A'
+			
+			ld	b,50
+			call	inc_item
+			call	inc_item
+
+			assert_b_equal 50
+	
+		it 'Applies discount for AAA'
+			load_items	'A'
+			
+			ld	b,50
+			call	inc_item
+			call	inc_item
+			call	inc_item
+
+			assert_b_equal 30			
 
 			spec_end
 
@@ -134,8 +160,8 @@ check_item		ld	b,e		; B = string length
 			ld	a,0		; Accumulator set to 0
 loop			push	bc
 			push	af
-			call	inc_item	; Increment item count
 			call	unit_price	; Get price of item in HL; store in B
+			call	inc_item	; Increment item count; deduct discounts from B		
 			pop	af
 			add	a,b		; Add B to accumulator
 			pop	bc
@@ -145,19 +171,36 @@ loop			push	bc
 			ret
 			endp
 
-inc_item		proc	; Increment item count
-				; --------------------
+inc_item		proc	; Increment item count & apply any discount
+				; -----------------------------------------
 				; Input: HL = item address
-				; Output: <none>
+				; Output: B = total price minus any deductions
+			local	no_deduct
 			push	hl
 			ld	a,(hl)		; Load char into acc.
-			sub	'A'		; Convert item into index (A = 0, B = 1, C = 2...)
+			sub	'A'		; Convert item into index (Item A = 0, B = 1, C = 2...)
+			push	bc
 			ld	b,0
 			ld	c,a
 			ld	hl,item_counts	; HL = mem address of top of item counts
 			add	hl,bc		; HL = mem address of item count
+			pop	bc
 			inc	(hl)		; Increment item count
-			pop	hl
+			; From here: A = Item Index, (HL) = Item Count
+			cp	0
+			jr	z,is_a		; Is A?
+			;cp	1
+			;jp	nz,is_b
+			jr	no_deduct
+is_a			ld	a,(hl)		; Load item count into acc
+			cp	3		; Is 3? (3xA = discount)
+			jr	nz,no_deduct	; No? Skip
+			ld	a,b		; Load total price into A
+			sub	20		; Discount by 20
+			ld	b,a		; Store total price back into B
+			ld	a,0
+			ld	(item_counts),a	; Reset A item count to 0.
+no_deduct		pop	hl		; No deduction required
 			ret
 			endp
 
@@ -182,6 +225,6 @@ unit_price		proc	; The unit price routine
 			ret
 			endp
 
-item_counts		equ	$		
+item_counts		db	0,0,0,0		; Enough room for 4 items :o
 
 			end	8000h
