@@ -157,8 +157,7 @@ _end			equ	$
 
 			spec_end
 
-price			proc	; The price routine
-				; -----------------
+price			proc	; The main checkout routine
 				; Input: HL = items start address, DE = items length
 				; Output: B = total price
 			local	loop
@@ -197,8 +196,7 @@ apply_discount		macro	item_count_index, threshold, discount
 done			equ	$
 			endm
 
-inc_item		proc	; Increment item count & apply any discount
-				; -----------------------------------------
+inc_item		proc	; Increments item count & applies any discount
 				; Input: HL = item address
 				; Output: B = total price minus any deductions
 			local	done
@@ -226,8 +224,7 @@ done			pop	hl
 			ret
 			endp
 
-unit_price		proc	; The unit price routine
-				; ------------------------
+unit_price		proc	; Gets a unit price for an item
 				; Input: HL = item address
 				; Output: B = price
 			ld	a,(hl)		; Load first char
