@@ -182,7 +182,9 @@ loop			push	bc
 			ret
 			endp
 
-apply_discount		macro	item_index, threshold, discount
+apply_discount		macro	item_count_index, threshold, discount
+				; Checks to see if an item's count (HL) is high enough (threshold) for a discount,
+				; applies the discount to the total price (B) & resets the item count.
 			local	done
 			ld	a,(hl)		; Load item count into acc
 			cp	threshold	; Is at threshold for discount?
@@ -191,7 +193,7 @@ apply_discount		macro	item_index, threshold, discount
 			sub	discount	; Discount item
 			ld	b,a		; Store total price back into B
 			ld	a,0
-			ld	(item_counts+item_index),a	; Reset A item count to 0.
+			ld	(item_counts+item_count_index),a	; Reset A item count to 0.
 done			equ	$
 			endm
 
