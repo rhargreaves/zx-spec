@@ -10,16 +10,17 @@
 
 			org	8000h
 
+zxspec_config_verbose_output	equ	$FF
+
 include src/zx-spec.asm
 
 			spec_init
 
 reset_item_count	macro			; Resets item counts for items A->D
 			ld	a,0
-			ld	(item_counts),a
-			ld	(item_counts+1),a
-			ld	(item_counts+2),a
-			ld	(item_counts+3),a
+			rept	4, index
+			ld	(item_counts+index),a
+			endm
 			endm
 
 load_items		macro	items		; Loads item string.
@@ -32,7 +33,6 @@ _end			equ	$
 			ld	hl,_start
 			ld	de,_end-_start
 			endm
-
 
 	describe 'price'
 		it 'Returns 0 for no items'
@@ -85,14 +85,14 @@ _end			equ	$
 
 			assert_b_equal	115
 
-		it 'Applies deduction for AAA'
+		it 'Applies discount for AAA'
 			load_items	'AAA'
 
 			call	price
 
 			assert_b_equal	130
 
-		it 'Applies deduction for AAAA'
+		it 'Applies discount for AAAA'
 			load_items	'AAAA'
 
 			call	price
@@ -113,7 +113,7 @@ _end			equ	$
 
 			assert_b_equal	175
 
-		it 'Applies discount for BBBB'
+		it 'Applies discounts for BBBB'
 			load_items	'BBBB'
 
 			call	price
@@ -137,7 +137,7 @@ _end			equ	$
 			assert_byte_equal item_counts, 0
 			assert_byte_equal item_counts+1, 1
 
-		it 'does not apply discount for AA'
+		it 'Does not apply discount for AA'
 			load_items	'A'
 			
 			ld	b,50
@@ -192,6 +192,19 @@ loop			push	bc
 			ret
 			endp
 
+apply_any_discount	macro	item_index, threshold, discount
+			local	done
+			ld	a,(hl)		; Load item count into acc
+			cp	threshold	; Is at threshold for discount?
+			jr	nz,done		; No? We're done.
+			ld	a,b		; Load total price into A
+			sub	discount	; Discount item
+			ld	b,a		; Store total price back into B
+			ld	a,0
+			ld	(item_counts+item_index),a	; Reset A item count to 0.
+done			equ	$
+			endm
+
 inc_item		proc	; Increment item count & apply any discount
 				; -----------------------------------------
 				; Input: HL = item address
@@ -211,27 +224,13 @@ inc_item		proc	; Increment item count & apply any discount
 			cp	0
 			jr	z,is_a		; Is A?
 			cp	1
-			jp	z,is_b		; Is B?
+			jr	z,is_b		; Is B?
 			jr	done		; Otherwise, apply no discount
-is_a			ld	a,(hl)		; Load item count into acc
-			cp	3		; Is 3? (3xA = discount)
-			jr	nz,done		; No? Skip
-			ld	a,b		; Load total price into A
-			sub	20		; Discount by 20
-			ld	b,a		; Store total price back into B
-			ld	a,0
-			ld	(item_counts),a	; Reset A item count to 0.
+is_a			apply_any_discount	0, 3, 20
 			jr	done
-is_b			ld	a,(hl)		; Load item count into acc
-			cp	2		; Is 2? (2xB = discount)
-			jr	nz,done		; No? Skip
-			ld	a,b		; Load total price into A
-			sub	15		; Discount by 15
-			ld	b,a		; Store total price back into B
-			ld	a,0
-			ld	(item_counts+1),a ; Reset B item count to 0.
+is_b			apply_any_discount	1, 2, 15
 			jr	done			
-done			pop	hl		; No deduction required
+done			pop	hl
 			ret
 			endp
 
@@ -256,6 +255,6 @@ unit_price		proc	; The unit price routine
 			ret
 			endp
 
-item_counts		db	0,0,0,0		; Enough room for 4 items :o
+item_counts		db	0,0,0,0		; Enough room for 4 item SKUs :o
 
 			end	8000h
