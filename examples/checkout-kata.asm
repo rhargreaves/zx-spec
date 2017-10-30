@@ -168,17 +168,17 @@ price			proc	; The price routine
 			ld	b,0		; Return early 0 if so.
 			ret
 check_item		ld	b,e		; B = string length
-			ld	a,0		; Accumulator set to 0
+			ld	a,0		; Total Price = 0
 loop			push	bc
 			push	af
 			call	unit_price	; Get price of item in HL; store in B
 			call	inc_item	; Increment item count; deduct discounts from B		
 			pop	af
-			add	a,b		; Add B to accumulator
+			add	a,b		; Add B to total price
 			pop	bc
-			inc	hl		; Next char
+			inc	hl		; Next item
 			djnz	loop		; Decrement B; loop when != 0
-			ld	b,a		; Copy A (total price) into B
+			ld	b,a		; Copy total price into B
 			ret
 			endp
 
