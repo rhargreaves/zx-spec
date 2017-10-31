@@ -10,20 +10,12 @@
 
 			org	8000h
 
-zxspec_config_verbose_output	equ	$FF
+;zxspec_config_verbose_output	equ	$FF
 include src/zx-spec.asm
-
-reset_item_count	macro			; Resets item counts for items A->D
-			ld	a,0
-			rept	4, index
-			ld	(item_counts+index),a
-			endm
-			endm
 
 load_items		macro	items		; Loads item string.
 						; Output: HL = start, DE = length
 			local	_start, _end
-			reset_item_count
 			jp	_end
 _start			db	items
 _end			equ	$
@@ -117,18 +109,28 @@ _end			equ	$
 
 			call	price
 
-			assert_b_equal	90							
+			assert_b_equal	90
+
+		it 'Clears item counts'
+			load_items	'AA'
+			call	price
+			load_items	'A'
+			call	price		
+
+			assert_b_equal	50									
 
 	describe 'inc_item'
 		it 'Increments item count for AA'
+			call	reset_item_count
 			load_items	'A'
-			
+
 			call	inc_item
 			call	inc_item
 
 			assert_byte_equal item_counts, 2
 
 		it 'Increments item count for B'
+			call	reset_item_count
 			load_items	'B'
 			
 			call	inc_item
@@ -137,6 +139,7 @@ _end			equ	$
 			assert_byte_equal item_counts+1, 1
 
 		it 'Does not apply discount for AA'
+			call	reset_item_count
 			load_items	'A'
 			
 			ld	b,50
@@ -146,6 +149,7 @@ _end			equ	$
 			assert_b_equal 50
 	
 		it 'Applies discount for AAA'
+			call	reset_item_count
 			load_items	'A'
 			
 			ld	b,50
@@ -166,7 +170,8 @@ price			proc	; The main checkout routine
 			jr	nz,check_item	; Check item if length non-zero
 			ld	b,0		; Return early 0 if so.
 			ret
-check_item		ld	b,e		; B = string length
+check_item		call	reset_item_count
+			ld	b,e		; B = string length
 			ld	a,0		; Total Price = 0
 loop			push	bc
 			push	af
@@ -195,6 +200,14 @@ apply_discount		macro	item_count_index, threshold, discount
 			ld	(item_counts+item_count_index),a	; Reset A item count to 0.
 done			equ	$
 			endm
+
+reset_item_count	proc	; Resets item counts for items A->D
+			ld	a,0
+			rept	4, index
+			ld	(item_counts+index),a
+			endm
+			ret
+			endp			
 
 inc_item		proc	; Increments item count & applies any discount
 				; Input: HL = item address
@@ -244,6 +257,6 @@ unit_price		proc	; Gets a unit price for an item
 			ret
 			endp
 
-item_counts		db	0,0,0,0		; Enough room for 4 item SKUs :o
+item_counts		db	0,0,0,0		; Enough room for 4 item SKUs
 
 			end	8000h
