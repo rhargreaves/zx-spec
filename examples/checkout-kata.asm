@@ -10,7 +10,6 @@
 
 			org	8000h
 
-;zxspec_config_verbose_output	equ	$FF
 include src/zx-spec.asm
 
 load_items		macro	items		; Loads item string.
