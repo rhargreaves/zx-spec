@@ -236,22 +236,20 @@ done			pop	hl
 			ret
 			endp
 
+check_for_item		macro	item_char, price
+			cp	item_char	; Is item?
+			ld	b,price		; Load up return value
+			ret	z		; Return if item
+			endm
+
 unit_price		proc	; Gets a unit price for an item
 				; Input: HL = item address
 				; Output: B = price
-			ld	a,(hl)		; Load first char
-			cp	'A'		; Is A?
-			ld	b,50		; Load up return value
-			ret	z		; Return if A.
-			cp	'B'		; Otherwise, is B?
-			ld	b,30		; Load up return value
-			ret	z		; Return if B.
-			cp	'C'		; Otherwise, is C?
-			ld	b,20		; Load up return value
-			ret	z		; Return if C
-			cp	'D'		; Otherwise, is D?
-			ld	b,15		; Load up return value
-			ret	z		; Return if D
+			ld	a,(hl)		; Load item char
+			check_for_item	'A', 50	; Conditionally return price
+			check_for_item	'B', 30
+			check_for_item	'C', 20
+			check_for_item	'D', 15
 			ld	b,0		; Otherwise, return 0
 			ret
 			endp
