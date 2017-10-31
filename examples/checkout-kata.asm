@@ -163,7 +163,7 @@ _end			equ	$
 price			proc	; The main checkout routine
 				; Input: HL = items start address, DE = items length
 				; Output: B = total price
-			local	loop
+			local	loop, check_item
 			ld	a,e		; Prepare to check items length
 			cp	0		; Is items length zero?
 			jr	nz,check_item	; Check item if length non-zero
@@ -211,7 +211,7 @@ reset_item_count	proc	; Resets item counts for items A->D
 inc_item		proc	; Increments item count & applies any discount
 				; Input: HL = item address
 				; Output: B = total price minus any deductions
-			local	done
+			local	done, is_a, is_b
 			push	hl
 			ld	a,(hl)		; Load char into acc.
 			sub	'A'		; Convert item into index (Item A = 0, B = 1, C = 2...)
