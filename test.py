@@ -2,6 +2,7 @@
 from __future__ import print_function
 import os
 import subprocess
+import signal
 import time
 import glob
 import unittest
@@ -182,10 +183,10 @@ def run_zx_spec(tape):
         os.getenv("FUSE", "fuse"),
         tape)
     proc = subprocess.Popen(
-        cmd_line, shell=True)
+        cmd_line, shell=True, preexec_fn=os.setsid)
     wait_for_printout(ZX_SPEC_OUTPUT_FILE)
     wait_for_framework_completion(ZX_SPEC_OUTPUT_FILE)
-    proc.kill()
+    os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
     return printout_txt(ZX_SPEC_OUTPUT_FILE)
 
 if __name__ == '__main__':
