@@ -198,6 +198,10 @@ $ make demo-mix
     <img src="https://github.com/rhargreaves/zx-spec/raw/master/docs/red.png" width="600" />
 </p>
 
+## Example Kata
+
+I had a go at completing part of the [Checkout Kata](examples/checkout-kata.asm) using this framework.
+
 ## Credits
 
 * This project was inspired by [64spec](http://64bites.com/64spec/) - a Commodore 64 Testing Framework
