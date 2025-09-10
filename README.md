@@ -138,7 +138,7 @@ Be warned that these assertions will not preserve register values.
 
 ## Dependencies
 
-* Python 2.7 (for running ZX Spec tests)
+* Python 3 (for running ZX Spec tests)
 * Docker (for running Pasmo)
 * Fuse Emulator
 
