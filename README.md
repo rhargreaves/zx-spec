@@ -1,4 +1,4 @@
-# ZX Spec [![Build Status](https://travis-ci.org/rhargreaves/zx-spec.svg?branch=master)](https://travis-ci.org/rhargreaves/zx-spec)
+# ZX Spec [![Build & Test](https://github.com/rhargreaves/zx-spec/actions/workflows/build.yml/badge.svg)](https://github.com/rhargreaves/zx-spec/actions/workflows/build.yml)
 A framework for test-driving assembly code for the Sinclair ZX Spectrum 48k.
 
 <p align="center">
@@ -13,7 +13,7 @@ The framework has been written with the [Pasmo assembler](http://pasmo.speccy.or
 include src/zx-spec.asm
 
 spec_init
-    
+
     describe 'ld a,n'
         it 'sets A register to value'
             ld a,5
@@ -141,21 +141,21 @@ Be warned that these assertions will not preserve register values.
 * Python 2.7 (for running ZX Spec tests)
 * Docker (for running Pasmo)
 * Fuse Emulator
-    
+
     **Linux**
 
     ```sh
     $ sudo apt-get install fuse-emulator-common spectrum-roms
     ```
-    
+
     **macOS**
-    
+
     ```sh
     $ brew install homebrew/games/fuse-emulator
     ```
-    
+
     You can also run [Fuse with Docker](https://github.com/rhargreaves/fuse-emulator-docker/blob/master/run-fuse.sh) by setting the `FUSE` environment variable accordingly:
-    
+
     ```sh
     $ export "FUSE=docker run -v /tmp/.X11-unix:/tmp/.X11-unix --privileged -e DISPLAY=unix$DISPLAY -it rhargreaves/fuse-emulator"
     ```

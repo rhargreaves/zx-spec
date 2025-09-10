@@ -1,0 +1,42 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '2.7'
+
+    - name: Start Xvfb
+      run: |
+        export DISPLAY=:99.0
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+        /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        sleep 3
+
+    - name: Set up environment
+      run: |
+        export FUSE="docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=unix$DISPLAY -it rhargreaves/fuse-emulator"
+        echo "FUSE=$FUSE" >> $GITHUB_ENV
+        echo "DISPLAY=:99.0" >> $GITHUB_ENV
+
+    - name: Run tests
+      run: make test
