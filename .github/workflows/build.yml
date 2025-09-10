@@ -34,7 +34,7 @@ jobs:
 
     - name: Set up environment
       run: |
-        export FUSE="docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=unix$DISPLAY -it rhargreaves/fuse-emulator"
+        export FUSE="docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=unix$DISPLAY -i rhargreaves/fuse-emulator"
         echo "FUSE=$FUSE" >> $GITHUB_ENV
         echo "DISPLAY=:99.0" >> $GITHUB_ENV
 
