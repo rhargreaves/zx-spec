@@ -24,19 +24,17 @@ jobs:
       with:
         python-version: '3'
 
-    - name: Start Xvfb
+    - name: Run tests
       run: |
+        echo "Starting Xvfb"
         export DISPLAY=:99.0
         sudo apt-get update
         sudo apt-get install -y xvfb
         /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
         sleep 3
 
-    - name: Set up environment
-      run: |
+        echo "Set up environment"
         export FUSE="docker run -v $(pwd):/app -v /tmp/.X11-unix:/tmp/.X11-unix --workdir /app --privileged -e DISPLAY=unix$DISPLAY -i rhargreaves/fuse-emulator"
-        echo "FUSE=$FUSE" >> $GITHUB_ENV
-        echo "DISPLAY=:99.0" >> $GITHUB_ENV
 
-    - name: Run tests
-      run: make test
+        echo "Running tests"
+        make test
