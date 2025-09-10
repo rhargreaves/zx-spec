@@ -1,4 +1,4 @@
-PASMO := docker run -v $(PWD):/work -w="/work" -it charlottegore/pasmo pasmo -I src
+PASMO := docker run -v $(PWD):/work -w="/work" -it ghcr.io/rhargreaves/pasmo:v0.5.5 pasmo -I src
 BIN := bin
 FUSE ?= fuse
 
@@ -23,7 +23,7 @@ $(BIN)/zx-spec-hex.tap: test/test-hex.asm $(BIN)
 	$(PASMO) --tapbas $< $@
 
 $(BIN)/checkout-kata.tap: examples/checkout-kata.asm $(BIN)
-	$(PASMO) --tapbas $< $@		
+	$(PASMO) --tapbas $< $@
 
 $(BIN)/test-passes.tap: test/test-passes.asm $(BIN)
 	$(PASMO) --equ zxspec_test_mode --tapbas $< $@
