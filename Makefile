@@ -4,7 +4,11 @@ else
 TTY_ARG := -t
 endif
 
-PASMO := docker run -v $(PWD):/work -w="/work" -i $(TTY_ARG) ghcr.io/rhargreaves/pasmo:v0.5.5 pasmo -I src
+PASMO := docker run -v $(PWD):/work \
+	-w /work \
+	-i $(TTY_ARG) \
+	ghcr.io/rhargreaves/pasmo:v0.5.5 \
+	pasmo -I src
 BIN := bin
 FUSE ?= fuse
 
